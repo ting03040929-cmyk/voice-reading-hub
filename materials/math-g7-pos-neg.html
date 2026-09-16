@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正數與負數講義 (一年級數學)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #e0f2f1;
+            --primary-hover: #115e59;
+            --secondary: #64748b;
+            --secondary-light: #f1f5f9;
+            --secondary-hover: #475569;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --highlight-bg: #fffde7;
+            --highlight-underline: #26a69a;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+        }
+        body {
+            font-family: "LXGW WenKai TC", cursive;
+            background-color: var(--background);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            margin: 0;
+            -webkit-text-size-adjust: 100%;
+            color: var(--text-main);
+        }
+        #app-container {
+            background-color: var(--surface);
+            width: 100%;
+            max-width: 56rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            background-color: var(--secondary-light);
+            color: var(--secondary-hover);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-home:hover {
+            background-color: var(--border);
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .nav-pager {
+            display: flex;
+            align-items: center;
+            background-color: var(--secondary-light);
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            border: 1px solid var(--border);
+        }
+        .nav-pager button {
+            background: none;
+            border: none;
+            color: var(--secondary-hover);
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .nav-pager button:hover {
+            background-color: var(--border);
+            color: var(--text-main);
+        }
+        .nav-pager button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            font-family: inherit;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 0.375rem;
+            color: var(--text-main);
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+            max-width: 220px;
+        }
+        .select-wrapper select:focus {
+            border-color: var(--primary);
+        }
+        .select-wrapper::after {
+            content: "";
+            position: absolute;
+            right: 0.65rem;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 4px solid transparent;
+            border-top-color: var(--text-muted);
+            pointer-events: none;
+        }
+        .select-q select {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            padding-right: 1.5rem;
+            max-width: 180px;
+        }
+        .select-q::after {
+            right: 0.4rem;
+        }
+        .btn-primary, .btn-secondary {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 0.875rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 4px rgb(15 118 110 / 0.1);
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-light);
+            color: var(--secondary-hover);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background-color: var(--border);
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+        .settings-panel {
+            background-color: var(--background);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            transition: max-height 0.3s ease-out, opacity 0.3s, padding 0.3s;
+            max-height: 200px;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .settings-panel.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .control-label {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .select-voice select {
+            width: 100%;
+            max-width: 260px;
+        }
+        .speed-slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-grow: 1;
+        }
+        #speed-control {
+            flex-grow: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        #speed-control::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        #speed-value {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            min-width: 2.5rem;
+        }
+        #quiz-area {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 260px;
+            background-color: var(--surface);
+        }
+        #preamble-text {
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.875rem 1.125rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            white-space: pre-wrap;
+        }
+        #preamble-text p {
+            margin: 0 0 0.75rem 0;
+        }
+        #preamble-text p:last-child {
+            margin: 0;
+        }
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        #question-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            flex-grow: 1;
+        }
+        #options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .option-item {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background-color: var(--surface);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-item:hover, #preamble-text span:hover, #question-text span.non-option:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--primary);
+        }
+        .speaking, .speaking:hover {
+            text-decoration: underline;
+            text-decoration-color: var(--highlight-underline);
+            text-decoration-thickness: 3px;
+            background-color: var(--highlight-bg);
+        }
+        footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+            border-top: 1px solid var(--border);
+            background-color: var(--background);
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 0.25rem;
+            }
+            #app-container {
+                border-radius: 0.5rem;
+            }
+            .navbar {
+                padding: 0.5rem 0.75rem;
+            }
+            .logo {
+                font-size: 1.15rem;
+            }
+            .nav-pager {
+                padding: 0.125rem;
+            }
+            .select-wrapper select {
+                font-size: 0.85rem;
+                padding: 0.25rem 1.5rem 0.25rem 0.5rem;
+            }
+            .select-q select {
+                max-width: 120px;
+            }
+            .btn-primary, .btn-secondary {
+                padding: 0.375rem 0.65rem;
+                font-size: 0.85rem;
+            }
+            .btn-primary span {
+                display: none;
+            }
+            #quiz-area {
+                padding: 0.75rem;
+                min-height: 200px;
+            }
+            #question-text {
+                font-size: 1.05rem;
+            }
+            .option-item {
+                font-size: 0.95rem;
+                padding: 0.6rem 0.75rem;
+            }
+            footer {
+                padding: 0.5rem 0.75rem;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <header class="navbar">
+            <div class="nav-left">
+                <a href="../index.html" class="btn-home" title="返回教材庫首頁">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/><path d="m8 3.293 6 6V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V9.293l6-6Z"/></svg>
+                    <span>教材首頁</span>
+                </a>
+                <span class="logo">正數與負數講義 (一年級數學)</span>
+            </div>
+            <div class="nav-right">
+                <div class="nav-pager">
+                    <button id="prev-btn" title="上一題">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
+                    </button>
+                    <div class="select-wrapper select-q">
+                        <select id="question-select"></select>
+                    </div>
+                    <button id="next-btn" title="下一題">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+                    </button>
+                </div>
+                <button id="replay-btn" class="btn-primary" title="唸題目">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                    <span>唸題目</span>
+                </button>
+                <button id="settings-toggle-btn" class="btn-secondary" title="語音設定">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.17.311c.58.988.006 2.254-1.055 2.502l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.17a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.17-.311a1.464 1.464 0 0 1 1.055-2.502l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.17a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.86z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <div id="settings-panel" class="settings-panel collapsed">
+            <div class="settings-grid">
+                <div class="control-group">
+                    <label for="voice-select" class="control-label">選擇聲音:</label>
+                    <div class="select-wrapper select-voice">
+                        <select id="voice-select"></select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="speed-control" class="control-label">唸讀速度:</label>
+                    <div class="speed-slider-wrapper">
+                        <input id="speed-control" type="range" min="0.5" max="1.5" step="0.1" value="0.9">
+                        <span id="speed-value">0.9x</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main id="quiz-area">
+            <div id="preamble-text" style="display: none;"></div>
+            <div class="question-header"><div id="question-text"></div></div>
+            <ul id="options-list"></ul>
+        </main>
+
+        <footer>
+            <p class="footer-text">© 2026 spedmix 考卷無障礙報讀</p>
+        </footer>
+    </div>
+    <script>
+        const questions = [
+        {
+                "section": "一、正數概念與練習",
+                "displayId": "1-1",
+                "preamble": "動動腦 1：什麼是正數呢？\n答：比 0 大的數我們都稱作正數，用「＋」來表示。\n例如：你身上本來沒錢，媽媽今天給了你 50 元，現在你身上就有 50 元，可以記成 +50 了喔！不過，通常我們都會將 + 號給省略掉，寫成 50，方便運算。",
+                "question": "1. 你有 80 元，我們寫做＋______或______。",
+                "options": null
+        },
+        {
+                "section": "一、正數概念與練習",
+                "displayId": "1-2",
+                "preamble": null,
+                "question": "2. 你有 90 元，還人家 60 元，還有______元，我們寫做＋______或______。",
+                "options": null
+        },
+        {
+                "section": "二、負數概念與練習",
+                "displayId": "2-1",
+                "preamble": "動動腦 2：同樣的，同學你們知道什麼是負數嗎？\n答：比 0 小的數我們都稱作負數，用「－」來表示。\n簡單來說，負數意思就是欠債，例如：今天早上忘記吃早餐，可是剛好你手邊也沒有錢了，肚子好餓喔！只好跟同學借了 20 元買早餐，這時候你就是欠人家 20 元，可以記成 -20，懂了嗎？",
+                "question": "1. 你欠人家 100 元，我們寫做________。",
+                "options": null
+        },
+        {
+                "section": "二、負數概念與練習",
+                "displayId": "2-2",
+                "preamble": null,
+                "question": "2. 你本來有 60 元，可是欠人家 90 元，60 元還人家後，還欠______元，我們寫做________元。",
+                "options": null
+        },
+        {
+                "section": "三、正負數定義舉例",
+                "displayId": "3-1",
+                "preamble": "動動腦 1：什麼是正數呢？\n答：比 0 大的數我們都稱作正數，【不管數字是否有拖油瓶】，用「＋」來表示。",
+                "question": "1. 請寫出十個正數。",
+                "options": null
+        },
+        {
+                "section": "三、正負數定義舉例",
+                "displayId": "3-2",
+                "preamble": "動動腦 2：同樣的，什麼是負數？\n答：比 0 小的數我們都稱作負數，【不管數字是否有拖油瓶】，用「－」來表示。",
+                "question": "2. 請寫出十個負數。",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-1",
+                "preamble": "動動腦 3：所有意義相對或相反的量都可以用有「＋」和「－」的數來描述，如：\n＋：右、東、北、賺、收入、多、上、高、零度以上\n－：左、西、南、賠、支出、少、下、低、零度以下\n◎在【 】內寫出＋或－",
+                "question": "（1） 左【        】  右【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-2",
+                "preamble": null,
+                "question": "（2）（3） 方位圖：北【        】  南【        】  東【        】  西【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-3",
+                "preamble": null,
+                "question": "（4） 賺【        】  賠【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-4",
+                "preamble": null,
+                "question": "（5） 收入【        】  支出【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-5",
+                "preamble": null,
+                "question": "（6） 多【        】  少【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-6",
+                "preamble": null,
+                "question": "（7） 上【        】  下【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-7",
+                "preamble": null,
+                "question": "（8） 高【        】  低【        】",
+                "options": null
+        },
+        {
+                "section": "四、相反量的正負表示",
+                "displayId": "4-8",
+                "preamble": null,
+                "question": "（9） 溫度高【        】  溫度低【        】",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-1",
+                "preamble": null,
+                "question": "練習 1：若阿倫賺 4500 元，記為 4500 元，那麼賠 7000 元，應記為________。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-2",
+                "preamble": null,
+                "question": "練習 2：若溫度上升 $10^\\circ C$，以 $+10^\\circ C$ 表示，若下降 $25^\\circ C$，則用________表示。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-3",
+                "preamble": null,
+                "question": "練習 3：收入和支出是相對的，如果收入 80 元記為 ＋80 元，那麼支出 45 元可表示為________元。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-4",
+                "preamble": null,
+                "question": "練習 4：上升和下降是相對的，如果上升 5 公尺，以 ＋5 公尺表示，那麼下降 3 公尺，可以用________公尺表示。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-5",
+                "preamble": null,
+                "question": "練習 5：東方和西方式相對的，如果由某地向東走 2 公里，以 ＋2 公里表示，那麼由同一地點向西走 2.5 公里，用________公里表示。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-6",
+                "preamble": null,
+                "question": "練習 6：若水庫水位升高 8 公分以 +8 公分表示，則下降 5 公分用________公分表示。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-7",
+                "preamble": null,
+                "question": "練習 7：輸和贏是相對的，籃球比賽，輸了 8 分記為 －8 分，則贏了 10 分，可以記為________分。",
+                "options": null
+        },
+        {
+                "section": "五、生活中的正負數",
+                "displayId": "5-8",
+                "preamble": "練習 8：小映在家的表現，各個項目中表現良好者，每次記一個優點「○」加一分；若表現不佳被糾正者，每次記一個缺點「×」扣 1 分。\n項目：掃地（5個優點）、整理餐桌（4個缺點）、倒垃圾（2個優點）、拖地（6個缺點）、複習功課（3個優點）。",
+                "question": "練習 8：\n(1) 請在上表「分數欄」填入適當的數。\n(2) 小映在今天共得多少優點？________，可記為________分。\n(3) 小映在今天共得多少缺點？________，可記為________分。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-1",
+                "preamble": "若以體重 45 公斤為準，甲體重 48 公斤記為 ＋3。",
+                "question": "練習 1：\n1. 乙體重 50 公斤，可以記為________。\n2. 丙體重 61 公斤，記為________。\n3. 丁體重 37 公斤，記為________。\n4. 戊體重________公斤，記為 ＋5。\n5. 己體重________公斤，記為 －8。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-2",
+                "preamble": "阿晶第一次段考成績，若以國文 91 分為準，其他七科分數和國文分數的相差分數如下：\n國文 0、英語 ＋7、數學 －4、公民 ＋8、歷史 ＋3、地理 ＋6、生物 －2、健教 ＋1。",
+                "question": "練習 2：\n1. 英語得________分。\n2. 數學得________分。\n3. 公民得________分。\n4. 歷史得________分。\n5. 生物得________分。\n6. 得分最高與得分最低的兩科相差________分。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-3",
+                "preamble": null,
+                "question": "複習 1：若小恩賺 4500 元，記為 4500 元，那麼賠 7000 元，應記為________。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-4",
+                "preamble": null,
+                "question": "複習 2：若溫度上升 $10^\\circ C$，以 $+10^\\circ C$ 表示，若下降 $25^\\circ C$，則用________表示。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-5",
+                "preamble": null,
+                "question": "複習 3：收入和支出是相對的，如果收入 80 元記為 ＋80 元，那麼支出 45 元可表示為________元。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-6",
+                "preamble": null,
+                "question": "複習 4：上升和下降是相對的，如果上升 5 公尺，以 ＋5 公尺表示，那麼下降 3 公尺，可以用________公尺表示。",
+                "options": null
+        },
+        {
+                "section": "六、加深題",
+                "displayId": "6-7",
+                "preamble": null,
+                "question": "複習 5：東方和西方式相對的，如果由某地向東走 2 公里，以 ＋2 公里表示，那麼由同一地點向西走 2.5 公里，用________公里表示。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-1",
+                "preamble": "挑戰一下：試著將下面溫度計表示的溫度，以正負號形式表示出來。\n第 1 支：負 $8^\\circ C$ / ($-8^\\circ C$)\n第 2 支：水銀刻度在 15\n第 3 支：水銀刻度在 -15\n第 4 支：水銀刻度在 0",
+                "question": "請寫出第 2、3、4 支溫度計的溫度：\n第 2 支：________$^\\circ C$ / (________$^\\circ C$)\n第 3 支：________$^\\circ C$ / (________$^\\circ C$)\n第 4 支：________$^\\circ C$ / (________$^\\circ C$)",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-2",
+                "preamble": "概念導引：除了溫度之外，在日常生活中，有許多意義相反的量，例如：上與下、高與低、賺與賠、東與西、收入與支出、正面與反面、輸與贏…等，我們都可以以「正」和「負」的形式表示。\n例如：kitty 去八卦山攀岩，向上攀岩爬了 5 公尺，可以用 ＋5 表示，向下爬了 3 公尺，可以用 －3 表示。\n從上面我們可以知道，kitty 最後的位置會落在 2 公尺之處，也就是說 $5 - 3 = 2$。\n若我們以正負數的觀念來說明，向上爬了 5 公尺用 ＋5 表示，向下爬了 3 公尺用 －3 表示，則數學上亦可以用 $5 + (-3) = 2$，唸作「正 5 加負 3 等於 2」。",
+                "question": "觀念理解：在數線上，若 kitty 以 0 為基準點，0 右邊的數字都比 0 大，是正數，愈右邊愈大；0 左邊的數字都比 0 小，是負數，愈左邊愈小。0 不是正數也不是負數。在寫數字時，「＋」可省略不寫，但「－」必須寫上。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-3",
+                "preamble": null,
+                "question": "範例：如圖，A、B、C 分別是數線上的點（A 在 3、B 在 -2、C 在 -4），求出 A、B、C 所代表的座標。\n答：A(3)、B(-2)、C(-4)。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-4",
+                "preamble": null,
+                "question": "練習題：如圖，A、B、C、D 分別是數線上的點（A 在 -3、B 在 0、C 在 2、D 在 5），求出 A、B、C、D 所代表的座標：\nA(________)、B(________)、C(________)、D(________)。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-5",
+                "preamble": null,
+                "question": "範例：在數線上劃出下列各數所代表的點：$-2$、0、5、$-1$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-6",
+                "preamble": null,
+                "question": "1. 在數線上劃出下列各數所代表的點：$-4$、1、2.5、$-5$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-7",
+                "preamble": null,
+                "question": "2. 在數線上劃出下列各數所代表的點：$-3$、2、$\\frac{1}{2}$、$-\\frac{1}{4}$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-8",
+                "preamble": null,
+                "question": "範例：在數線上劃出 $-\\frac{2}{3}$ 的位置。\n因為 $-\\frac{2}{3}$ 介於（ 0 ）和（ -1 ）之間，所以我們將數線上 0 到－1 之間的長度畫分成三等分。由右而左，分別是 $-\\frac{1}{3}$、$-\\frac{2}{3}$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-9",
+                "preamble": null,
+                "question": "1. 在數線上劃出 $-\\frac{3}{4}$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-10",
+                "preamble": null,
+                "question": "2. 在數線上劃出 $-2\\frac{1}{3}$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-11",
+                "preamble": null,
+                "question": "3. 在數線上劃出 $-2.5$。",
+                "options": null
+        },
+        {
+                "section": "七、正負數與數線關係",
+                "displayId": "7-12",
+                "preamble": null,
+                "question": "4. 在數線上劃出 $-4.2$。",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-1",
+                "preamble": "動動腦 1：想想看，$10 - 7 = 3$，那麼 $7 - 10$ 呢？\n$10 - 7 = 3$（大減小等於正數）\n$7 - 10 = -3$（小減大等於負數）\n例如：$4 - 11 = -7$。",
+                "question": "練習題：\n1. $12 - 23 = $________\n2. $29 - 100 = $________\n3. $54 - 99 = $________\n4. $21 - 40 = $________\n5. $34 - 62 = $________\n6. $17 - 54 = $________\n7. $24 - 36.7 = $________\n8. $18 - 30.4 = $________",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-2",
+                "preamble": "動動腦 2：（－2）－4 該怎麼計算呢？\n步驟 1：畫數線。\n步驟 2：看前面，由題目（－2）－4，先找前面的數字（－2）。\n步驟 3：看符號往左右，由題目（－2）－4，找到正中間的符號－，往左。\n步驟 4：看後面，由題目（－2）－4，找到後面的數字 4，往左數 4 格。",
+                "question": "練習題，在數線上圖示下列各式的結果：\n（1） （－3）－5\n（2） （－8）－6\n（3） （－3）－3\n（4） （－9）－7",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-3",
+                "preamble": "動動腦 3：（－3）＋5 該怎麼計算呢？\n步驟 1：畫數線。\n步驟 2：看前面，由題目（－3）＋5，先找前面的數字（－3）。\n步驟 3：看符號往左右，由題目（－3）＋5，找到正中間的符號＋，往右。\n步驟 4：看後面，由題目（－3）＋5，找到後面的數字 5，往右數 5 格。",
+                "question": "練習題，在數線上圖示下列各式的結果：\n（1） （－2）＋5\n（2） （－1）＋6\n（3） （－3）＋7\n（4） （－2）＋3\n（5） （－9）＋7",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-4",
+                "preamble": "動動腦 4：6＋（－4）該怎麼計算呢？\n步驟 1：畫數線。\n步驟 2：看前面，由題目 6＋（－4），先找前面的數字 6。\n步驟 3：看符號往左右，由題目 6＋（－4），找到正中間的符號＋－得－，變成 6－4 往左。\n口訣：正正得正、正負得負、負負得正、負正得負。\n步驟 4：看後面，由題目 6－4，往左數 4 格。",
+                "question": "練習題，在數線上圖示下列各式的結果：\n（1） 6＋（－4）\n（2） 5＋（－3）\n（3） 7＋（－3）\n（4） 3＋（－2）",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-5",
+                "preamble": null,
+                "question": "練習題，在數線上圖示下列各式的結果：\n（5） 3＋（－5）\n（6） 4＋（－6）\n（7） 2＋（－7）\n（8） 2＋（－9）",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-6",
+                "preamble": "動動腦 5：5－（－3）該怎麼計算呢？\n步驟 1：畫數線。\n步驟 2：看前面，由題目 5－（－3），先找前面的數字 5。\n步驟 3：看符號往左右，由題目 5－（－3），找到正中間的符號－－得＋，變成 5＋3 往右。\n口訣：正正得正、正負得負、負負得正、負正得負。\n步驟 4：看後面，由 5＋3，找到後面的數字 3，往右數 3 格。",
+                "question": "練習題，在數線上圖示下列各式的結果：\n（1） 6－（－5）\n（2） 9－（－3）\n（3） 8－（－8）\n（4） 11－（－5）\n（5） 15－（－11）\n（6） 21－（－6）",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-7",
+                "preamble": "動動腦 6：（－3）＋（－5）該怎麼計算呢？\n步驟 1：畫數線。\n步驟 2：看前面，由題目（－3）＋（－5），先找前面的數字（－3）。\n步驟 3：看符號往左右，由題目（－3）＋（－5），找到正中間的符號＋－得－，變成（－3）－5 往左。\n口訣：正正得正、正負得負、負負得正、負正得負。\n步驟 4：看後面，由題目（－3）－5，找到後面的數字 5，往左數 5 格。",
+                "question": "練習題，在數線上圖示下列各式的結果：\n（1） （－3）＋（－4）\n（2） （－2）＋（－6）\n（3） （－4）＋（－2）",
+                "options": null
+        },
+        {
+                "section": "八、負數的分與合",
+                "displayId": "8-8",
+                "preamble": "動動腦 7：（－3）－（－4）該怎麼計算呢？\n步驟 1：畫數線。\n步驟 2：看前面，由題目（－3）－（－4），先找前面的數字－3。\n步驟 3：看符號往左右，由題目（－3）－（－4），找到正中間的符號－－得＋，變成（－3）＋4 往右。\n口訣：正正得正、正負得負、負負得正、負正得負。\n步驟 4：看後面，由（－3）＋4，找到後面的數字 4，往右數 4 格。",
+                "question": "練習題，在數線上圖示下列各式的結果：\n（1） （－3）－（－5）\n（2） （－1）－（－8）\n（3） （－9）－（－9）\n（4） （－4）－（－9）\n（5） （－15）－（－8）\n（6） （－13）－（－6）",
+                "options": null
+        },
+        {
+                "section": "九、數線上兩點間的距離",
+                "displayId": "9-1",
+                "preamble": "觀念重點：數線上任意兩點，只要以座標大的數減去座標小的數，就可以求出該兩點間的距離。",
+                "question": "範例：數線上 A(4)、B(0)，求線段 $\\overline{AB}$ 的距離。\n答：$4 - 0 = 4$。",
+                "options": null
+        },
+        {
+                "section": "九、數線上兩點間的距離",
+                "displayId": "9-2",
+                "preamble": null,
+                "question": "練習 1：數線上 A(4)、B(－2)，求線段 $\\overline{AB}$ 的距離。",
+                "options": null
+        },
+        {
+                "section": "九、數線上兩點間的距離",
+                "displayId": "9-3",
+                "preamble": null,
+                "question": "練習 2：數線上 A(－5)、B(－1)，求線段 $\\overline{AB}$ 的距離。",
+                "options": null
+        },
+        {
+                "section": "九、數線上兩點間的距離",
+                "displayId": "9-4",
+                "preamble": "公式重點：A(a)、B(b) 兩點間的距離可記作 $\\overline{AB} = |a - b|$ 或 $|b - a|$（即兩點座標相減取絕對值）。",
+                "question": "範例 1：數線上 A(－5)、B(－2)、C(6)，求線段 $\\overline{AB}$ 與 $\\overline{BC}$ 的距離。\n範例 2：數線上 A、B 兩點，其中 B 點座標 5，且線段 $\\overline{AB} = 3$，試求 A 點的座標。",
+                "options": null
+        },
+        {
+                "section": "九、數線上兩點間的距離",
+                "displayId": "9-5",
+                "preamble": null,
+                "question": "練習 1：數線上 A(5)、B(7)、C(－3)、D(－21)，求線段 $\\overline{AB}$、$\\overline{BC}$、$\\overline{AC}$、$\\overline{BD}$ 的距離。",
+                "options": null
+        },
+        {
+                "section": "九、數線上兩點間的距離",
+                "displayId": "9-6",
+                "preamble": null,
+                "question": "練習 2：數線上 A、B 兩點，其中 B 點座標－2，且線段 $\\overline{AB} = 9$，試求 A 點的座標。",
+                "options": null
+        }
+];
+        let currentQuestionIndex = 0;
+        let currentPreamble = null;
+        const synth = window.speechSynthesis;
+        let utterance = null;
+        let voices = [];
+        let preambleEl = document.getElementById('preamble-text');
+        let questionEl = document.getElementById('question-text');
+        const optionsEl = document.getElementById('options-list');
+        const selectEl = document.getElementById('question-select');
+        const voiceSelectEl = document.getElementById('voice-select');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const replayBtn = document.getElementById('replay-btn');
+        const speedControl = document.getElementById('speed-control');
+        const speedValue = document.getElementById('speed-value');
+        const settingsToggleBtn = document.getElementById('settings-toggle-btn');
+        const settingsPanel = document.getElementById('settings-panel');
+
+        const playIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>`;
+        const stopIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/></svg>`;
+
+        let activeSequence = [];
+        let activeSequenceIndex = -1;
+
+        function formatMathText(text) {
+            if (!text) return '';
+            let formatted = text
+                .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+                .replace(/\\overline\{([^}]+)\}/g, '線段$1')
+                .replace(/\\times/g, ' × ')
+                .replace(/\\div/g, ' ÷ ')
+                .replace(/\\pm/g, ' ± ')
+                .replace(/\\le/g, ' ≤ ')
+                .replace(/\\ge/g, ' ≥ ')
+                .replace(/\\neq/g, ' ≠ ')
+                .replace(/\\approx/g, ' ≈ ')
+                .replace(/\\degree/g, '°')
+                .replace(/\^\\circ/g, '°')
+                .replace(/\\\^/g, '^')
+                .replace(/\\pi/g, 'π')
+                .replace(/\\theta/g, 'θ')
+                .replace(/\\triangle/g, '△')
+                .replace(/\\Delta/g, '△')
+                .replace(/\\angle/g, '∠')
+                .replace(/\\parallel/g, '∥')
+                .replace(/\\perp/g, '⊥')
+                .replace(/\\sim/g, '∽')
+                .replace(/\\cong/g, '≅')
+                .replace(/\\odot/g, '⊙')
+                .replace(/\\sqrt\{([^}]+)\}/g, '√($1)');
+            
+            const superscripts = {
+                '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', 
+                '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
+                '+': '⁺', '-': '⁻', 'n': 'ⁿ', 'x': 'ˣ', 'y': 'ʸ'
+            };
+            formatted = formatted.replace(/\^\{?([0-9+-nxy]+)\}?/g, (match, p1) => {
+                return p1.split('').map(char => superscripts[char] || char).join('');
+            });
+            
+            formatted = formatted.replace(/\$/g, '');
+            return formatted;
+        }
+
+        function cleanTextForTTS(text) {
+            if (!text) return '';
+            let cleaned = text;
+            
+            cleaned = cleaned
+                .replace(/\\overline\{([^}]+)\}/g, '線段$1')
+                .replace(/\\times/g, '乘以')
+                .replace(/\\div/g, '除以')
+                .replace(/×/g, '乘以')
+                .replace(/÷/g, '除以')
+                .replace(/\\pm/g, '正負')
+                .replace(/\\le/g, '小於或等於')
+                .replace(/\\ge/g, '大於或等於')
+                .replace(/\\neq/g, '不等於')
+                .replace(/\\approx/g, '約等於')
+                .replace(/\\degree/g, '度')
+                .replace(/\^\\circ/g, '度')
+                .replace(/\^\circ/g, '度')
+                .replace(/\\pi/g, '圓周率')
+                .replace(/\\theta/g, '西塔')
+                .replace(/\\triangle/g, '三角形')
+                .replace(/\\Delta/g, '三角形')
+                .replace(/\\angle/g, '角')
+                .replace(/\\parallel/g, '平行')
+                .replace(/\\perp/g, '垂直')
+                .replace(/\\sim/g, '相似於')
+                .replace(/\\cong/g, '全等於')
+                .replace(/\\odot/g, '圓')
+                .replace(/\\sqrt\{([^}]+)\}/g, '根號$1')
+                .replace(/=/g, '等於')
+                .replace(/＝/g, '等於');
+
+            cleaned = cleaned.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '$2分之$1');
+            cleaned = cleaned.replace(/\(([^)]+)\)\/\(([^)]+)\)/g, '$2分之$1');
+            cleaned = cleaned.replace(/(\d+)\/(\d+)/g, '$2分之$1');
+
+            cleaned = cleaned.replace(/\^\{([^}]+)\}/g, '的$1次方');
+            cleaned = cleaned.replace(/\^([a-zA-Z0-9]+)/g, '的$1次方');
+            cleaned = cleaned.replace(/的2次方/g, '平方');
+            cleaned = cleaned.replace(/的3次方/g, '立方');
+
+            cleaned = cleaned.replace(/([\d\w)]+)\s*[:：]\s*([\d\w(]+)/g, '$1比$2');
+
+            cleaned = cleaned.replace(/\$/g, '').replace(/\\/g, '');
+            return cleaned;
+        }
+
+        function populateVoiceList() {
+            voices = synth.getVoices().filter(voice => voice.lang.startsWith('zh'));
+            voiceSelectEl.innerHTML = '';
+            if (voices.length === 0) {
+                const o = document.createElement('option');
+                o.textContent = '預設語音';
+                voiceSelectEl.appendChild(o);
+                return;
+            }
+            voices.forEach((voice, i) => {
+                const o = document.createElement('option');
+                o.textContent = voice.name;
+                o.value = i;
+                voiceSelectEl.appendChild(o);
+            });
+            let idx = voices.findIndex(v => v.name.includes('Yating') && v.lang === 'zh-TW');
+            if (idx === -1) idx = voices.findIndex(v => v.name.includes('HsiaoChen') || v.name.includes('HanHan'));
+            if (idx === -1) idx = voices.findIndex(v => v.name.includes('Google 國語（臺灣）'));
+            if (idx === -1) idx = 0;
+            if (voices[idx]) { voiceSelectEl.selectedIndex = idx; }
+        }
+        if (synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = populateVoiceList; }
+
+        function stopSequence() {
+            activeSequence = [];
+            activeSequenceIndex = -1;
+            synth.cancel();
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            updateReplayButtonState(false);
+        }
+
+        function updateReplayButtonState(isPlaying) {
+            if (isPlaying) {
+                replayBtn.innerHTML = stopIcon + '<span>停止</span>';
+                replayBtn.title = "停止唸讀";
+                replayBtn.classList.remove('btn-primary');
+                replayBtn.classList.add('btn-secondary');
+            } else {
+                replayBtn.innerHTML = playIcon + '<span>唸題目</span>';
+                replayBtn.title = "唸題目";
+                replayBtn.classList.remove('btn-secondary');
+                replayBtn.classList.add('btn-primary');
+            }
+        }
+
+        function playNextInSequence() {
+            if (activeSequenceIndex < 0 || activeSequenceIndex >= activeSequence.length) {
+                stopSequence();
+                return;
+            }
+            const item = activeSequence[activeSequenceIndex];
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            item.element.classList.add('speaking');
+            
+            item.element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            const cleanText = cleanTextForTTS(item.text);
+            const u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = 'zh-TW';
+            u.rate = parseFloat(speedControl.value);
+            const i = voiceSelectEl.value;
+            if (voices[i]) u.voice = voices[i];
+
+            u.onend = () => {
+                activeSequenceIndex++;
+                playNextInSequence();
+            };
+            u.onerror = () => {
+                activeSequenceIndex++;
+                playNextInSequence();
+            };
+            utterance = u;
+            synth.speak(u);
+        }
+
+        function speakAndHighlight(text, element) {
+            stopSequence();
+            element.classList.add('speaking');
+            const cleanText = cleanTextForTTS(text);
+            const u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = 'zh-TW';
+            u.rate = parseFloat(speedControl.value);
+            const i = voiceSelectEl.value;
+            if (voices[i]) u.voice = voices[i];
+
+            const cleanup = () => { element.classList.remove('speaking'); u.onend = null; u.onerror = null; };
+            u.onend = cleanup;
+            u.onerror = cleanup;
+            
+            utterance = u;
+            synth.speak(u);
+        }
+
+        function renderPreamble(text) {
+            preambleEl.innerHTML = '';
+            if (!text) { preambleEl.style.display = 'none'; return; }
+            preambleEl.style.display = 'block';
+            const formattedText = formatMathText(text);
+            formattedText.split('\n').filter(p => p.trim() !== '').forEach(pText => {
+                const pEl = document.createElement('p');
+                (pText.match(/[^。？！…，,]+([。？！…，,]|…{2,})?/g) || [pText]).forEach(sText => {
+                    const span = document.createElement('span');
+                    span.textContent = sText;
+                    span.addEventListener('click', e => speakAndHighlight(e.currentTarget.textContent, e.currentTarget));
+                    pEl.appendChild(span);
+                });
+                preambleEl.appendChild(pEl);
+            });
+        }
+
+        function getActivePreamble(index) {
+            const q = questions[index];
+            if (q.preamble) return q.preamble;
+            for (let i = index - 1; i >= 0; i--) {
+                const prevQ = questions[i];
+                if (prevQ.section !== q.section) break;
+                if (prevQ.preamble) return prevQ.preamble;
+            }
+            return null;
+        }
+
+        function renderQuestion(index) {
+            const q = questions[index];
+            const activePreamble = getActivePreamble(index);
+            if (activePreamble !== currentPreamble) { renderPreamble(activePreamble); currentPreamble = activePreamble; }
+            
+            questionEl.innerHTML = '';
+            const formattedQuestion = formatMathText(q.question);
+            formattedQuestion.split('\n').flatMap(line => line.match(/[^。？！…，,]+([。？！…，,]|…{2,})?/g) || [line]).forEach(sText => {
+                if (sText.trim() === '') return;
+                const span = document.createElement('span');
+                span.className = 'non-option';
+                span.textContent = sText;
+                span.addEventListener('click', e => speakAndHighlight(e.currentTarget.textContent, e.currentTarget));
+                questionEl.appendChild(span);
+            });
+            optionsEl.innerHTML = '';
+            if (q.options && q.options.length > 0) {
+                q.options.forEach(optText => {
+                    const li = document.createElement('li');
+                    li.className = 'option-item';
+                    li.textContent = formatMathText(optText);
+                    li.addEventListener('click', e => speakAndHighlight(e.currentTarget.textContent, e.currentTarget));
+                    optionsEl.appendChild(li);
+                });
+            }
+            selectEl.value = index;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === questions.length - 1;
+        }
+
+        function speakCurrentQuestion() {
+            if (activeSequence.length > 0) {
+                stopSequence();
+                return;
+            }
+            const q = questions[currentQuestionIndex];
+            const seq = [];
+            if (q.preamble) {
+                preambleEl.querySelectorAll('span').forEach(span => {
+                    seq.push({ text: span.textContent, element: span });
+                });
+            }
+            questionEl.querySelectorAll('span.non-option').forEach(span => {
+                seq.push({ text: span.textContent, element: span });
+            });
+            if (q.options) {
+                optionsEl.querySelectorAll('li.option-item').forEach(li => {
+                    seq.push({ text: li.textContent, element: li });
+                });
+            }
+            if (seq.length === 0) return;
+            activeSequence = seq;
+            activeSequenceIndex = 0;
+            updateReplayButtonState(true);
+            playNextInSequence();
+        }
+
+        selectEl.addEventListener('change', e => { currentQuestionIndex = parseInt(e.target.value); stopSequence(); renderQuestion(currentQuestionIndex); });
+        prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; stopSequence(); renderQuestion(currentQuestionIndex); } });
+        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; stopSequence(); renderQuestion(currentQuestionIndex); } });
+        replayBtn.addEventListener('click', speakCurrentQuestion);
+        
+        speedControl.addEventListener('input', e => { 
+            const s = parseFloat(e.target.value); 
+            speedValue.textContent = s.toFixed(1) + 'x'; 
+            if (activeSequence.length > 0) {
+                synth.cancel();
+                playNextInSequence();
+            } else if (synth.speaking && utterance) {
+                const text = utterance.text;
+                synth.cancel();
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'zh-TW';
+                u.rate = s;
+                const i = voiceSelectEl.value;
+                if (voices[i]) u.voice = voices[i];
+                utterance = u;
+                synth.speak(u);
+            }
+        });
+        
+        settingsToggleBtn.addEventListener('click', () => {
+            settingsPanel.classList.toggle('collapsed');
+        });
+
+        function init() {
+            selectEl.innerHTML = '';
+            let currentSection = "", currentOptgroup = null;
+            questions.forEach((q, index) => {
+                if (q.section !== currentSection) {
+                    currentSection = q.section;
+                    currentOptgroup = document.createElement('optgroup');
+                    currentOptgroup.label = currentSection;
+                    selectEl.appendChild(currentOptgroup);
+                }
+                const o = document.createElement('option');
+                o.value = index;
+                o.textContent = '第 ' + q.displayId + ' 題';
+                if (currentOptgroup) currentOptgroup.appendChild(o);
+            });
+            populateVoiceList();
+            renderQuestion(currentQuestionIndex);
+        }
+        init();
+    </script>
+</body>
+</html>

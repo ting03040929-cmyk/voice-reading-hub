@@ -1,0 +1,21 @@
+[
+  {
+    "id": "math-g7-pos-neg",
+    "title": "正數與負數講義 (一年級數學)",
+    "subject": "數學",
+    "grade": "七年級",
+    "unit": "第 1 單元",
+    "questionsCount": 55,
+    "description": "認識正數與負數、生活中相反量的正負表示、數線與點的座標、負數圖示運算、兩點間距離。",
+    "file": "materials/math-g7-pos-neg.html",
+    "date": "2026-09-17",
+    "tags": [
+      "正負數",
+      "數線",
+      "相反量",
+      "國一數學",
+      "講義",
+      "特教數學"
+    ]
+  }
+]

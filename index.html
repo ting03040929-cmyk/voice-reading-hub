@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特教無障礙語音報讀學習網 | Voice Reading Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #e0f2f1;
+            --primary-hover: #115e59;
+            --secondary: #64748b;
+            --secondary-light: #f1f5f9;
+            --secondary-hover: #475569;
+            --accent: #d97706;
+            --accent-light: #fef3c7;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "LXGW WenKai TC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .site-header {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), #14b8a6);
+            color: white;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgb(15 118 110 / 0.2);
+        }
+
+        .brand-text h1 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin: 0;
+            color: var(--primary);
+            letter-spacing: 0.03em;
+        }
+
+        .brand-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0.15rem 0 0 0;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .stat-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.35rem 0.85rem;
+            background: var(--secondary-light);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .stat-badge .stat-num {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .stat-badge .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .hero-info h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .hero-info p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            margin: 0;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .feat-pill {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Filter Controls */
+        .filter-section {
+            background-color: var(--surface);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            font-size: 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 0.5rem;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            background-color: var(--background);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            background-color: #fff;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            min-width: 4rem;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            padding: 0.4rem 0.9rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+            color: var(--secondary-hover);
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .chip.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 2px 4px rgb(15 118 110 / 0.2);
+        }
+
+        /* Materials Grid */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Material Card */
+        .material-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .material-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+            gap: 0.5rem;
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.375rem;
+        }
+
+        .badge-subject {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-grade {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-count {
+            background-color: #e0f2f1;
+            color: #0f766e;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 0.6rem 0;
+            line-height: 1.4;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 1rem 0;
+            flex: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background: var(--background);
+            color: var(--secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--border);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-launch {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.65rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgb(15 118 110 / 0.15);
+        }
+
+        .btn-launch:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-qr {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            background: var(--secondary-light);
+            color: var(--secondary-hover);
+            border: 1px solid var(--border);
+            padding: 0.65rem 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-qr:hover {
+            background: var(--border);
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Teacher Guide Section */
+        .guide-section {
+            margin-top: 3.5rem;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .guide-section h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .step-card {
+            background: var(--background);
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .step-num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card h4 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .step-card p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            width: 100%;
+            max-width: 440px;
+            padding: 2rem;
+            text-align: center;
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+            color: var(--text-main);
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0 0 1.5rem 0;
+        }
+
+        .qr-wrapper {
+            background: #ffffff;
+            padding: 1.25rem;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-md);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .qr-wrapper img, .qr-wrapper canvas {
+            display: block;
+        }
+
+        .url-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .url-box input {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--background);
+            outline: none;
+        }
+
+        .btn-copy {
+            padding: 0.5rem 0.85rem;
+            background: var(--secondary-light);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--secondary-hover);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-copy:hover {
+            background: var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-close {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        @media (max-width: 640px) {
+            .hero-banner {
+                padding: 1.5rem;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-stats {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="index.html" class="brand">
+                <div class="brand-icon">🎧</div>
+                <div class="brand-text">
+                    <h1>特教無障礙語音報讀學習網</h1>
+                    <p>Accessible Voice Reading Hub</p>
+                </div>
+            </a>
+            <div class="header-stats">
+                <div class="stat-badge">
+                    <span id="stat-total" class="stat-num">1</span>
+                    <span class="stat-label">收錄教材</span>
+                </div>
+                <div class="stat-badge">
+                    <span id="stat-questions" class="stat-num">55</span>
+                    <span class="stat-label">累積題數</span>
+                </div>
+                <div class="stat-badge">
+                    <span id="stat-subjects" class="stat-num">1</span>
+                    <span class="stat-label">涵蓋學科</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+            <div class="hero-info">
+                <h2>專為特教與資源班設計的朗讀教材庫</h2>
+                <p>支援平板手機一鍵掃碼・逐句點讀螢光高亮・Web Speech 原生真人發音・特教慢速調校</p>
+            </div>
+            <div class="hero-features">
+                <div class="feat-pill">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>
+                    免安裝任何 App
+                </div>
+                <div class="feat-pill">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>
+                    支援平板掃碼進題
+                </div>
+                <div class="feat-pill">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg>
+                    數學 LaTeX 正確朗讀
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters -->
+        <section class="filter-section">
+            <div class="search-row">
+                <div class="search-box">
+                    <svg class="search-icon" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                    <input type="text" id="search-input" placeholder="搜尋教材名稱、單元、概念標籤（例如：正負數、數線）...">
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <span class="filter-label">學科分類：</span>
+                <div class="filter-chips" id="subject-filters">
+                    <button class="chip active" data-subject="all">全部學科</button>
+                    <button class="chip" data-subject="數學">數學</button>
+                    <button class="chip" data-subject="國文">國文</button>
+                    <button class="chip" data-subject="自然">自然</button>
+                    <button class="chip" data-subject="社會">社會</button>
+                    <button class="chip" data-subject="英語">英語</button>
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <span class="filter-label">適用年級：</span>
+                <div class="filter-chips" id="grade-filters">
+                    <button class="chip active" data-grade="all">全部年級</button>
+                    <button class="chip" data-grade="七年級">七年級（國一）</button>
+                    <button class="chip" data-grade="八年級">八年級（國二）</button>
+                    <button class="chip" data-grade="九年級">九年級（國三）</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materials Grid -->
+        <main class="materials-grid" id="materials-container">
+            <!-- Rendered by JavaScript -->
+        </main>
+
+        <!-- Teacher Future Expansion Guide -->
+        <section class="guide-section">
+            <h3>
+                <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+                未來如何新增更多教材到這個網站？
+            </h3>
+            <p style="color: var(--text-muted); line-height: 1.6; margin: 0;">
+                本站具備高度擴充架構，未來您可以源源不絕地將講義或試卷交給 AI 助理轉換，只需三步即可發布：
+            </p>
+            <div class="guide-steps">
+                <div class="step-card">
+                    <span class="step-num">1</span>
+                    <h4>交由 AI 自動轉譯</h4>
+                    <p>上傳 Word、PDF 或考卷圖片，對 AI 助理說「幫我做成報讀HTML」，即可產出符合特教規格的朗讀單頁。</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">2</span>
+                    <h4>放入 materials 目錄</h4>
+                    <p>將新產出的 HTML 存入 <code>materials/</code> 資料夾，並可透過 <code>scripts/update_catalog.js</code> 自動更新目錄。</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">3</span>
+                    <h4>同步 GitHub 自動上線</h4>
+                    <p>推送到 GitHub 倉庫後，GitHub Pages 會自動部署更新，學生掃描首頁 QR Code 即可同步讀取！</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal-overlay" id="qr-modal">
+        <div class="modal-card">
+            <h3 class="modal-title" id="modal-title">教材標題</h3>
+            <p class="modal-subtitle">請讓學生開啟平板相機掃描 QR Code 進入</p>
+            <div class="qr-wrapper" id="qrcode-box"></div>
+            <div class="url-box">
+                <input type="text" id="modal-url-input" readonly>
+                <button class="btn-copy" id="btn-copy-url">複製網址</button>
+            </div>
+            <button class="btn-close" id="btn-close-modal">關閉視窗</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 特教無障礙語音報讀學習網 · 專為特教與資源班學生友善設計</p>
+    </footer>
+
+    <script>
+        // Embedded materials dataset (fallback for local file:// protocol)
+        const initialMaterials = [
+        {
+                "id": "math-g7-pos-neg",
+                "title": "正數與負數講義（107年版）",
+                "subject": "數學",
+                "grade": "七年級",
+                "unit": "第 1 單元",
+                "questionsCount": 55,
+                "description": "認識正數與負數、生活中相反量的正負表示、數線與點的座標、負數圖示運算、兩點間距離。",
+                "file": "materials/math-g7-pos-neg.html",
+                "date": "2026-09-17",
+                "tags": [
+                        "正負數",
+                        "數線",
+                        "相反量",
+                        "國一數學",
+                        "講義",
+                        "特教數學"
+                ]
+        }
+];
+
+        let currentSubject = 'all';
+        let currentGrade = 'all';
+        let currentKeyword = '';
+
+        const container = document.getElementById('materials-container');
+        const searchInput = document.getElementById('search-input');
+        const qrModal = document.getElementById('qr-modal');
+        const qrcodeBox = document.getElementById('qrcode-box');
+        const modalTitle = document.getElementById('modal-title');
+        const modalUrlInput = document.getElementById('modal-url-input');
+        const btnCopyUrl = document.getElementById('btn-copy-url');
+        const btnCloseModal = document.getElementById('btn-close-modal');
+
+        let qrcodeInstance = null;
+
+        function renderMaterials(items) {
+            container.innerHTML = '';
+            const filtered = items.filter(item => {
+                const matchSubject = currentSubject === 'all' || item.subject === currentSubject;
+                const matchGrade = currentGrade === 'all' || item.grade === currentGrade;
+                const matchSearch = !currentKeyword || 
+                    item.title.toLowerCase().includes(currentKeyword) ||
+                    (item.description && item.description.toLowerCase().includes(currentKeyword)) ||
+                    (item.tags && item.tags.some(t => t.toLowerCase().includes(currentKeyword)));
+                return matchSubject && matchGrade && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <h3>找不到相符的報讀教材</h3>
+                        <p>請嘗試更換學科分類或清除搜尋關鍵字</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'material-card';
+                card.innerHTML = `
+                    <div class="card-top">
+                        <div class="badge-group">
+                            <span class="badge badge-subject">${item.subject}</span>
+                            <span class="badge badge-grade">${item.grade}</span>
+                            <span class="badge badge-count">${item.questionsCount} 題</span>
+                        </div>
+                    </div>
+                    <h3 class="card-title">${item.title}</h3>
+                    <p class="card-desc">${item.description || ''}</p>
+                    <div class="card-tags">
+                        ${(item.tags || []).map(t => `<span class="tag">#${t}</span>`).join('')}
+                    </div>
+                    <div class="card-actions">
+                        <a href="${item.file}" class="btn-launch">
+                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                            開始聽讀
+                        </a>
+                        <button class="btn-qr" onclick="openQrModal('${item.title}', '${item.file}')">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2 2h2v2H2V2Z"/><path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/><path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/><path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 3v-1h1v1h-1Zm-1-1h-1v2h-1v-1H9v1h1v1H9v1h1v-1h2v-1h-1v-2Zm1 3v-1h1v2h-2v-1h1Zm-8-1h1v1H7v-1Zm-2 0h1v2H5v-2Zm-1 1h-1v1H2v-1h1v-1h1v1Zm-2 1v1h1v-1H1Zm13-3h1v1h-1v-1Zm-3 3h1v1h-1v-1Z"/></svg>
+                            QR Code
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.openQrModal = function(title, filePath) {
+            modalTitle.textContent = title;
+            // Build full URL
+            const fullUrl = new URL(filePath, window.location.href).href;
+            modalUrlInput.value = fullUrl;
+
+            qrcodeBox.innerHTML = '';
+            qrcodeInstance = new QRCode(qrcodeBox, {
+                text: fullUrl,
+                width: 200,
+                height: 200,
+                colorDark : "#0f766e",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.M
+            });
+
+            qrModal.classList.add('active');
+        };
+
+        btnCloseModal.addEventListener('click', () => {
+            qrModal.classList.remove('active');
+        });
+
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) {
+                qrModal.classList.remove('active');
+            }
+        });
+
+        btnCopyUrl.addEventListener('click', () => {
+            modalUrlInput.select();
+            navigator.clipboard.writeText(modalUrlInput.value).then(() => {
+                const origText = btnCopyUrl.textContent;
+                btnCopyUrl.textContent = '已複製！';
+                btnCopyUrl.style.backgroundColor = 'var(--primary-light)';
+                btnCopyUrl.style.color = 'var(--primary)';
+                setTimeout(() => {
+                    btnCopyUrl.textContent = origText;
+                    btnCopyUrl.style.backgroundColor = '';
+                    btnCopyUrl.style.color = '';
+                }, 2000);
+            });
+        });
+
+        // Subject filter clicks
+        document.querySelectorAll('#subject-filters .chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('#subject-filters .chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentSubject = chip.dataset.subject;
+                renderMaterials(initialMaterials);
+            });
+        });
+
+        // Grade filter clicks
+        document.querySelectorAll('#grade-filters .chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('#grade-filters .chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentGrade = chip.dataset.grade;
+                renderMaterials(initialMaterials);
+            });
+        });
+
+        // Search input
+        searchInput.addEventListener('input', (e) => {
+            currentKeyword = e.target.value.trim().toLowerCase();
+            renderMaterials(initialMaterials);
+        });
+
+        // Initialize
+        renderMaterials(initialMaterials);
+    </script>
+</body>
+</html>
