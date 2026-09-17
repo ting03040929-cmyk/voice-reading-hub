@@ -439,6 +439,11 @@
                         <span id="speed-value">0.9x</span>
                     </div>
                 </div>
+            
+                <div class="tablet-tip" style="grid-column: 1 / -1; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 0.5rem; padding: 0.6rem 0.85rem; font-size: 0.85rem; color: #92400e; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🔔</span>
+                    <span><strong>平板/手機若無聲音</strong>：請確認控制中心未開啟「靜音模式」（鈴鐺斜線符號），並調大音量；點擊題目即可播放。</span>
+                </div>
             </div>
         </div>
 
@@ -687,49 +692,126 @@
             return cleaned;
         }
 
+        // === 📱 行動裝置 (iPad / iPhone / Android) 與跨瀏覽器音訊強化 ===
+        let isAudioUnlocked = false;
+        let activeUtterance = null;
+
+        function unlockMobileAudio() {
+            if (isAudioUnlocked) return;
+            if (synth) {
+                try {
+                    synth.resume();
+                    const silent = new SpeechSynthesisUtterance(' ');
+                    silent.volume = 0.01;
+                    synth.speak(silent);
+                } catch (e) {}
+                populateVoiceList();
+            }
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) {
+                    const ctx = new AudioCtx();
+                    ctx.resume().then(() => ctx.close());
+                }
+            } catch (e) {}
+            isAudioUnlocked = true;
+        }
+
+        window.addEventListener('touchstart', unlockMobileAudio, { once: true, passive: true });
+        window.addEventListener('touchend', unlockMobileAudio, { once: true, passive: true });
+        window.addEventListener('click', unlockMobileAudio, { once: true, passive: true });
+
+        function isChineseVoice(v) {
+            if (!v) return false;
+            const l = (v.lang || '').toLowerCase().replace(/_/g, '-');
+            return l.startsWith('zh') || l.includes('cmn') || l.includes('chinese') || l.includes('taiwan') || l.includes('mandarin');
+        }
+
         function populateVoiceList() {
-            voices = synth.getVoices().filter(voice => voice.lang.startsWith('zh'));
-            voiceSelectEl.innerHTML = '';
-            if (voices.length === 0) {
-                const o = document.createElement('option');
-                o.textContent = '預設語音';
-                voiceSelectEl.appendChild(o);
+            if (!synth) return;
+            const allVoices = synth.getVoices();
+            let zhVoices = allVoices.filter(isChineseVoice);
+            if (zhVoices.length === 0 && allVoices.length > 0) {
+                zhVoices = allVoices; // fallback if browser doesn't report lang tags accurately
+            }
+
+            if (zhVoices.length > 0) {
+                voices = zhVoices;
+                voiceSelectEl.innerHTML = '';
+                voices.forEach((voice, i) => {
+                    const o = document.createElement('option');
+                    o.textContent = voice.name + (voice.lang ? ` (${voice.lang})` : '');
+                    o.value = i;
+                    voiceSelectEl.appendChild(o);
+                });
+
+                let idx = voices.findIndex(v => v.name.includes('HsiaoChen') || v.name.includes('YunJhe') || v.name.includes('Natural'));
+                if (idx === -1) idx = voices.findIndex(v => (v.name.includes('Yating') || v.name.includes('Mei-Jia') || v.name.includes('Sin-ji') || v.name.includes('Ting-Ting') || v.name.includes('Li-mu')) && (v.lang || '').includes('TW'));
+                if (idx === -1) idx = voices.findIndex(v => v.name.includes('國語') || (v.lang || '').toLowerCase().includes('tw'));
+                if (idx === -1) idx = voices.findIndex(v => (v.lang || '').toLowerCase().includes('zh-tw'));
+                if (idx === -1) idx = 0;
+                if (voices[idx]) { voiceSelectEl.selectedIndex = idx; }
+            } else {
+                voiceSelectEl.innerHTML = '<option value="default">系統預設語音 (繁體中文)</option>';
+            }
+        }
+
+        let voiceCheckTimer = setInterval(() => {
+            if (synth && synth.getVoices().length > 0) {
+                populateVoiceList();
+                clearInterval(voiceCheckTimer);
+            }
+        }, 250);
+        setTimeout(() => clearInterval(voiceCheckTimer), 4000);
+
+        if (synth && synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = populateVoiceList;
+        }
+
+        function safeSpeak(utteranceObj, onEndCallback) {
+            if (!synth) {
+                if (onEndCallback) onEndCallback();
                 return;
             }
-            voices.forEach((voice, i) => {
-                const o = document.createElement('option');
-                o.textContent = voice.name;
-                o.value = i;
-                voiceSelectEl.appendChild(o);
-            });
-            let idx = voices.findIndex(v => v.name.includes('Yating') && v.lang === 'zh-TW');
-            if (idx === -1) idx = voices.findIndex(v => v.name.includes('HsiaoChen') || v.name.includes('HanHan'));
-            if (idx === -1) idx = voices.findIndex(v => v.name.includes('Google 國語（臺灣）'));
-            if (idx === -1) idx = 0;
-            if (voices[idx]) { voiceSelectEl.selectedIndex = idx; }
+            try { synth.resume(); } catch (e) {}
+            try { synth.cancel(); } catch (e) {}
+
+            activeUtterance = utteranceObj;
+
+            let hasEnded = false;
+            const finish = () => {
+                if (hasEnded) return;
+                hasEnded = true;
+                activeUtterance = null;
+                if (onEndCallback) onEndCallback();
+            };
+
+            utteranceObj.onend = finish;
+            utteranceObj.onerror = (err) => {
+                console.warn('Speech error/canceled:', err);
+                finish();
+            };
+
+            // 50ms delay avoids WebKit bug where cancel() destroys subsequent speak()
+            setTimeout(() => {
+                try {
+                    synth.resume();
+                    synth.speak(utteranceObj);
+                } catch (err) {
+                    console.error('synth.speak execution error:', err);
+                    finish();
+                }
+            }, 50);
         }
-        if (synth.onvoiceschanged !== undefined) { synth.onvoiceschanged = populateVoiceList; }
 
         function stopSequence() {
             activeSequence = [];
             activeSequenceIndex = -1;
-            synth.cancel();
+            if (synth) {
+                try { synth.cancel(); } catch (e) {}
+            }
             document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
             updateReplayButtonState(false);
-        }
-
-        function updateReplayButtonState(isPlaying) {
-            if (isPlaying) {
-                replayBtn.innerHTML = stopIcon + '<span>停止</span>';
-                replayBtn.title = "停止唸讀";
-                replayBtn.classList.remove('btn-primary');
-                replayBtn.classList.add('btn-secondary');
-            } else {
-                replayBtn.innerHTML = playIcon + '<span>唸題目</span>';
-                replayBtn.title = "唸題目";
-                replayBtn.classList.remove('btn-secondary');
-                replayBtn.classList.add('btn-primary');
-            }
         }
 
         function playNextInSequence() {
@@ -743,41 +825,43 @@
             
             item.element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
+            if (voices.length === 0) populateVoiceList();
+
             const cleanText = cleanTextForTTS(item.text);
             const u = new SpeechSynthesisUtterance(cleanText);
             u.lang = 'zh-TW';
-            u.rate = parseFloat(speedControl.value);
-            const i = voiceSelectEl.value;
-            if (voices[i]) u.voice = voices[i];
+            u.rate = parseFloat(speedControl.value) || 0.9;
+            
+            const selectedIdx = parseInt(voiceSelectEl.value, 10);
+            if (!isNaN(selectedIdx) && voices[selectedIdx]) {
+                u.voice = voices[selectedIdx];
+            }
 
-            u.onend = () => {
+            safeSpeak(u, () => {
                 activeSequenceIndex++;
                 playNextInSequence();
-            };
-            u.onerror = () => {
-                activeSequenceIndex++;
-                playNextInSequence();
-            };
-            utterance = u;
-            synth.speak(u);
+            });
         }
 
         function speakAndHighlight(text, element) {
             stopSequence();
             element.classList.add('speaking');
+
+            if (voices.length === 0) populateVoiceList();
+
             const cleanText = cleanTextForTTS(text);
             const u = new SpeechSynthesisUtterance(cleanText);
             u.lang = 'zh-TW';
-            u.rate = parseFloat(speedControl.value);
-            const i = voiceSelectEl.value;
-            if (voices[i]) u.voice = voices[i];
+            u.rate = parseFloat(speedControl.value) || 0.9;
 
-            const cleanup = () => { element.classList.remove('speaking'); u.onend = null; u.onerror = null; };
-            u.onend = cleanup;
-            u.onerror = cleanup;
-            
-            utterance = u;
-            synth.speak(u);
+            const selectedIdx = parseInt(voiceSelectEl.value, 10);
+            if (!isNaN(selectedIdx) && voices[selectedIdx]) {
+                u.voice = voices[selectedIdx];
+            }
+
+            safeSpeak(u, () => {
+                element.classList.remove('speaking');
+            });
         }
 
         function renderPreamble(text) {
