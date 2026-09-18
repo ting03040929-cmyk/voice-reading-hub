@@ -101,6 +101,32 @@
             50% { transform: scale(1.2); opacity: 0.8; }
         }
     
+        
+        .engine-toggle-group {
+            display: inline-flex;
+            background: #e2e8f0;
+            padding: 3px;
+            border-radius: 2rem;
+            gap: 2px;
+            align-items: center;
+        }
+        .engine-btn {
+            border: none;
+            background: transparent;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #475569;
+            border-radius: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .engine-btn.active {
+            background: #0f766e;
+            color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+    
         .navbar {
             display: flex;
             align-items: center;
@@ -430,9 +456,10 @@
                     <span>教材首頁</span>
                 </a>
                 <span class="logo">正數與負數講義 (一年級數學)</span>
-                <div class="voice-badge" title="本頁已升級為微軟真人 MP3 語音版，所有手機、平板皆保證發出清晰語音！">
-                    <span class="badge-dot"></span>
-                    <span>微軟真人 MP3 語音 (免設定)</span>
+                
+                <div class="engine-toggle-group" title="點擊切換語音引擎">
+                    <button type="button" class="engine-btn" id="engine-btn-native" onclick="switchEngine('native')">📱 平板原生語音</button>
+                    <button type="button" class="engine-btn active" id="engine-btn-mp3" onclick="switchEngine('mp3')">☁️ 微軟真人 MP3</button>
                 </div>
     
             </div>
@@ -458,6 +485,7 @@
             </div>
         </header>
 
+        <audio id="global-mp3-player" preload="auto" playsinline webkit-playsinline style="display:none;"></audio>
         <div id="settings-panel" class="settings-panel collapsed">
             <div class="settings-grid">
                 <div class="control-group">
@@ -1158,6 +1186,7 @@
         }
 
         
+        
         function renderPreamble(text) {
             preambleEl.innerHTML = '';
             if (!text) { preambleEl.style.display = 'none'; return; }
@@ -1170,7 +1199,7 @@
                     span.textContent = sText;
                     span.addEventListener('click', e => {
                         e.stopPropagation();
-                        playItemMp3(`q${currentQuestionIndex}_preamble.mp3`, preambleEl, e.currentTarget.textContent);
+                        handleItemClick(`q${currentQuestionIndex}_preamble.mp3`, preambleEl, e.currentTarget.textContent);
                     });
                     pEl.appendChild(span);
                 });
@@ -1203,7 +1232,7 @@
                 span.textContent = sText;
                 span.addEventListener('click', e => {
                     e.stopPropagation();
-                    playItemMp3(`q${currentQuestionIndex}_question.mp3`, questionEl, e.currentTarget.textContent);
+                    handleItemClick(`q${currentQuestionIndex}_question.mp3`, questionEl, e.currentTarget.textContent);
                 });
                 questionEl.appendChild(span);
             });
@@ -1215,7 +1244,7 @@
                     li.textContent = formatMathText(optText);
                     li.addEventListener('click', e => {
                         e.stopPropagation();
-                        playItemMp3(`q${currentQuestionIndex}_opt_${optIdx}.mp3`, li, e.currentTarget.textContent);
+                        handleItemClick(`q${currentQuestionIndex}_opt_${optIdx}.mp3`, li, e.currentTarget.textContent);
                     });
                     optionsEl.appendChild(li);
                 });
@@ -1225,19 +1254,65 @@
             nextBtn.disabled = index === questions.length - 1;
         }
     
+    
 
         
-        // === 🎵 微軟 Edge-TTS 真人 MP3 音訊播放核心 ===
+        
+        // === 🔀 雙語音引擎架構：微軟真人 MP3 + 平板本機原生語音 ===
         const AUDIO_BASE_DIR = 'audio/math-g7-pos-neg/';
-        const mp3Player = new Audio();
-        let isMp3Playing = false;
+        const globalAudioPlayer = document.getElementById('global-mp3-player') || new Audio();
+        let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
+        let isGlobalAudioPlaying = false;
         let currentSpeakingElement = null;
 
-        function stopAllPlayback() {
-            if (isMp3Playing) {
-                mp3Player.pause();
-                mp3Player.currentTime = 0;
-                isMp3Playing = false;
+        function updateEngineUI() {
+            const btnNative = document.getElementById('engine-btn-native');
+            const btnMp3 = document.getElementById('engine-btn-mp3');
+            if (btnNative && btnMp3) {
+                if (currentEngine === 'native') {
+                    btnNative.classList.add('active');
+                    btnMp3.classList.remove('active');
+                } else {
+                    btnMp3.classList.add('active');
+                    btnNative.classList.remove('active');
+                }
+            }
+        }
+
+        function switchEngine(engine) {
+            stopAllSpeech();
+            currentEngine = engine;
+            localStorage.setItem('voice_hub_engine', engine);
+            updateEngineUI();
+            console.log('Voice engine switched to:', engine);
+        }
+
+        // Global Audio Player Listeners
+        globalAudioPlayer.addEventListener('ended', () => {
+            isGlobalAudioPlaying = false;
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            if (currentSpeakingElement) {
+                currentSpeakingElement.classList.remove('speaking');
+                currentSpeakingElement = null;
+            }
+            updateReplayButtonState(false);
+        });
+
+        globalAudioPlayer.addEventListener('error', (e) => {
+            console.warn('MP3 player failed, auto fallback to native speech:', e);
+            isGlobalAudioPlaying = false;
+            if (currentSpeakingElement && currentSpeakingElement.dataset && currentSpeakingElement.dataset.rawText) {
+                speakNative(currentSpeakingElement.dataset.rawText, currentSpeakingElement);
+            }
+        });
+
+        function stopAllSpeech() {
+            if (isGlobalAudioPlaying && globalAudioPlayer) {
+                try {
+                    globalAudioPlayer.pause();
+                    globalAudioPlayer.currentTime = 0;
+                } catch(e) {}
+                isGlobalAudioPlaying = false;
             }
             stopSequence();
             document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
@@ -1248,81 +1323,127 @@
             updateReplayButtonState(false);
         }
 
-        mp3Player.addEventListener('ended', () => {
-            isMp3Playing = false;
-            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
-            if (currentSpeakingElement) {
-                currentSpeakingElement.classList.remove('speaking');
-                currentSpeakingElement = null;
+        // === 📱 行動裝置觸控解鎖音訊 ===
+        let isAudioUnlocked = false;
+        function unlockAllAudio() {
+            if (isAudioUnlocked) return;
+            // 1. 解鎖 Web Speech API
+            if (synth) {
+                try {
+                    synth.resume();
+                    const silent = new SpeechSynthesisUtterance(' ');
+                    silent.volume = 0.01;
+                    synth.speak(silent);
+                } catch(e) {}
             }
-            updateReplayButtonState(false);
-        });
-
-        mp3Player.addEventListener('pause', () => {
-            if (mp3Player.currentTime === 0 || mp3Player.ended) {
-                isMp3Playing = false;
-                document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
-                if (currentSpeakingElement) {
-                    currentSpeakingElement.classList.remove('speaking');
-                    currentSpeakingElement = null;
-                }
-                updateReplayButtonState(false);
+            // 2. 解鎖 HTML5 Audio
+            if (globalAudioPlayer) {
+                try {
+                    globalAudioPlayer.play().then(() => {
+                        globalAudioPlayer.pause();
+                        globalAudioPlayer.currentTime = 0;
+                    }).catch(() => {});
+                } catch(e) {}
             }
-        });
+            isAudioUnlocked = true;
+            console.log('Mobile audio unlocked successfully');
+        }
 
-        mp3Player.addEventListener('error', (e) => {
-            console.warn('MP3 play error, falling back to Web Speech:', e);
-            isMp3Playing = false;
-            if (currentSpeakingElement && currentSpeakingElement.dataset && currentSpeakingElement.dataset.rawText) {
-                speakAndHighlight(currentSpeakingElement.dataset.rawText, currentSpeakingElement);
+        window.addEventListener('touchstart', unlockAllAudio, { once: true, passive: true });
+        window.addEventListener('click', unlockAllAudio, { once: true, passive: true });
+
+        // Native speech helper
+        function speakNative(text, element) {
+            stopAllSpeech();
+            if (element) {
+                element.classList.add('speaking');
+                currentSpeakingElement = element;
             }
-        });
+            if (voices.length === 0) populateVoiceList();
 
-        function playItemMp3(relativeAudioPath, elementToHighlight, rawTextFallback) {
-            stopAllPlayback();
-            const fullAudioUrl = AUDIO_BASE_DIR + relativeAudioPath;
-            mp3Player.src = fullAudioUrl;
-            mp3Player.playbackRate = parseFloat(speedControl.value) || 0.9;
+            const cleanText = cleanTextForTTS(text);
+            const u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = 'zh-TW';
+            u.rate = parseFloat(speedControl.value) || 0.9;
 
-            if (elementToHighlight) {
-                elementToHighlight.classList.add('speaking');
-                currentSpeakingElement = elementToHighlight;
-                if (rawTextFallback) elementToHighlight.dataset.rawText = rawTextFallback;
+            const selectedIdx = parseInt(voiceSelectEl.value, 10);
+            if (!isNaN(selectedIdx) && voices[selectedIdx]) {
+                u.voice = voices[selectedIdx];
             }
 
-            isMp3Playing = true;
-            mp3Player.play().catch(err => {
-                console.warn('MP3 play blocked or failed:', err);
-                isMp3Playing = false;
-                if (elementToHighlight && rawTextFallback) {
-                    speakAndHighlight(rawTextFallback, elementToHighlight);
+            safeSpeak(u, () => {
+                if (element) element.classList.remove('speaking');
+                if (currentSpeakingElement === element) currentSpeakingElement = null;
+            });
+        }
+
+        // MP3 playback helper
+        function playMp3File(filename, element, rawText) {
+            stopAllSpeech();
+            if (element) {
+                element.classList.add('speaking');
+                currentSpeakingElement = element;
+                if (rawText) element.dataset.rawText = rawText;
+            }
+
+            globalAudioPlayer.src = AUDIO_BASE_DIR + filename;
+            const rate = parseFloat(speedControl.value) || 0.9;
+
+            globalAudioPlayer.oncanplay = function() {
+                try { globalAudioPlayer.playbackRate = rate; } catch(e) {}
+            };
+
+            isGlobalAudioPlaying = true;
+            globalAudioPlayer.play().catch(err => {
+                console.warn('MP3 play blocked, trying native speech fallback:', err);
+                isGlobalAudioPlaying = false;
+                if (rawText && element) {
+                    speakNative(rawText, element);
                 }
             });
         }
 
+        // Click on item (Sentence or Option)
+        function handleItemClick(mp3Filename, element, rawText) {
+            unlockAllAudio();
+            if (currentEngine === 'native') {
+                speakNative(rawText, element);
+            } else {
+                playMp3File(mp3Filename, element, rawText);
+            }
+        }
+
+        // Click on "唸題目 / 全部重播"
         function speakCurrentQuestion() {
-            if (isMp3Playing) {
-                stopAllPlayback();
-                return;
-            }
-            if (activeSequence.length > 0) {
-                stopAllPlayback();
+            unlockAllAudio();
+            if (isGlobalAudioPlaying || activeSequence.length > 0) {
+                stopAllSpeech();
                 return;
             }
 
-            const qAudioPath = `q${currentQuestionIndex}_full.mp3`;
-            questionEl.classList.add('speaking');
-            currentSpeakingElement = questionEl;
-            updateReplayButtonState(true);
-
-            mp3Player.src = AUDIO_BASE_DIR + qAudioPath;
-            mp3Player.playbackRate = parseFloat(speedControl.value) || 0.9;
-            isMp3Playing = true;
-            mp3Player.play().catch(err => {
-                console.warn('Audio play failed, falling back to sequential TTS:', err);
-                isMp3Playing = false;
+            if (currentEngine === 'native') {
+                // 原生循序播放
                 fallbackSpeakSequence();
-            });
+            } else {
+                // MP3 全題播放
+                const qAudioPath = `q${currentQuestionIndex}_full.mp3`;
+                questionEl.classList.add('speaking');
+                currentSpeakingElement = questionEl;
+                updateReplayButtonState(true);
+
+                globalAudioPlayer.src = AUDIO_BASE_DIR + qAudioPath;
+                const rate = parseFloat(speedControl.value) || 0.9;
+                globalAudioPlayer.oncanplay = function() {
+                    try { globalAudioPlayer.playbackRate = rate; } catch(e) {}
+                };
+
+                isGlobalAudioPlaying = true;
+                globalAudioPlayer.play().catch(err => {
+                    console.warn('Full MP3 play blocked, fallback to native sequence:', err);
+                    isGlobalAudioPlaying = false;
+                    fallbackSpeakSequence();
+                });
+            }
         }
 
         function fallbackSpeakSequence() {
@@ -1348,10 +1469,11 @@
             playNextInSequence();
         }
     
+    
 
-        selectEl.addEventListener('change', e => { currentQuestionIndex = parseInt(e.target.value); stopAllPlayback(); renderQuestion(currentQuestionIndex); });
-        prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; stopAllPlayback(); renderQuestion(currentQuestionIndex); } });
-        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; stopAllPlayback(); renderQuestion(currentQuestionIndex); } });
+        selectEl.addEventListener('change', e => { currentQuestionIndex = parseInt(e.target.value); stopAllSpeech(); renderQuestion(currentQuestionIndex); });
+        prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; stopAllSpeech(); renderQuestion(currentQuestionIndex); } });
+        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; stopAllSpeech(); renderQuestion(currentQuestionIndex); } });
         replayBtn.addEventListener('click', speakCurrentQuestion);
         
         speedControl.addEventListener('input', e => { 
