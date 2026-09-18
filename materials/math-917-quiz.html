@@ -1062,35 +1062,6 @@
             updateReplayButtonState(false);
         }
 
-        // === 📱 行動裝置觸控解鎖音訊 ===
-        let isAudioUnlocked = false;
-        function unlockAllAudio() {
-            if (isAudioUnlocked) return;
-            // 1. 解鎖 Web Speech API
-            if (synth) {
-                try {
-                    synth.resume();
-                    const silent = new SpeechSynthesisUtterance(' ');
-                    silent.volume = 0.01;
-                    synth.speak(silent);
-                } catch(e) {}
-            }
-            // 2. 解鎖 HTML5 Audio
-            if (globalAudioPlayer) {
-                try {
-                    globalAudioPlayer.play().then(() => {
-                        globalAudioPlayer.pause();
-                        globalAudioPlayer.currentTime = 0;
-                    }).catch(() => {});
-                } catch(e) {}
-            }
-            isAudioUnlocked = true;
-            console.log('Mobile audio unlocked successfully');
-        }
-
-        window.addEventListener('touchstart', unlockAllAudio, { once: true, passive: true });
-        window.addEventListener('click', unlockAllAudio, { once: true, passive: true });
-
         // Native speech helper
         function speakNative(text, element) {
             stopAllSpeech();
@@ -1144,7 +1115,7 @@
 
         // Click on item (Sentence or Option)
         function handleItemClick(mp3Filename, element, rawText) {
-            unlockAllAudio();
+            
             if (currentEngine === 'native') {
                 speakNative(rawText, element);
             } else {
@@ -1154,7 +1125,7 @@
 
         // Click on "唸題目 / 全部重播"
         function speakCurrentQuestion() {
-            unlockAllAudio();
+            
             if (isGlobalAudioPlaying || activeSequence.length > 0) {
                 stopAllSpeech();
                 return;
