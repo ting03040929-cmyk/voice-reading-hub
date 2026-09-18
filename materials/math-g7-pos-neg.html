@@ -74,6 +74,33 @@
             gap: 0.85rem;
         }
 
+        
+        .voice-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.75rem;
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            border-radius: 2rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+        .badge-dot {
+            width: 9px;
+            height: 9px;
+            background-color: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+    
         .navbar {
             display: flex;
             align-items: center;
@@ -403,6 +430,11 @@
                     <span>教材首頁</span>
                 </a>
                 <span class="logo">正數與負數講義 (一年級數學)</span>
+                <div class="voice-badge" title="本頁已升級為微軟真人 MP3 語音版，所有手機、平板皆保證發出清晰語音！">
+                    <span class="badge-dot"></span>
+                    <span>微軟真人 MP3 語音 (免設定)</span>
+                </div>
+    
             </div>
             <div class="nav-right">
                 <div class="nav-pager">
@@ -1125,6 +1157,7 @@
             });
         }
 
+        
         function renderPreamble(text) {
             preambleEl.innerHTML = '';
             if (!text) { preambleEl.style.display = 'none'; return; }
@@ -1135,7 +1168,10 @@
                 (pText.match(/[^。？！…，,]+([。？！…，,]|…{2,})?/g) || [pText]).forEach(sText => {
                     const span = document.createElement('span');
                     span.textContent = sText;
-                    span.addEventListener('click', e => speakAndHighlight(e.currentTarget.textContent, e.currentTarget));
+                    span.addEventListener('click', e => {
+                        e.stopPropagation();
+                        playItemMp3(`q${currentQuestionIndex}_preamble.mp3`, preambleEl, e.currentTarget.textContent);
+                    });
                     pEl.appendChild(span);
                 });
                 preambleEl.appendChild(pEl);
@@ -1165,16 +1201,22 @@
                 const span = document.createElement('span');
                 span.className = 'non-option';
                 span.textContent = sText;
-                span.addEventListener('click', e => speakAndHighlight(e.currentTarget.textContent, e.currentTarget));
+                span.addEventListener('click', e => {
+                    e.stopPropagation();
+                    playItemMp3(`q${currentQuestionIndex}_question.mp3`, questionEl, e.currentTarget.textContent);
+                });
                 questionEl.appendChild(span);
             });
             optionsEl.innerHTML = '';
             if (q.options && q.options.length > 0) {
-                q.options.forEach(optText => {
+                q.options.forEach((optText, optIdx) => {
                     const li = document.createElement('li');
                     li.className = 'option-item';
                     li.textContent = formatMathText(optText);
-                    li.addEventListener('click', e => speakAndHighlight(e.currentTarget.textContent, e.currentTarget));
+                    li.addEventListener('click', e => {
+                        e.stopPropagation();
+                        playItemMp3(`q${currentQuestionIndex}_opt_${optIdx}.mp3`, li, e.currentTarget.textContent);
+                    });
                     optionsEl.appendChild(li);
                 });
             }
@@ -1182,12 +1224,108 @@
             prevBtn.disabled = index === 0;
             nextBtn.disabled = index === questions.length - 1;
         }
+    
+
+        
+        // === 🎵 微軟 Edge-TTS 真人 MP3 音訊播放核心 ===
+        const AUDIO_BASE_DIR = 'audio/math-g7-pos-neg/';
+        const mp3Player = new Audio();
+        let isMp3Playing = false;
+        let currentSpeakingElement = null;
+
+        function stopAllPlayback() {
+            if (isMp3Playing) {
+                mp3Player.pause();
+                mp3Player.currentTime = 0;
+                isMp3Playing = false;
+            }
+            stopSequence();
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            if (currentSpeakingElement) {
+                currentSpeakingElement.classList.remove('speaking');
+                currentSpeakingElement = null;
+            }
+            updateReplayButtonState(false);
+        }
+
+        mp3Player.addEventListener('ended', () => {
+            isMp3Playing = false;
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            if (currentSpeakingElement) {
+                currentSpeakingElement.classList.remove('speaking');
+                currentSpeakingElement = null;
+            }
+            updateReplayButtonState(false);
+        });
+
+        mp3Player.addEventListener('pause', () => {
+            if (mp3Player.currentTime === 0 || mp3Player.ended) {
+                isMp3Playing = false;
+                document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+                if (currentSpeakingElement) {
+                    currentSpeakingElement.classList.remove('speaking');
+                    currentSpeakingElement = null;
+                }
+                updateReplayButtonState(false);
+            }
+        });
+
+        mp3Player.addEventListener('error', (e) => {
+            console.warn('MP3 play error, falling back to Web Speech:', e);
+            isMp3Playing = false;
+            if (currentSpeakingElement && currentSpeakingElement.dataset && currentSpeakingElement.dataset.rawText) {
+                speakAndHighlight(currentSpeakingElement.dataset.rawText, currentSpeakingElement);
+            }
+        });
+
+        function playItemMp3(relativeAudioPath, elementToHighlight, rawTextFallback) {
+            stopAllPlayback();
+            const fullAudioUrl = AUDIO_BASE_DIR + relativeAudioPath;
+            mp3Player.src = fullAudioUrl;
+            mp3Player.playbackRate = parseFloat(speedControl.value) || 0.9;
+
+            if (elementToHighlight) {
+                elementToHighlight.classList.add('speaking');
+                currentSpeakingElement = elementToHighlight;
+                if (rawTextFallback) elementToHighlight.dataset.rawText = rawTextFallback;
+            }
+
+            isMp3Playing = true;
+            mp3Player.play().catch(err => {
+                console.warn('MP3 play blocked or failed:', err);
+                isMp3Playing = false;
+                if (elementToHighlight && rawTextFallback) {
+                    speakAndHighlight(rawTextFallback, elementToHighlight);
+                }
+            });
+        }
 
         function speakCurrentQuestion() {
-            if (activeSequence.length > 0) {
-                stopSequence();
+            if (isMp3Playing) {
+                stopAllPlayback();
                 return;
             }
+            if (activeSequence.length > 0) {
+                stopAllPlayback();
+                return;
+            }
+
+            const qAudioPath = `q${currentQuestionIndex}_full.mp3`;
+            questionEl.classList.add('speaking');
+            currentSpeakingElement = questionEl;
+            updateReplayButtonState(true);
+
+            mp3Player.src = AUDIO_BASE_DIR + qAudioPath;
+            mp3Player.playbackRate = parseFloat(speedControl.value) || 0.9;
+            isMp3Playing = true;
+            mp3Player.play().catch(err => {
+                console.warn('Audio play failed, falling back to sequential TTS:', err);
+                isMp3Playing = false;
+                fallbackSpeakSequence();
+            });
+        }
+
+        function fallbackSpeakSequence() {
             const q = questions[currentQuestionIndex];
             const seq = [];
             if (q.preamble) {
@@ -1209,15 +1347,17 @@
             updateReplayButtonState(true);
             playNextInSequence();
         }
+    
 
-        selectEl.addEventListener('change', e => { currentQuestionIndex = parseInt(e.target.value); stopSequence(); renderQuestion(currentQuestionIndex); });
-        prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; stopSequence(); renderQuestion(currentQuestionIndex); } });
-        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; stopSequence(); renderQuestion(currentQuestionIndex); } });
+        selectEl.addEventListener('change', e => { currentQuestionIndex = parseInt(e.target.value); stopAllPlayback(); renderQuestion(currentQuestionIndex); });
+        prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; stopAllPlayback(); renderQuestion(currentQuestionIndex); } });
+        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < questions.length - 1) { currentQuestionIndex++; stopAllPlayback(); renderQuestion(currentQuestionIndex); } });
         replayBtn.addEventListener('click', speakCurrentQuestion);
         
         speedControl.addEventListener('input', e => { 
             const s = parseFloat(e.target.value); 
             speedValue.textContent = s.toFixed(1) + 'x'; 
+            if (mp3Player) mp3Player.playbackRate = s; 
             if (activeSequence.length > 0) {
                 synth.cancel();
                 playNextInSequence();
