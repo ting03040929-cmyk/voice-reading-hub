@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音訊診斷測試頁面</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f8fafc;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #0f766e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+        }
+        button:active {
+            background: #115e59;
+        }
+        #status-box {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #0f766e;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        audio {
+            width: 100%;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🔊 平板／手機音訊播放診斷</h2>
+        <p>此頁面用於快速確認您的平板或手機是否能正常播放微軟真人 MP3 語音。</p>
+        
+        <button onclick="playTest()">▶️ 點擊播放第一道題目 (JavaScript 播放)</button>
+        
+        <div id="status-box">點擊上方按鈕測試...</div>
+        
+        <h3 style="margin-top: 25px;">瀏覽器原生播放器（無需任何程式碼）：</h3>
+        <audio controls src="audio/math-917-quiz/q0_full.mp3" preload="auto"></audio>
+        
+        <div style="margin-top: 20px; padding: 12px; background: #fef3c7; border-radius: 8px; font-size: 14px; color: #92400e;">
+            ⚠️ <strong>貼心提醒：</strong><br>
+            如果點播放器進度條在跑卻沒聲音，請按下平板側邊的音量鍵，確認「媒體音量」沒有靜音！
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="math-917-quiz.html" style="color: #0f766e; font-weight: bold;">👈 回到 917 練習題</a>
+        </div>
+    </div>
+
+    <script>
+        const audio = new Audio();
+        function playTest() {
+            const box = document.getElementById('status-box');
+            box.textContent = '正在載入音訊...';
+            audio.src = 'audio/math-917-quiz/q0_full.mp3';
+            audio.play().then(() => {
+                box.textContent = '✅ 正在播放中！如果您沒聽到聲音，請拉大平板側邊的「媒體音量」！';
+                box.style.borderLeftColor = '#10b981';
+            }).catch(err => {
+                box.textContent = '❌ 播放失敗：' + err.name + ' - ' + err.message;
+                box.style.borderLeftColor = '#ef4444';
+            });
+        }
+    </script>
+</body>
+</html>
