@@ -509,6 +509,12 @@
 
         <main id="quiz-area">
             <div id="preamble-text" style="display: none;"></div>
+            
+            <div id="audio-status-pill" style="font-size: 0.82rem; color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 4px 10px; margin: 6px 0 12px 0; display: inline-flex; align-items: center; gap: 6px; font-weight: bold;">
+                <span id="status-icon">🔊</span>
+                <span id="status-text">語音已就緒 (微軟真人 MP3 版)</span>
+            </div>
+        
             <div class="question-header"><div id="question-text"></div></div>
             <ul id="options-list"></ul>
         </main>
@@ -997,12 +1003,33 @@
 
         
         
+        
         // === 🔀 雙語音引擎架構：微軟真人 MP3 + 平板本機原生語音 ===
         const AUDIO_BASE_DIR = 'audio/math-917-quiz/';
         const globalAudioPlayer = document.getElementById('global-mp3-player') || new Audio();
         let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
         let isGlobalAudioPlaying = false;
         let currentSpeakingElement = null;
+
+        function updateAudioStatus(msg, isError = false) {
+            const pill = document.getElementById('audio-status-pill');
+            const textEl = document.getElementById('status-text');
+            const iconEl = document.getElementById('status-icon');
+            if (pill && textEl) {
+                textEl.textContent = msg;
+                if (isError) {
+                    pill.style.background = '#fef2f2';
+                    pill.style.color = '#991b1b';
+                    pill.style.borderColor = '#fecaca';
+                    if (iconEl) iconEl.textContent = '⚠️';
+                } else {
+                    pill.style.background = '#ecfdf5';
+                    pill.style.color = '#065f46';
+                    pill.style.borderColor = '#a7f3d0';
+                    if (iconEl) iconEl.textContent = isGlobalAudioPlaying ? '▶️' : '🔊';
+                }
+            }
+        }
 
         function updateEngineUI() {
             const btnNative = document.getElementById('engine-btn-native');
@@ -1011,9 +1038,11 @@
                 if (currentEngine === 'native') {
                     btnNative.classList.add('active');
                     btnMp3.classList.remove('active');
+                    updateAudioStatus('已切換為：平板本機原生語音');
                 } else {
                     btnMp3.classList.add('active');
                     btnNative.classList.remove('active');
+                    updateAudioStatus('已切換為：微軟真人 MP3 語音 (全設備通用)');
                 }
             }
         }
@@ -1023,10 +1052,24 @@
             currentEngine = engine;
             localStorage.setItem('voice_hub_engine', engine);
             updateEngineUI();
-            console.log('Voice engine switched to:', engine);
+        }
+
+        function testAudioSound() {
+            stopAllSpeech();
+            updateAudioStatus('正在測試發音...');
+            if (currentEngine === 'native') {
+                speakNative('語音測試正常，這是平板原生語音。', null);
+            } else {
+                playMp3File('q0_question.mp3', null, '語音測試正常，這是微軟真人語音。');
+            }
         }
 
         // Global Audio Player Listeners
+        globalAudioPlayer.addEventListener('playing', () => {
+            isGlobalAudioPlaying = true;
+            updateAudioStatus('正在播放微軟真人 MP3...');
+        });
+
         globalAudioPlayer.addEventListener('ended', () => {
             isGlobalAudioPlaying = false;
             document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
@@ -1035,24 +1078,26 @@
                 currentSpeakingElement = null;
             }
             updateReplayButtonState(false);
+            updateAudioStatus('播放完成');
         });
 
         globalAudioPlayer.addEventListener('error', (e) => {
             console.warn('MP3 player failed, auto fallback to native speech:', e);
             isGlobalAudioPlaying = false;
+            updateAudioStatus('MP3播放受阻，自動切換為原生語音...', true);
             if (currentSpeakingElement && currentSpeakingElement.dataset && currentSpeakingElement.dataset.rawText) {
                 speakNative(currentSpeakingElement.dataset.rawText, currentSpeakingElement);
             }
         });
 
         function stopAllSpeech() {
-            if (isGlobalAudioPlaying && globalAudioPlayer) {
+            if (globalAudioPlayer) {
                 try {
                     globalAudioPlayer.pause();
                     globalAudioPlayer.currentTime = 0;
                 } catch(e) {}
-                isGlobalAudioPlaying = false;
             }
+            isGlobalAudioPlaying = false;
             stopSequence();
             document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
             if (currentSpeakingElement) {
@@ -1081,9 +1126,11 @@
                 u.voice = voices[selectedIdx];
             }
 
+            updateAudioStatus('正在使用原生語音朗讀...');
             safeSpeak(u, () => {
                 if (element) element.classList.remove('speaking');
                 if (currentSpeakingElement === element) currentSpeakingElement = null;
+                updateAudioStatus('朗讀完成');
             });
         }
 
@@ -1096,26 +1143,35 @@
                 if (rawText) element.dataset.rawText = rawText;
             }
 
-            globalAudioPlayer.src = AUDIO_BASE_DIR + filename;
-            const rate = parseFloat(speedControl.value) || 0.9;
+            const fullUrl = new URL(AUDIO_BASE_DIR + filename, window.location.href).href;
+            globalAudioPlayer.src = fullUrl;
+            globalAudioPlayer.muted = false;
+            globalAudioPlayer.volume = 1.0;
+            globalAudioPlayer.load();
 
-            globalAudioPlayer.oncanplay = function() {
-                try { globalAudioPlayer.playbackRate = rate; } catch(e) {}
-            };
+            updateAudioStatus('正在載入真人音訊...');
 
-            isGlobalAudioPlaying = true;
-            globalAudioPlayer.play().catch(err => {
-                console.warn('MP3 play blocked, trying native speech fallback:', err);
-                isGlobalAudioPlaying = false;
-                if (rawText && element) {
-                    speakNative(rawText, element);
-                }
-            });
+            const playPromise = globalAudioPlayer.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isGlobalAudioPlaying = true;
+                    try {
+                        globalAudioPlayer.playbackRate = parseFloat(speedControl.value) || 0.9;
+                    } catch(e) {}
+                    updateAudioStatus('正在播放真人語音...');
+                }).catch(err => {
+                    console.warn('MP3 play error:', err);
+                    isGlobalAudioPlaying = false;
+                    updateAudioStatus('音訊播放被裝置阻擋 (' + err.name + ')，切換原生語音', true);
+                    if (rawText && element) {
+                        speakNative(rawText, element);
+                    }
+                });
+            }
         }
 
         // Click on item (Sentence or Option)
         function handleItemClick(mp3Filename, element, rawText) {
-            
             if (currentEngine === 'native') {
                 speakNative(rawText, element);
             } else {
@@ -1125,34 +1181,43 @@
 
         // Click on "唸題目 / 全部重播"
         function speakCurrentQuestion() {
-            
             if (isGlobalAudioPlaying || activeSequence.length > 0) {
                 stopAllSpeech();
                 return;
             }
 
             if (currentEngine === 'native') {
-                // 原生循序播放
+                updateAudioStatus('正在依序朗讀整題 (原生)...');
                 fallbackSpeakSequence();
             } else {
-                // MP3 全題播放
                 const qAudioPath = `q${currentQuestionIndex}_full.mp3`;
                 questionEl.classList.add('speaking');
                 currentSpeakingElement = questionEl;
                 updateReplayButtonState(true);
 
-                globalAudioPlayer.src = AUDIO_BASE_DIR + qAudioPath;
-                const rate = parseFloat(speedControl.value) || 0.9;
-                globalAudioPlayer.oncanplay = function() {
-                    try { globalAudioPlayer.playbackRate = rate; } catch(e) {}
-                };
+                const fullUrl = new URL(AUDIO_BASE_DIR + qAudioPath, window.location.href).href;
+                globalAudioPlayer.src = fullUrl;
+                globalAudioPlayer.muted = false;
+                globalAudioPlayer.volume = 1.0;
+                globalAudioPlayer.load();
 
-                isGlobalAudioPlaying = true;
-                globalAudioPlayer.play().catch(err => {
-                    console.warn('Full MP3 play blocked, fallback to native sequence:', err);
-                    isGlobalAudioPlaying = false;
-                    fallbackSpeakSequence();
-                });
+                updateAudioStatus('正在載入整題真人音訊...');
+
+                const playPromise = globalAudioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isGlobalAudioPlaying = true;
+                        try {
+                            globalAudioPlayer.playbackRate = parseFloat(speedControl.value) || 0.9;
+                        } catch(e) {}
+                        updateAudioStatus('正在播放整題真人語音...');
+                    }).catch(err => {
+                        console.warn('Full MP3 play error:', err);
+                        isGlobalAudioPlaying = false;
+                        updateAudioStatus('整題音訊播放被阻擋，切換循序朗讀', true);
+                        fallbackSpeakSequence();
+                    });
+                }
             }
         }
 
@@ -1178,6 +1243,7 @@
             updateReplayButtonState(true);
             playNextInSequence();
         }
+    
     
     
 
