@@ -36,5 +36,24 @@
       "特教數學",
       "選擇題"
     ]
+  },
+  {
+    "id": "summer-night-vocab-quiz",
+    "title": "夏夜・生字語詞聽讀練習",
+    "subject": "國文",
+    "grade": "七年級",
+    "unit": "夏夜",
+    "questionsCount": 16,
+    "description": "七年級國文《夏夜》課文生字語詞－句子（挖空選擇題）與句子概念選擇題，共 16 題。支援微軟真人 MP3 點讀與裝置原生語音備援。",
+    "file": "materials/summer-night-vocab-quiz.html",
+    "date": "2026-09-23",
+    "tags": [
+      "夏夜",
+      "國文",
+      "生字語詞",
+      "句子概念",
+      "選擇題",
+      "聽讀練習"
+    ]
   }
 ]

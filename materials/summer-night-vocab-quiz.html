@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c4a5a">
+  <meta name="description" content="夏夜生字語詞聽讀練習：題目與每個選項都可以分開播放，支援微軟真人語音與原生備援。">
+  <title>夏夜・生字語詞聽讀練習</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c4a5a'/%3E%3Cpath d='M16 29h9l12-10v26L25 35h-9z' fill='%23ffd166'/%3E%3Cpath d='M44 25c3 3 3 11 0 14M49 20c6 6 6 18 0 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #12343b;
+      --muted: #557178;
+      --navy: #0c4a5a;
+      --navy-dark: #083542;
+      --teal: #dff5f2;
+      --yellow: #ffd166;
+      --yellow-dark: #9a6500;
+      --card: #ffffff;
+      --line: #cfe4e5;
+      --shadow: 0 12px 30px rgba(12, 74, 90, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #eef8f8;
+      color: var(--ink);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    button, select { font: inherit; }
+
+    button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible, select:focus-visible {
+      outline: 4px solid #f4ad38;
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 53, 66, .97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: white;
+      box-shadow: 0 3px 16px rgba(0, 0, 0, .16);
+    }
+
+    .topbar-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 13px;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-size: 25px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.05rem, 3vw, 1.35rem);
+      line-height: 1.2;
+      letter-spacing: .04em;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tool-button, .speed-select {
+      min-height: 42px;
+      border: 1px solid rgba(255,255,255,.34);
+      border-radius: 11px;
+      padding: 7px 14px;
+      background: rgba(255,255,255,.13);
+      color: white;
+      font-size: .92rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .tool-button:hover, .tool-button:active {
+      background: rgba(255,255,255,.24);
+      transform: translateY(-1px);
+    }
+
+    .speed-select {
+      appearance: none;
+      background: rgba(255,255,255,.13) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat calc(100% - 10px) center;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+
+    .speed-select option { color: var(--ink); background: white; }
+
+    main {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      padding: 24px 18px 90px;
+    }
+
+    .intro {
+      padding: 22px 24px;
+      margin-bottom: 22px;
+      background: linear-gradient(135deg, #0c4a5a, #147a7c);
+      color: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .intro h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.3rem, 4vw, 1.75rem);
+      line-height: 1.3;
+    }
+
+    .intro p { margin: 0; max-width: 760px; font-size: 1rem; opacity: 0.95; }
+
+    .status-panel {
+      position: sticky;
+      bottom: 12px;
+      z-index: 9;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px 16px;
+      align-items: center;
+      padding: 13px 18px;
+      margin: 0 0 24px;
+      background: rgba(255,255,255,.98);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(12,74,90,.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .status-label { min-width: 0; }
+    .status-label strong {
+      display: block;
+      color: var(--navy-dark);
+      font-size: .96rem;
+      font-weight: 800;
+    }
+    .status-label span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    audio {
+      width: min(340px, 100%);
+      height: 38px;
+    }
+
+    .progress-wrap {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+
+    progress {
+      width: 100%;
+      height: 12px;
+      accent-color: #147a7c;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      margin: 32px 0 16px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 6px;
+      color: var(--navy-dark);
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .section-title::before {
+      content: "";
+      display: block;
+      width: 7px;
+      height: 27px;
+      border-radius: 7px;
+      background: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    .section-subtitle {
+      margin: 0 0 0 17px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .question-card {
+      margin: 0 0 16px;
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 5px 16px rgba(12,74,90,.06);
+      scroll-margin-top: 88px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .question-card.is-playing {
+      border-color: #e3a82c;
+      box-shadow: 0 0 0 4px rgba(255,209,102,.38), 0 8px 24px rgba(12,74,90,.12);
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 3px 12px;
+      color: var(--navy-dark);
+      background: var(--teal);
+      border-radius: 99px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .question-text {
+      margin: 14px 0 12px;
+      font-weight: 700;
+      font-size: 1.12rem;
+      line-height: 1.7;
+    }
+
+    .blank {
+      color: var(--yellow-dark);
+      font-weight: 800;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    .hint-box {
+      margin: 0 0 16px;
+      padding: 9px 13px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 11px;
+      color: #166534;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .hint-tag {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .listen-question, .listen-option {
+      border: 0;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .listen-question {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .listen-question:hover, .listen-question:active {
+      background: var(--navy-dark);
+      transform: translateY(-1px);
+    }
+
+    .listen-question.is-playing {
+      background: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .listen-option {
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 10px 14px;
+      text-align: left;
+      color: var(--ink);
+      background: #fff8df;
+      border: 2px solid #f2d98b;
+      border-radius: 13px;
+      font-size: 1.04rem;
+      font-weight: 600;
+    }
+
+    .listen-option:hover, .listen-option:active {
+      background: #fff0b7;
+      border-color: #e3a82c;
+      transform: translateY(-1px);
+    }
+
+    .listen-option.is-playing {
+      background: #fde68a;
+      border-color: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+      font-weight: 800;
+    }
+
+    .option-letter {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      color: white;
+      background: #147a7c;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .hint-footer {
+      margin: 28px 0 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    footer {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      padding: 0 18px 36px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .86rem;
+    }
+
+    @media (max-width: 720px) {
+      body { font-size: 17px; }
+      .topbar-inner { align-items: stretch; flex-direction: column; gap: 10px; }
+      .brand { justify-content: center; }
+      .toolbar { width: 100%; justify-content: space-between; }
+      .tool-button, .speed-select { flex: 1 1 auto; text-align: center; }
+      main { padding: 16px 12px 80px; }
+      .intro { padding: 18px; border-radius: 16px; }
+      .status-panel { grid-template-columns: 1fr; bottom: 8px; padding: 12px 14px; }
+      audio { width: 100%; }
+      .question-card { padding: 16px; border-radius: 16px; }
+      .question-head { align-items: stretch; flex-direction: column; gap: 10px; }
+      .listen-question { width: 100%; justify-content: center; min-height: 46px; }
+      .options { grid-template-columns: 1fr; gap: 9px; }
+      .listen-option { min-height: 58px; font-size: 1.05rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🔊</div>
+        <h1>夏夜・生字語詞聽讀練習</h1>
+      </div>
+      <div class="toolbar" aria-label="語音控制">
+        <button class="tool-button" id="playQuestions" type="button">▶ 播放全部題目</button>
+        <button class="tool-button" id="stopAudio" type="button">■ 停止</button>
+        <label class="speed-label" for="speed">
+          <select class="speed-select" id="speed" aria-label="播放速度">
+            <option value="0.8">速度 0.8 倍</option>
+            <option value="1" selected>速度 1 倍</option>
+            <option value="1.2">速度 1.2 倍</option>
+            <option value="1.4">速度 1.4 倍</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">先聽題目，再看選項</h2>
+      <p>按深藍色按鈕聽題目，按黃色選項聽選項。每一個按鈕都可以單獨播放，適合用手機、平板或電腦練習。</p>
+    </section>
+
+    <section class="status-panel" aria-label="目前播放狀態">
+      <div class="status-label">
+        <strong id="statusTitle">準備好了</strong>
+        <span id="statusText">請點選任一個「聽題目」或選項。</span>
+      </div>
+      <audio id="audioPlayer" controls preload="none"></audio>
+      <div class="progress-wrap">
+        <span id="progressText">0 / 16 題</span>
+        <progress id="progressBar" value="0" max="16" aria-label="題目播放進度"></progress>
+      </div>
+    </section>
+
+    <div id="quiz">
+      <!-- 第一大題 -->
+      <div class="section-header">
+        <h2 class="section-title">第一大題：生字語詞－句子（挖空選擇題）</h2>
+        <p class="section-subtitle">請選出最適合填入句子空格中的語詞。</p>
+      </div>
+
+      <!-- 第 1 題 -->
+      <article class="question-card" id="q1" data-question="1">
+        <div class="question-head">
+          <span class="question-number">第 1 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q01-question.mp3" data-text="第1題。聽完老祖母講的故事，小妹妹闔上眼睛，開心地走向空格了。提示：形容睡著後進入作夢的世界。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 聽完老祖母講的故事，小妹妹闔上眼睛，開心地走向<span class="blank">＿＿＿＿＿＿</span>了。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>形容睡著後進入作夢的世界。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q01-a.mp3" data-text="A，涼爽"><span class="option-letter">A</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q01-b.mp3" data-text="B，夢鄉"><span class="option-letter">B</span>夢鄉</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q01-c.mp3" data-text="C，藤蔓"><span class="option-letter">C</span>藤蔓</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q01-d.mp3" data-text="D，樹梢"><span class="option-letter">D</span>樹梢</button>
+        </div>
+      </article>
+
+      <!-- 第 2 題 -->
+      <article class="question-card" id="q2" data-question="2">
+        <div class="question-head">
+          <span class="question-number">第 2 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q02-question.mp3" data-text="第2題。打開教室的窗戶和電風扇後，感覺非常空格，大家都不熱了。提示：形容身體感覺很舒服、很涼快。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 打開教室的窗戶和電風扇後，感覺非常<span class="blank">＿＿＿＿＿＿</span>，大家都不熱了。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>形容身體感覺很舒服、很涼快。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-a.mp3" data-text="A，田野"><span class="option-letter">A</span>田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-b.mp3" data-text="B，朦朧"><span class="option-letter">B</span>朦朧</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-c.mp3" data-text="C，涼爽"><span class="option-letter">C</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-d.mp3" data-text="D，山巒"><span class="option-letter">D</span>山巒</button>
+        </div>
+      </article>
+
+      <!-- 第 3 題 -->
+      <article class="question-card" id="q3" data-question="3">
+        <div class="question-head">
+          <span class="question-number">第 3 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q03-question.mp3" data-text="第3題。抬頭一看，那顆又大又紅的椰子就掛在很高很高的空格上。提示：樹木的末端、最高最尖的地方。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 抬頭一看，那顆又大又紅的椰子就掛在很高很高的<span class="blank">＿＿＿＿＿＿</span>上。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>樹木的末端、最高最尖的地方。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q03-a.mp3" data-text="A，樹梢"><span class="option-letter">A</span>樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q03-b.mp3" data-text="B，夢鄉"><span class="option-letter">B</span>夢鄉</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q03-c.mp3" data-text="C，藤蔓"><span class="option-letter">C</span>藤蔓</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q03-d.mp3" data-text="D，珍珠"><span class="option-letter">D</span>珍珠</button>
+        </div>
+      </article>
+
+      <!-- 第 4 題 -->
+      <article class="question-card" id="q4" data-question="4">
+        <div class="question-head">
+          <span class="question-number">第 4 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q04-question.mp3" data-text="第4題。火車經過一大片綠色的空格，可以看到許多農夫在辛苦種田。提示：長滿農作物的大片綠色土地。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 火車經過一大片綠色的<span class="blank">＿＿＿＿＿＿</span>，可以看到許多農夫在辛苦種田。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>長滿農作物的大片綠色土地。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-a.mp3" data-text="A，夢鄉"><span class="option-letter">A</span>夢鄉</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-b.mp3" data-text="B，山巒"><span class="option-letter">B</span>山巒</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-c.mp3" data-text="C，田野"><span class="option-letter">C</span>田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-d.mp3" data-text="D，樹梢"><span class="option-letter">D</span>樹梢</button>
+        </div>
+      </article>
+
+      <!-- 第 5 題 -->
+      <article class="question-card" id="q5" data-question="5">
+        <div class="question-head">
+          <span class="question-number">第 5 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q05-question.mp3" data-text="第5題。晚上的霧很大，路燈的光芒看起來空格的，讓人看不清楚路。提示：形容景物看起來糊糊的、不清楚。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 晚上的霧很大，路燈的光芒看起來<span class="blank">＿＿＿＿＿＿</span>的，讓人看不清楚路。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>形容景物看起來糊糊的、不清楚。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q05-a.mp3" data-text="A，涼爽"><span class="option-letter">A</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q05-b.mp3" data-text="B，朦朧"><span class="option-letter">B</span>朦朧</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q05-c.mp3" data-text="C，藤蔓"><span class="option-letter">C</span>藤蔓</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q05-d.mp3" data-text="D，珍珠"><span class="option-letter">D</span>珍珠</button>
+        </div>
+      </article>
+
+      <!-- 第 6 題 -->
+      <article class="question-card" id="q6" data-question="6">
+        <div class="question-head">
+          <span class="question-number">第 6 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q06-question.mp3" data-text="第6題。太陽快要下山了，遠處的空格看起來黑黑的，一整排一動也不動。提示：一座一座連在一起的山。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 太陽快要下山了，遠處的<span class="blank">＿＿＿＿＿＿</span>看起來黑黑的，一整排一動也不動。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>一座一座連在一起的山。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-a.mp3" data-text="A，山巒"><span class="option-letter">A</span>山巒</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-b.mp3" data-text="B，田野"><span class="option-letter">B</span>田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-c.mp3" data-text="C，樹梢"><span class="option-letter">C</span>樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-d.mp3" data-text="D，夢鄉"><span class="option-letter">D</span>夢鄉</button>
+        </div>
+      </article>
+
+      <!-- 第 7 題 -->
+      <article class="question-card" id="q7" data-question="7">
+        <div class="question-head">
+          <span class="question-number">第 7 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q07-question.mp3" data-text="第7題。菜園裡的南瓜長出了綠色的空格，輕輕地爬滿了整個瓜架。提示：植物細細長長、會抓著東西往上爬的莖。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 菜園裡的南瓜長出了綠色的<span class="blank">＿＿＿＿＿＿</span>，輕輕地爬滿了整個瓜架。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>植物細細長長、會抓著東西往上爬的莖。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q07-a.mp3" data-text="A，樹梢"><span class="option-letter">A</span>樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q07-b.mp3" data-text="B，藤蔓"><span class="option-letter">B</span>藤蔓</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q07-c.mp3" data-text="C，涼爽"><span class="option-letter">C</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q07-d.mp3" data-text="D，朦朧"><span class="option-letter">D</span>朦朧</button>
+        </div>
+      </article>
+
+      <!-- 第 8 題 -->
+      <article class="question-card" id="q8" data-question="8">
+        <div class="question-head">
+          <span class="question-number">第 8 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q08-question.mp3" data-text="第8題。課文中，夏夜撒了滿天的空格，看起來就像一閃一閃的亮晶晶星星。提示：圓圓亮亮的東西，用來比喻星星。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 課文中，夏夜撒了滿天的<span class="blank">＿＿＿＿＿＿</span>，看起來就像一閃一閃的亮晶晶星星。</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>圓圓亮亮的東西，用來比喻星星。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-a.mp3" data-text="A，涼爽"><span class="option-letter">A</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-b.mp3" data-text="B，田野"><span class="option-letter">B</span>田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-c.mp3" data-text="C，珍珠"><span class="option-letter">C</span>珍珠</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-d.mp3" data-text="D，山巒"><span class="option-letter">D</span>山巒</button>
+        </div>
+      </article>
+
+      <!-- 第二大題 -->
+      <div class="section-header">
+        <h2 class="section-title">第二大題：生字語詞-句子概念（選擇題）</h2>
+        <p class="section-subtitle">請選出與句子概念最相符的正確語詞。</p>
+      </div>
+
+      <!-- 第 9 題 -->
+      <article class="question-card" id="q9" data-question="9">
+        <div class="question-head">
+          <span class="question-number">第 9 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q09-question.mp3" data-text="第9題。當我們覺得天氣很不熱、很涼快、很舒服的時候，可以用哪一個詞？提示：與舒服涼快的天氣、環境溫度有關的詞。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 當我們覺得天氣很不熱、很涼快、很舒服的時候，可以用哪一個詞？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>與舒服涼快的天氣、環境溫度有關的詞。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q09-a.mp3" data-text="A，樹梢"><span class="option-letter">A</span>樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q09-b.mp3" data-text="B，涼爽"><span class="option-letter">B</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q09-c.mp3" data-text="C，山巒"><span class="option-letter">C</span>山巒</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q09-d.mp3" data-text="D，藤蔓"><span class="option-letter">D</span>藤蔓</button>
+        </div>
+      </article>
+
+      <!-- 第 10 題 -->
+      <article class="question-card" id="q10" data-question="10">
+        <div class="question-head">
+          <span class="question-number">第 10 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q10-question.mp3" data-text="第10題。課文中，小弟弟和小妹妹閉上眼睛睡著了，是去到了哪裡？提示：睡著後開始作夢的世界。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 課文中，小弟弟和小妹妹閉上眼睛睡著了，是去到了哪裡？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>睡著後開始作夢的世界。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q10-a.mp3" data-text="A，夢鄉"><span class="option-letter">A</span>夢鄉</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q10-b.mp3" data-text="B，樹梢"><span class="option-letter">B</span>樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q10-c.mp3" data-text="C，田野"><span class="option-letter">C</span>田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q10-d.mp3" data-text="D，珍珠"><span class="option-letter">D</span>珍珠</button>
+        </div>
+      </article>
+
+      <!-- 第 11 題 -->
+      <article class="question-card" id="q11" data-question="11">
+        <div class="question-head">
+          <span class="question-number">第 11 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q11-question.mp3" data-text="第11題。課文中，夏夜除了從山坡上爬下來，還從椰子樹的哪裡爬下來？提示：樹木的末端、最高的地方。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 課文中，夏夜除了從山坡上爬下來，還從椰子樹的哪裡爬下來？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>樹木的末端、最高的地方。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q11-a.mp3" data-text="A，夢鄉"><span class="option-letter">A</span>夢鄉</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q11-b.mp3" data-text="B，樹梢"><span class="option-letter">B</span>樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q11-c.mp3" data-text="C，朦朧"><span class="option-letter">C</span>朦朧</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q11-d.mp3" data-text="D，涼爽"><span class="option-letter">D</span>涼爽</button>
+        </div>
+      </article>
+
+      <!-- 第 12 題 -->
+      <article class="question-card" id="q12" data-question="12">
+        <div class="question-head">
+          <span class="question-number">第 12 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q12-question.mp3" data-text="第12題。羊隊和牛群吃飽了，準備要告別吃草的大片土地，那個地方叫什麼？提示：寬廣大片的農地、田地。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 羊隊和牛群吃飽了，準備要告別吃草的大片土地，那個地方叫什麼？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>寬廣大片的農地、田地。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q12-a.mp3" data-text="A，田野"><span class="option-letter">A</span>田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q12-b.mp3" data-text="B，山巒"><span class="option-letter">B</span>山巒</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q12-c.mp3" data-text="C，藤蔓"><span class="option-letter">C</span>藤蔓</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q12-d.mp3" data-text="D，朦朧"><span class="option-letter">D</span>朦朧</button>
+        </div>
+      </article>
+
+      <!-- 第 13 題 -->
+      <article class="question-card" id="q13" data-question="13">
+        <div class="question-head">
+          <span class="question-number">第 13 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q13-question.mp3" data-text="第13題。課文形容夜深了，看過去高高低低、糊糊不清楚的山，可以用哪兩個詞？提示：一座接一座連在一起的山，以及看不清楚、糊糊的狀態。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 課文形容夜深了，看過去高高低低、糊糊不清楚的山，可以用哪兩個詞？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>一座接一座連在一起的山，以及看不清楚、糊糊的狀態。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q13-a.mp3" data-text="A，涼爽、樹梢"><span class="option-letter">A</span>涼爽、樹梢</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q13-b.mp3" data-text="B，朦朧、山巒"><span class="option-letter">B</span>朦朧、山巒</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q13-c.mp3" data-text="C，藤蔓、田野"><span class="option-letter">C</span>藤蔓、田野</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q13-d.mp3" data-text="D，夢鄉、珍珠"><span class="option-letter">D</span>夢鄉、珍珠</button>
+        </div>
+      </article>
+
+      <!-- 第 14 題 -->
+      <article class="question-card" id="q14" data-question="14">
+        <div class="question-head">
+          <span class="question-number">第 14 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q14-question.mp3" data-text="第14題。窗外瓜架上的南瓜還醒著，牠用來往屋頂上爬的細長部分是什麼？提示：植物細細長長、會抓著東西往上爬的莖。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 窗外瓜架上的南瓜還醒著，牠用來往屋頂上爬的細長部分是什麼？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>植物細細長長、會抓著東西往上爬的莖。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q14-a.mp3" data-text="A，藤蔓"><span class="option-letter">A</span>藤蔓</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q14-b.mp3" data-text="B，涼爽"><span class="option-letter">B</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q14-c.mp3" data-text="C，山巒"><span class="option-letter">C</span>山巒</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q14-d.mp3" data-text="D，樹梢"><span class="option-letter">D</span>樹梢</button>
+        </div>
+      </article>
+
+      <!-- 第 15 題 -->
+      <article class="question-card" id="q15" data-question="15">
+        <div class="question-head">
+          <span class="question-number">第 15 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q15-question.mp3" data-text="第15題。課文說夏夜在天上撒了珍珠，這是用來形容天空中的什麼東西？提示：夜空中一閃一閃亮晶晶的星辰。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 課文說夏夜在天上撒了「珍珠」，這是用來形容天空中的什麼東西？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>夜空中一閃一閃亮晶晶的星辰。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q15-a.mp3" data-text="A，滿天的星星"><span class="option-letter">A</span>滿天的星星</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q15-b.mp3" data-text="B，下大雨的雨滴"><span class="option-letter">B</span>下大雨的雨滴</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q15-c.mp3" data-text="C，飛過的小鳥"><span class="option-letter">C</span>飛過的小鳥</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q15-d.mp3" data-text="D，路邊的街燈"><span class="option-letter">D</span>路邊的街燈</button>
+        </div>
+      </article>
+
+      <!-- 第 16 題 -->
+      <article class="question-card" id="q16" data-question="16">
+        <div class="question-head">
+          <span class="question-number">第 16 題</span>
+          <button class="listen-question" type="button" data-audio="audio/summer-night-vocab-quiz/q16-question.mp3" data-text="第16題。如果黑夜裡光線很暗、又有霧，讓景物看起來糊糊、不清楚，這是什麼狀態？提示：光線不充足或眼睛看過去糊糊的、不夠清楚。">🔊 聽題目</button>
+        </div>
+        <p class="question-text"><span class="blank">( 　 )</span> 如果黑夜裡光線很暗、又有霧，讓景物看起來糊糊、不清楚，這是什麼狀態？</p>
+        <div class="hint-box"><span class="hint-tag">提示</span>光線不充足或眼睛看過去糊糊的、不夠清楚。</div>
+        <div class="options">
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q16-a.mp3" data-text="A，涼爽"><span class="option-letter">A</span>涼爽</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q16-b.mp3" data-text="B，朦朧"><span class="option-letter">B</span>朦朧</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q16-c.mp3" data-text="C，夢鄉"><span class="option-letter">C</span>夢鄉</button>
+          <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q16-d.mp3" data-text="D，藤蔓"><span class="option-letter">D</span>藤蔓</button>
+        </div>
+      </article>
+    </div>
+
+    <p class="hint-footer">💡 小提醒：點選深藍色按鈕可單獨聽題目，點選黃色選項可單獨聽選項；播放中的題目卡片與按鈕會自動標示高亮。</p>
+  </main>
+
+  <footer>夏夜・生字語詞聽讀練習｜特教無障礙語音報讀學習網</footer>
+
+  <script>
+    // 考卷題目清單（支援目錄索引與題數自動統計）
+    const questions = [
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 1, "question": "聽完老祖母講的故事，小妹妹闔上眼睛，開心地走向＿＿＿＿＿＿了。", "hint": "形容睡著後進入作夢的世界。", "options": ["(A) 涼爽", "(B) 夢鄉", "(C) 藤蔓", "(D) 樹梢"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 2, "question": "打開教室的窗戶和電風扇後，感覺非常＿＿＿＿＿＿，大家都不熱了。", "hint": "形容身體感覺很舒服、很涼快。", "options": ["(A) 田野", "(B) 朦朧", "(C) 涼爽", "(D) 山巒"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 3, "question": "抬頭一看，那顆又大又紅的椰子就掛在很高很高的＿＿＿＿＿＿上。", "hint": "樹木的末端、最高最尖的地方。", "options": ["(A) 樹梢", "(B) 夢鄉", "(C) 藤蔓", "(D) 珍珠"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 4, "question": "火車經過一大片綠色的＿＿＿＿＿＿，可以看到許多農夫在辛苦種田。", "hint": "長滿農作物的大片綠色土地。", "options": ["(A) 夢鄉", "(B) 山巒", "(C) 田野", "(D) 樹梢"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 5, "question": "晚上的霧很大，路燈的光芒看起來＿＿＿＿＿＿的，讓人看不清楚路。", "hint": "形容景物看起來糊糊的、不清楚。", "options": ["(A) 涼爽", "(B) 朦朧", "(C) 藤蔓", "(D) 珍珠"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 6, "question": "太陽快要下山了，遠處的＿＿＿＿＿＿看起來黑黑的，一整排一動也不動。", "hint": "一座一座連在一起的山。", "options": ["(A) 山巒", "(B) 田野", "(C) 樹梢", "(D) 夢鄉"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 7, "question": "菜園裡的南瓜長出了綠色的＿＿＿＿＿＿，輕輕地爬滿了整個瓜架。", "hint": "植物細細長長、會抓著東西往上爬的莖。", "options": ["(A) 樹梢", "(B) 藤蔓", "(C) 涼爽", "(D) 朦朧"]},
+      {"section": "第一大題：生字語詞－句子（挖空選擇題）", "displayId": 8, "question": "課文中，夏夜撒了滿天的＿＿＿＿＿＿，看起來就像一閃一閃的亮晶晶星星。", "hint": "圓圓亮亮的東西，用來比喻星星。", "options": ["(A) 涼爽", "(B) 田野", "(C) 珍珠", "(D) 山巒"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 9, "question": "當我們覺得天氣很不熱、很涼快、很舒服的時候，可以用哪一個詞？", "hint": "與舒服涼快的天氣、環境溫度有關的詞。", "options": ["(A) 樹梢", "(B) 涼爽", "(C) 山巒", "(D) 藤蔓"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 10, "question": "課文中，小弟弟和小妹妹閉上眼睛睡著了，是去到了哪裡？", "hint": "睡著後開始作夢的世界。", "options": ["(A) 夢鄉", "(B) 樹梢", "(C) 田野", "(D) 珍珠"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 11, "question": "課文中，夏夜除了從山坡上爬下來，還從椰子樹的哪裡爬下來？", "hint": "樹木的末端、最高的地方。", "options": ["(A) 夢鄉", "(B) 樹梢", "(C) 朦朧", "(D) 涼爽"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 12, "question": "羊隊和牛群吃飽了，準備要告別吃草的大片土地，那個地方叫什麼？", "hint": "寬廣大片的農地、田地。", "options": ["(A) 田野", "(B) 山巒", "(C) 藤蔓", "(D) 朦朧"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 13, "question": "課文形容夜深了，看過去高高低低、糊糊不清楚的山，可以用哪兩個詞？", "hint": "一座接一座連在一起的山，以及看不清楚、糊糊的狀態。", "options": ["(A) 涼爽、樹梢", "(B) 朦朧、山巒", "(C) 藤蔓、田野", "(D) 夢鄉、珍珠"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 14, "question": "窗外瓜架上的南瓜還醒著，牠用來往屋頂上爬的細長部分是什麼？", "hint": "植物細細長長、會抓著東西往上爬的莖。", "options": ["(A) 藤蔓", "(B) 涼爽", "(C) 山巒", "(D) 樹梢"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 15, "question": "課文說夏夜在天上撒了「珍珠」，這是用來形容天空中的什麼東西？", "hint": "夜空中一閃一閃亮晶晶的星辰。", "options": ["(A) 滿天的星星", "(B) 下大雨的雨滴", "(C) 飛過的小鳥", "(D) 路邊的街燈"]},
+      {"section": "第二大題：生字語詞-句子概念（選擇題）", "displayId": 16, "question": "如果黑夜裡光線很暗、又有霧，讓景物看起來糊糊、不清楚，這是什麼狀態？", "hint": "光線不充足或眼睛看過去糊糊的、不夠清楚。", "options": ["(A) 涼爽", "(B) 朦朧", "(C) 夢鄉", "(D) 藤蔓"]}
+    ];
+
+    const player = document.getElementById('audioPlayer');
+    const speed = document.getElementById('speed');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusText = document.getElementById('statusText');
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const buttons = [...document.querySelectorAll('[data-audio]')];
+    const questionButtons = [...document.querySelectorAll('.listen-question')];
+    let activeButton = null;
+    let queue = [];
+    let queuePosition = -1;
+
+    function clearActive() {
+      buttons.forEach(button => button.classList.remove('is-playing'));
+      document.querySelectorAll('.question-card').forEach(card => card.classList.remove('is-playing'));
+      activeButton = null;
+    }
+
+    function setStatus(title, text) {
+      statusTitle.textContent = title;
+      statusText.textContent = text;
+    }
+
+    function updateProgress() {
+      const number = queuePosition >= 0 && queue[queuePosition]
+        ? queue[queuePosition].closest('.question-card')?.dataset.question || 0
+        : (activeButton ? activeButton.closest('.question-card')?.dataset.question || 0 : 0);
+      progressBar.value = Number(number);
+      progressText.textContent = `${number} / 16 題`;
+    }
+
+    // 瀏覽器原生語音備援朗讀
+    function speakFallback(button) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const textToSpeak = button.dataset.text || button.textContent.trim();
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = 'zh-TW';
+      utterance.rate = Number(speed.value);
+      
+      utterance.onend = () => {
+        clearActive();
+        if (queue.length && queuePosition < queue.length - 1) {
+          queuePosition += 1;
+          playButton(queue[queuePosition]);
+        } else if (queue.length) {
+          setStatus('題目播放完畢', '可以再點選個別題目或選項複習。');
+          queue = [];
+          queuePosition = -1;
+        }
+      };
+      
+      utterance.onerror = () => {
+        clearActive();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // 播放特定按鈕音訊（真人微軟 MP3 優先，失敗時無縫切換本機語音）
+    function playButton(button) {
+      queuePosition = queue.indexOf(button);
+      clearActive();
+      activeButton = button;
+      button.classList.add('is-playing');
+      const card = button.closest('.question-card');
+      card?.classList.add('is-playing');
+      card?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const label = button.classList.contains('listen-question') ? '題目' : '選項';
+      const displayText = button.dataset.text || button.textContent.trim();
+      setStatus(`正在播放${label}`, displayText);
+      updateProgress();
+
+      player.playbackRate = Number(speed.value);
+      player.src = button.dataset.audio;
+      player.load();
+
+      const promise = player.play();
+      if (promise) {
+        promise.catch((err) => {
+          console.warn('MP3 播放受限或載入中斷，自動啟動裝置原生語音備援：', err);
+          setStatus('改用裝置朗讀', displayText);
+          speakFallback(button);
+        });
+      }
+    }
+
+    // 綁定各題目與選項按鈕點擊事件
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        queue = [];
+        playButton(button);
+      });
+    });
+
+    // 播放全部題目
+    document.getElementById('playQuestions').addEventListener('click', () => {
+      queue = questionButtons.slice();
+      queuePosition = 0;
+      if (queue.length > 0) {
+        playButton(queue[0]);
+      }
+    });
+
+    // 停止播放
+    document.getElementById('stopAudio').addEventListener('click', () => {
+      queue = [];
+      queuePosition = -1;
+      player.pause();
+      player.removeAttribute('src');
+      player.load();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      clearActive();
+      progressBar.value = 0;
+      progressText.textContent = '0 / 16 題';
+      setStatus('已停止', '請點選任一個「聽題目」或選項。');
+    });
+
+    // 調整語速
+    speed.addEventListener('change', () => {
+      player.playbackRate = Number(speed.value);
+    });
+
+    // MP3 播放結束處理（接續佇列或重設狀態）
+    player.addEventListener('ended', () => {
+      clearActive();
+      if (queue.length && queuePosition < queue.length - 1) {
+        queuePosition += 1;
+        playButton(queue[queuePosition]);
+      } else if (queue.length) {
+        setStatus('題目播放完畢', '可以再點選個別題目或選項複習。');
+        queue = [];
+        queuePosition = -1;
+      }
+    });
+
+    // MP3 播放錯誤時自動切換備援語音
+    player.addEventListener('error', () => {
+      if (activeButton) {
+        console.warn('音訊檔案載入發生錯誤，切換裝置語音備援');
+        setStatus('改用裝置朗讀', activeButton.dataset.text || activeButton.textContent.trim());
+        speakFallback(activeButton);
+      }
+    });
+  </script>
+</body>
+</html>
