@@ -14,7 +14,8 @@ if (fs.existsSync(catalogPath)) {
   }
 }
 
-const files = fs.readdirSync(materialsDir).filter(f => f.endsWith('.html'));
+const files = fs.readdirSync(materialsDir).filter(f => f.endsWith('.html') && !f.startsWith('test-'));
+catalog = catalog.filter(c => !c.id.startsWith('test-'));
 
 console.log(`Found ${files.length} material files in materials/`);
 
