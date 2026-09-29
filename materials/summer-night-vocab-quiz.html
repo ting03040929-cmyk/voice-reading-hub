@@ -416,7 +416,7 @@
       font-size: 0.82rem;
     }
 
-    .listen-question, .listen-option, .answer-toggle-btn {
+    .listen-question, .listen-option {
       border: 0;
       transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
     }
@@ -498,42 +498,6 @@
       line-height: 1;
     }
 
-    .card-footer-tools {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding-top: 10px;
-      border-top: 1px dashed var(--line);
-    }
-
-    .answer-toggle-btn {
-      background: #f1f5f9;
-      color: var(--navy);
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 5px 12px;
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
-
-    .answer-toggle-btn:hover {
-      background: #e2e8f0;
-    }
-
-    .answer-box {
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      color: #065f46;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-top: 8px;
-      width: 100%;
-    }
 
     .hint-footer {
       margin: 28px 0 0;
@@ -595,7 +559,6 @@
       <div class="toolbar" aria-label="語音控制">
         <button class="tool-button" id="playQuestions" type="button">▶ 播全部</button>
         <button class="tool-button" id="stopAudio" type="button">■ 停止</button>
-        <button class="tool-button" id="toggleAllAnswers" type="button">👁️ 秀解答</button>
         <label class="speed-label" for="speed">
           <select class="speed-select" id="speed" aria-label="播放速度">
             <option value="0.8">速度 0.8x</option>
@@ -647,10 +610,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q01-c.mp3" data-text="C，藤蔓"><span class="option-letter">C</span>藤蔓</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q01-d.mp3" data-text="D，樹梢"><span class="option-letter">D</span>樹梢</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(1)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-1" style="display: none;"><strong>參考答案：</strong>(B) 夢鄉</div>
-        </div>
       </article>
 
       <!-- 第 2 題 -->
@@ -666,10 +625,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-b.mp3" data-text="B，朦朧"><span class="option-letter">B</span>朦朧</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-c.mp3" data-text="C，樹梢"><span class="option-letter">C</span>樹梢</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q02-d.mp3" data-text="D，涼爽"><span class="option-letter">D</span>涼爽</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(2)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-2" style="display: none;"><strong>參考答案：</strong>(C) 樹梢</div>
         </div>
       </article>
 
@@ -687,10 +642,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q03-c.mp3" data-text="C，山巒"><span class="option-letter">C</span>山巒</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q03-d.mp3" data-text="D，藤蔓"><span class="option-letter">D</span>藤蔓</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(3)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-3" style="display: none;"><strong>參考答案：</strong>(A) 珍珠</div>
-        </div>
       </article>
 
       <!-- 第 4 題 -->
@@ -706,10 +657,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-b.mp3" data-text="B，山巒"><span class="option-letter">B</span>山巒</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-c.mp3" data-text="C，田野"><span class="option-letter">C</span>田野</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q04-d.mp3" data-text="D，樹梢"><span class="option-letter">D</span>樹梢</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(4)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-4" style="display: none;"><strong>參考答案：</strong>(C) 田野</div>
         </div>
       </article>
 
@@ -727,10 +674,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q05-c.mp3" data-text="C，藤蔓"><span class="option-letter">C</span>藤蔓</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q05-d.mp3" data-text="D，珍珠"><span class="option-letter">D</span>珍珠</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(5)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-5" style="display: none;"><strong>參考答案：</strong>(B) 朦朧</div>
-        </div>
       </article>
 
       <!-- 第 6 題 -->
@@ -746,10 +689,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-b.mp3" data-text="B，田野"><span class="option-letter">B</span>田野</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-c.mp3" data-text="C，樹梢"><span class="option-letter">C</span>樹梢</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q06-d.mp3" data-text="D，夢鄉"><span class="option-letter">D</span>夢鄉</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(6)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-6" style="display: none;"><strong>參考答案：</strong>(A) 山巒</div>
         </div>
       </article>
 
@@ -767,10 +706,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q07-c.mp3" data-text="C，涼爽"><span class="option-letter">C</span>涼爽</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q07-d.mp3" data-text="D，朦朧"><span class="option-letter">D</span>朦朧</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(7)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-7" style="display: none;"><strong>參考答案：</strong>(B) 藤蔓</div>
-        </div>
       </article>
 
       <!-- 第 8 題 -->
@@ -786,10 +721,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-b.mp3" data-text="B，田野"><span class="option-letter">B</span>田野</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-c.mp3" data-text="C，珍珠"><span class="option-letter">C</span>珍珠</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/q08-d.mp3" data-text="D，山巒"><span class="option-letter">D</span>山巒</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(8)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-8" style="display: none;"><strong>參考答案：</strong>(A) 涼爽</div>
         </div>
       </article>
 
@@ -835,10 +766,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(9)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-9" style="display: none;"><strong>參考答案：</strong>(B) 山巒</div>
-        </div>
       </article>
 
       <!-- 第 10 題 (配對 2) -->
@@ -858,10 +785,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-f.mp3" data-text="F，涼爽"><span class="option-letter">F</span>涼爽</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(10)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-10" style="display: none;"><strong>參考答案：</strong>(A) 田野</div>
         </div>
       </article>
 
@@ -883,10 +806,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(11)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-11" style="display: none;"><strong>參考答案：</strong>(C) 樹梢</div>
-        </div>
       </article>
 
       <!-- 第 12 題 (配對 4) -->
@@ -906,10 +825,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-f.mp3" data-text="F，涼爽"><span class="option-letter">F</span>涼爽</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(12)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-12" style="display: none;"><strong>參考答案：</strong>(D) 藤蔓</div>
         </div>
       </article>
 
@@ -931,10 +846,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(13)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-13" style="display: none;"><strong>參考答案：</strong>(E) 珍珠</div>
-        </div>
       </article>
 
       <!-- 第 14 題 (配對 6) -->
@@ -954,10 +865,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-f.mp3" data-text="F，涼爽"><span class="option-letter">F</span>涼爽</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(14)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-14" style="display: none;"><strong>參考答案：</strong>(F) 涼爽</div>
         </div>
       </article>
 
@@ -979,10 +886,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
         </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(15)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-15" style="display: none;"><strong>參考答案：</strong>(G) 夢鄉</div>
-        </div>
       </article>
 
       <!-- 第 16 題 (配對 8) -->
@@ -1002,10 +905,6 @@
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-f.mp3" data-text="F，涼爽"><span class="option-letter">F</span>涼爽</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-g.mp3" data-text="G，夢鄉"><span class="option-letter">G</span>夢鄉</button>
           <button class="listen-option" type="button" data-audio="audio/summer-night-vocab-quiz/vocab-h.mp3" data-text="H，朦朧"><span class="option-letter">H</span>朦朧</button>
-        </div>
-        <div class="card-footer-tools">
-          <button class="answer-toggle-btn" type="button" onclick="toggleAnswer(16)">💡 查看參考答案</button>
-          <div class="answer-box" id="ans-16" style="display: none;"><strong>參考答案：</strong>(H) 朦朧</div>
         </div>
       </article>
     </div>
@@ -1076,22 +975,6 @@
       }
     }
 
-    function toggleAnswer(qid) {
-      const box = document.getElementById('ans-' + qid);
-      if (box) {
-        const isHidden = box.style.display === 'none';
-        box.style.display = isHidden ? 'block' : 'none';
-      }
-    }
-
-    let allAnswersShown = false;
-    document.getElementById('toggleAllAnswers').addEventListener('click', () => {
-      allAnswersShown = !allAnswersShown;
-      document.querySelectorAll('.answer-box').forEach(box => {
-        box.style.display = allAnswersShown ? 'block' : 'none';
-      });
-      document.getElementById('toggleAllAnswers').textContent = allAnswersShown ? '🙈 藏解答' : '👁️ 秀解答';
-    });
 
     function clearActive() {
       buttons.forEach(button => button.classList.remove('is-playing'));
