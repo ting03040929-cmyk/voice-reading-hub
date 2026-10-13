@@ -1,0 +1,1329 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c4a5a">
+  <meta name="description" content="國文七年級吃冰的滋味語詞配意思與選詞填空聽讀練習：題目與每個選項都可以分開播放，支援微軟真人語音與原生備援。">
+  <title>吃冰的滋味・語詞配意思與選詞填空聽讀練習</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c4a5a'/%3E%3Cpath d='M16 29h9l12-10v26L25 35h-9z' fill='%23ffd166'/%3E%3Cpath d='M44 25c3 3 3 11 0 14M49 20c6 6 6 18 0 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #12343b;
+      --muted: #557178;
+      --navy: #0c4a5a;
+      --navy-dark: #083542;
+      --teal: #dff5f2;
+      --yellow: #ffd166;
+      --yellow-dark: #9a6500;
+      --card: #ffffff;
+      --line: #cfe4e5;
+      --shadow: 0 12px 30px rgba(12, 74, 90, .10);
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --green-text: #166534;
+      --correct: #10b981;
+      --correct-bg: #ecfdf5;
+      --primary-accent: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #eef8f8;
+      color: var(--ink);
+      font-family: "LXGW WenKai TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    button, select, input, textarea { font: inherit; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 4px solid #f4ad38;
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 53, 66, .97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: white;
+      box-shadow: 0 3px 16px rgba(0, 0, 0, .16);
+    }
+
+    .topbar-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-size: 22px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1rem, 2.8vw, 1.3rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-home:hover { background: rgba(255, 255, 255, 0.28); }
+
+    .engine-toggle-group {
+      display: inline-flex;
+      background: rgba(0, 0, 0, .25);
+      padding: 3px;
+      border-radius: 99px;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .engine-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 11px;
+      font-size: .82rem;
+      font-weight: 800;
+      color: #cfe4e5;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .engine-btn.active {
+      background: var(--yellow);
+      color: var(--navy-dark);
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tool-button, .speed-select {
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.2);
+      color: white;
+      border-radius: 99px;
+      padding: 6px 14px;
+      font-size: .88rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .tool-button:hover, .tool-button:active {
+      background: rgba(255,255,255,.26);
+      transform: translateY(-1px);
+    }
+
+    .speed-select {
+      appearance: none;
+      background: rgba(255,255,255,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat calc(100% - 10px) center;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+
+    .speed-select option { color: var(--ink); background: white; }
+
+    main {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      padding: 24px 18px 90px;
+    }
+
+    .intro {
+      padding: 22px 26px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #0c4a5a, #147a7c);
+      color: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .intro h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+      line-height: 1.3;
+    }
+
+    .intro p { margin: 0; max-width: 820px; font-size: 0.98rem; opacity: 0.95; }
+
+    .status-panel {
+      position: sticky;
+      bottom: 12px;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px 16px;
+      align-items: center;
+      padding: 13px 18px;
+      margin: 0 0 24px;
+      background: rgba(255,255,255,.98);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(12,74,90,.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .status-label { min-width: 0; }
+    .status-label strong {
+      display: block;
+      color: var(--navy-dark);
+      font-size: .96rem;
+      font-weight: 800;
+    }
+    .status-label span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    audio { width: min(320px, 100%); height: 38px; }
+
+    .progress-wrap {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+
+    progress {
+      width: 100%;
+      height: 12px;
+      accent-color: #147a7c;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      margin: 36px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #147a7c;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--navy-dark);
+      font-size: clamp(1.2rem, 3.2vw, 1.45rem);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+
+    .word-bank-card {
+      background: #ffffff;
+      border: 2px dashed #99d2d0;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(12, 74, 90, 0.05);
+    }
+
+    .word-bank-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .word-bank-title {
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .word-bank-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .word-bank-item {
+      background: #f0fbfb;
+      border: 1px solid #bce1e1;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .word-bank-item:hover {
+      background: #dff5f2;
+      border-color: #147a7c;
+      transform: translateY(-2px);
+    }
+
+    .word-bank-letter {
+      background: var(--navy);
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .question-card {
+      background: var(--card);
+      border: 2px solid var(--line);
+      padding: 22px 24px;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      box-shadow: 0 5px 16px rgba(12,74,90,.06);
+      scroll-margin-top: 88px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .question-card.is-playing {
+      border-color: #e3a82c;
+      box-shadow: 0 0 0 4px rgba(255,209,102,.38), 0 8px 24px rgba(12,74,90,.12);
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 3px 14px;
+      color: var(--navy-dark);
+      background: var(--teal);
+      border-radius: 99px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .listen-question, .listen-option {
+      border: 0;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .listen-question {
+      min-height: 42px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .listen-question:hover, .listen-question:active {
+      background: var(--navy-dark);
+      transform: translateY(-1px);
+    }
+
+    .listen-question.is-playing {
+      background: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+    }
+
+    .question-text {
+      margin: 16px 0 14px;
+      font-weight: 700;
+      font-size: 1.18rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .blank-pill {
+      display: inline-block;
+      min-width: 90px;
+      text-align: center;
+      padding: 2px 10px;
+      margin: 0 4px;
+      background: #fff8e1;
+      border-bottom: 3px solid var(--yellow-dark);
+      color: #92400e;
+      font-weight: 800;
+      border-radius: 6px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .options-grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .listen-option {
+      min-height: 52px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #fffdf5;
+      border: 1.5px solid #f6e0b5;
+      color: var(--navy-dark);
+      font-weight: 700;
+      font-size: 1.02rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .listen-option:hover {
+      background: #fff3c4;
+      border-color: #eab308;
+      transform: translateY(-2px);
+    }
+
+    .listen-option.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      box-shadow: 0 0 0 2px #0284c7;
+    }
+
+    .listen-option.is-correct-reveal {
+      background: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+      font-weight: 800;
+    }
+
+    .listen-option.is-playing {
+      background: #fde68a !important;
+      border-color: #d97706 !important;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, .35);
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: rgba(12,74,90,.12);
+      color: var(--navy-dark);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .answer-tag {
+      margin-top: 12px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      font-size: 0.92rem;
+      font-weight: 700;
+      display: none;
+    }
+    .answer-tag.visible { display: block; }
+
+    /* Canvas Drawing Section */
+    .canvas-container {
+      background: #ffffff;
+      border: 2px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+    .canvas-toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .drawing-canvas {
+      width: 100%;
+      height: 320px;
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      background: #ffffff;
+      touch-action: none;
+      cursor: crosshair;
+    }
+    .color-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 0 1px #cbd5e1;
+      cursor: pointer;
+    }
+    .color-btn.active {
+      box-shadow: 0 0 0 3px #0f766e;
+    }
+
+    .writing-area {
+      margin-top: 18px;
+    }
+    .writing-area textarea {
+      width: 100%;
+      height: 100px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 1.05rem;
+      resize: vertical;
+      color: var(--ink);
+    }
+
+    footer {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      padding: 0 18px 40px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .88rem;
+    }
+
+    @media (max-width: 820px) {
+      .word-bank-grid { grid-template-columns: repeat(2, 1fr); }
+      .options-grid { grid-template-columns: 1fr; }
+      .options-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .topbar-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+      .brand { justify-content: center; }
+      .toolbar { justify-content: space-between; }
+      .word-bank-grid { grid-template-columns: 1fr; }
+      .options-grid-4 { grid-template-columns: 1fr; }
+      .status-panel { grid-template-columns: 1fr; }
+      audio { width: 100%; }
+      .listen-question { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a href="../index.html" class="btn-home" title="返回學習網首頁">🏠 回首頁</a>
+        <div class="brand-mark" aria-hidden="true">🍧</div>
+        <h1>吃冰的滋味・生字語詞聽讀練習</h1>
+      </div>
+      <div class="engine-toggle-group" title="切換語音引擎">
+        <button type="button" class="engine-btn" id="engineNative" onclick="switchEngine('native')">📱 平板原生</button>
+        <button type="button" class="engine-btn active" id="engineMp3" onclick="switchEngine('mp3')">☁️ 微軟真人</button>
+        <button type="button" class="engine-btn" id="btnTestSound" onclick="testAudio()" style="background:#fef3c7; color:#92400e;">🔔 測聲</button>
+      </div>
+      <div class="toolbar" aria-label="語音控制">
+        <button class="tool-button" id="playQuestions" type="button">▶ 播全部</button>
+        <button class="tool-button" id="stopAudio" type="button">■ 停止</button>
+        <button class="tool-button" id="toggleAnswers" type="button" onclick="toggleAnswers()">👁 揭曉答案</button>
+        <label class="speed-label" for="speed">
+          <select class="speed-select" id="speed" aria-label="播放速度">
+            <option value="0.8">速度 0.8x</option>
+            <option value="1" selected>速度 1.0x</option>
+            <option value="1.2">速度 1.2x</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">先聽題目，再看選項</h2>
+      <p>國文七年級《吃冰的滋味》語詞學習與聽讀評量。按深藍色按鈕可單獨聽題目，按黃色選項可單獨聽選項發音；點選選項即可作答，亦可點擊頂部「👁 揭曉答案」自我核對！</p>
+    </section>
+
+    <section class="status-panel" aria-label="目前播放狀態">
+      <div class="status-label">
+        <strong id="statusTitle">準備好了</strong>
+        <span id="statusText">請點選任一個「聽題目」或選項開始練習。</span>
+      </div>
+      <audio id="audioPlayer" controls preload="none"></audio>
+      <div class="progress-wrap">
+        <span id="progressText">0 / 17 題</span>
+        <progress id="progressBar" value="0" max="17" aria-label="題目播放進度"></progress>
+      </div>
+    </section>
+
+    <!-- 第一大題 -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">一、語詞配意思</h2>
+        <p class="section-subtitle">在（　　）裡寫上正確意思的代號。</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/section1-intro.mp3" data-text="第一大題：語詞配意思。在括號裡寫上正確意思的代號。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 意思代號詞庫卡 -->
+    <div class="word-bank-card">
+      <div class="word-bank-head">
+        <span class="word-bank-title">📖 意思選項代號詞庫（點擊可個別聆聽發音）</span>
+      </div>
+      <div class="word-bank-grid">
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-a.mp3" data-text="選項A，種類很多，有各式各樣的東西"><span class="word-bank-letter">A</span> 種類很多，有各式各樣的東西</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-b.mp3" data-text="選項B，很短的時間，一下子"><span class="word-bank-letter">B</span> 很短的時間，一下子</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-c.mp3" data-text="選項C，名氣很大，遠的、近的人都知道"><span class="word-bank-letter">C</span> 名氣很大，遠的、近的人都知道</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-d.mp3" data-text="選項D，幾乎全部不見了"><span class="word-bank-letter">D</span> 幾乎全部不見了</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-e.mp3" data-text="選項E，和別的比起來，變得不精彩"><span class="word-bank-letter">E</span> 和別的比起來，變得不精彩</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-f.mp3" data-text="選項F，口水流得很長，形容非常想吃"><span class="word-bank-letter">F</span> 口水流得很長，形容非常想吃</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-g.mp3" data-text="選項G，東西是真的，價錢也實在"><span class="word-bank-letter">G</span> 東西是真的，價錢也實在</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/meaning-h.mp3" data-text="選項H，比不上別人，比較差"><span class="word-bank-letter">H</span> 比不上別人，比較差</div>
+      </div>
+    </div>
+
+    <!-- 題卡 1 ~ 8 -->
+    <div id="quiz-section-1">
+      <!-- 第 1 題 -->
+      <article class="question-card" id="q1" data-question="1" data-answer="E">
+        <div class="question-head">
+          <span class="question-number">第 1 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q01-question.mp3" data-text="第1題。語詞：黯然失色。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">1. 語詞：<strong>黯然失色</strong>　<span class="blank-pill" id="ans-box-1">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(1, 'E')" data-opt="E" data-audio="audio/eating-ice-vocab-quiz/meaning-e.mp3" data-text="E，和別的比起來，變得不精彩"><span class="option-letter">E</span>和別的比起來，變得不精彩</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(1, 'H')" data-opt="H" data-audio="audio/eating-ice-vocab-quiz/meaning-h.mp3" data-text="H，比不上別人，比較差"><span class="option-letter">H</span>比不上別人，比較差</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(1, 'D')" data-opt="D" data-audio="audio/eating-ice-vocab-quiz/meaning-d.mp3" data-text="D，幾乎全部不見了"><span class="option-letter">D</span>幾乎全部不見了</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(1, 'A')" data-opt="A" data-audio="audio/eating-ice-vocab-quiz/meaning-a.mp3" data-text="A，種類很多，有各式各樣的東西"><span class="option-letter">A</span>種類很多，有各式各樣的東西</button>
+        </div>
+        <div class="answer-tag" id="tag-1">✅ 正確答案：<strong>（ E ）</strong> 和別的比起來，變得不精彩</div>
+      </article>
+
+      <!-- 第 2 題 -->
+      <article class="question-card" id="q2" data-question="2" data-answer="A">
+        <div class="question-head">
+          <span class="question-number">第 2 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q02-question.mp3" data-text="第2題。語詞：五花八門。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">2. 語詞：<strong>五花八門</strong>　<span class="blank-pill" id="ans-box-2">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(2, 'A')" data-opt="A" data-audio="audio/eating-ice-vocab-quiz/meaning-a.mp3" data-text="A，種類很多，有各式各樣的東西"><span class="option-letter">A</span>種類很多，有各式各樣的東西</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(2, 'G')" data-opt="G" data-audio="audio/eating-ice-vocab-quiz/meaning-g.mp3" data-text="G，東西是真的，價錢也實在"><span class="option-letter">G</span>東西是真的，價錢也實在</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(2, 'C')" data-opt="C" data-audio="audio/eating-ice-vocab-quiz/meaning-c.mp3" data-text="C，名氣很大，遠的、近的人都知道"><span class="option-letter">C</span>名氣很大，遠的、近的人都知道</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(2, 'B')" data-opt="B" data-audio="audio/eating-ice-vocab-quiz/meaning-b.mp3" data-text="B，很短的時間，一下子"><span class="option-letter">B</span>很短的時間，一下子</button>
+        </div>
+        <div class="answer-tag" id="tag-2">✅ 正確答案：<strong>（ A ）</strong> 種類很多，有各式各樣的東西</div>
+      </article>
+
+      <!-- 第 3 題 -->
+      <article class="question-card" id="q3" data-question="3" data-answer="H">
+        <div class="question-head">
+          <span class="question-number">第 3 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q03-question.mp3" data-text="第3題。語詞：遜色。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">3. 語詞：<strong>遜色</strong>　<span class="blank-pill" id="ans-box-3">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(3, 'H')" data-opt="H" data-audio="audio/eating-ice-vocab-quiz/meaning-h.mp3" data-text="H，比不上別人，比較差"><span class="option-letter">H</span>比不上別人，比較差</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(3, 'E')" data-opt="E" data-audio="audio/eating-ice-vocab-quiz/meaning-e.mp3" data-text="E，和別的比起來，變得不精彩"><span class="option-letter">E</span>和別的比起來，變得不精彩</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(3, 'D')" data-opt="D" data-audio="audio/eating-ice-vocab-quiz/meaning-d.mp3" data-text="D，幾乎全部不見了"><span class="option-letter">D</span>幾乎全部不見了</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(3, 'B')" data-opt="B" data-audio="audio/eating-ice-vocab-quiz/meaning-b.mp3" data-text="B，很短的時間，一下子"><span class="option-letter">B</span>很短的時間，一下子</button>
+        </div>
+        <div class="answer-tag" id="tag-3">✅ 正確答案：<strong>（ H ）</strong> 比不上別人，比較差</div>
+      </article>
+
+      <!-- 第 4 題 -->
+      <article class="question-card" id="q4" data-question="4" data-answer="G">
+        <div class="question-head">
+          <span class="question-number">第 4 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q04-question.mp3" data-text="第4題。語詞：貨真價實。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">4. 語詞：<strong>貨真價實</strong>　<span class="blank-pill" id="ans-box-4">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(4, 'G')" data-opt="G" data-audio="audio/eating-ice-vocab-quiz/meaning-g.mp3" data-text="G，東西是真的，價錢也實在"><span class="option-letter">G</span>東西是真的，價錢也實在</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(4, 'A')" data-opt="A" data-audio="audio/eating-ice-vocab-quiz/meaning-a.mp3" data-text="A，種類很多，有各式各樣的東西"><span class="option-letter">A</span>種類很多，有各式各樣的東西</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(4, 'C')" data-opt="C" data-audio="audio/eating-ice-vocab-quiz/meaning-c.mp3" data-text="C，名氣很大，遠的、近的人都知道"><span class="option-letter">C</span>名氣很大，遠的、近的人都知道</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(4, 'F')" data-opt="F" data-audio="audio/eating-ice-vocab-quiz/meaning-f.mp3" data-text="F，口水流得很長，形容非常想吃"><span class="option-letter">F</span>口水流得很長，形容非常想吃</button>
+        </div>
+        <div class="answer-tag" id="tag-4">✅ 正確答案：<strong>（ G ）</strong> 東西是真的，價錢也實在</div>
+      </article>
+
+      <!-- 第 5 題 -->
+      <article class="question-card" id="q5" data-question="5" data-answer="F">
+        <div class="question-head">
+          <span class="question-number">第 5 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q05-question.mp3" data-text="第5題。語詞：垂涎三尺。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">5. 語詞：<strong>垂涎三尺</strong>　<span class="blank-pill" id="ans-box-5">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(5, 'F')" data-opt="F" data-audio="audio/eating-ice-vocab-quiz/meaning-f.mp3" data-text="F，口水流得很長，形容非常想吃"><span class="option-letter">F</span>口水流得很長，形容非常想吃</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(5, 'E')" data-opt="E" data-audio="audio/eating-ice-vocab-quiz/meaning-e.mp3" data-text="E，和別的比起來，變得不精彩"><span class="option-letter">E</span>和別的比起來，變得不精彩</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(5, 'C')" data-opt="C" data-audio="audio/eating-ice-vocab-quiz/meaning-c.mp3" data-text="C，名氣很大，遠的、近的人都知道"><span class="option-letter">C</span>名氣很大，遠的、近的人都知道</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(5, 'B')" data-opt="B" data-audio="audio/eating-ice-vocab-quiz/meaning-b.mp3" data-text="B，很短的時間，一下子"><span class="option-letter">B</span>很短的時間，一下子</button>
+        </div>
+        <div class="answer-tag" id="tag-5">✅ 正確答案：<strong>（ F ）</strong> 口水流得很長，形容非常想吃</div>
+      </article>
+
+      <!-- 第 6 題 -->
+      <article class="question-card" id="q6" data-question="6" data-answer="C">
+        <div class="question-head">
+          <span class="question-number">第 6 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q06-question.mp3" data-text="第6題。語詞：名聞遐邇。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">6. 語詞：<strong>名聞遐邇</strong>　<span class="blank-pill" id="ans-box-6">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(6, 'C')" data-opt="C" data-audio="audio/eating-ice-vocab-quiz/meaning-c.mp3" data-text="C，名氣很大，遠的、近的人都知道"><span class="option-letter">C</span>名氣很大，遠的、近的人都知道</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(6, 'A')" data-opt="A" data-audio="audio/eating-ice-vocab-quiz/meaning-a.mp3" data-text="A，種類很多，有各式各樣的東西"><span class="option-letter">A</span>種類很多，有各式各樣的東西</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(6, 'G')" data-opt="G" data-audio="audio/eating-ice-vocab-quiz/meaning-g.mp3" data-text="G，東西是真的，價錢也實在"><span class="option-letter">G</span>東西是真的，價錢也實在</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(6, 'H')" data-opt="H" data-audio="audio/eating-ice-vocab-quiz/meaning-h.mp3" data-text="H，比不上別人，比較差"><span class="option-letter">H</span>比不上別人，比較差</button>
+        </div>
+        <div class="answer-tag" id="tag-6">✅ 正確答案：<strong>（ C ）</strong> 名氣很大，遠的、近的人都知道</div>
+      </article>
+
+      <!-- 第 7 題 -->
+      <article class="question-card" id="q7" data-question="7" data-answer="B">
+        <div class="question-head">
+          <span class="question-number">第 7 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q07-question.mp3" data-text="第7題。語詞：俄頃。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">7. 語詞：<strong>俄頃</strong>　<span class="blank-pill" id="ans-box-7">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(7, 'B')" data-opt="B" data-audio="audio/eating-ice-vocab-quiz/meaning-b.mp3" data-text="B，很短的時間，一下子"><span class="option-letter">B</span>很短的時間，一下子</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(7, 'D')" data-opt="D" data-audio="audio/eating-ice-vocab-quiz/meaning-d.mp3" data-text="D，幾乎全部不見了"><span class="option-letter">D</span>幾乎全部不見了</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(7, 'E')" data-opt="E" data-audio="audio/eating-ice-vocab-quiz/meaning-e.mp3" data-text="E，和別的比起來，變得不精彩"><span class="option-letter">E</span>和別的比起來，變得不精彩</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(7, 'F')" data-opt="F" data-audio="audio/eating-ice-vocab-quiz/meaning-f.mp3" data-text="F，口水流得很長，形容非常想吃"><span class="option-letter">F</span>口水流得很長，形容非常想吃</button>
+        </div>
+        <div class="answer-tag" id="tag-7">✅ 正確答案：<strong>（ B ）</strong> 很短的時間，一下子</div>
+      </article>
+
+      <!-- 第 8 題 -->
+      <article class="question-card" id="q8" data-question="8" data-answer="D">
+        <div class="question-head">
+          <span class="question-number">第 8 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q08-question.mp3" data-text="第8題。語詞：消失殆盡。請選出正確意思的代號。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">8. 語詞：<strong>消失殆盡</strong>　<span class="blank-pill" id="ans-box-8">（　）</span></p>
+        <div class="options-grid">
+          <button class="listen-option" type="button" onclick="selectAnswer(8, 'D')" data-opt="D" data-audio="audio/eating-ice-vocab-quiz/meaning-d.mp3" data-text="D，幾乎全部不見了"><span class="option-letter">D</span>幾乎全部不見了</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(8, 'B')" data-opt="B" data-audio="audio/eating-ice-vocab-quiz/meaning-b.mp3" data-text="B，很短的時間，一下子"><span class="option-letter">B</span>很短的時間，一下子</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(8, 'H')" data-opt="H" data-audio="audio/eating-ice-vocab-quiz/meaning-h.mp3" data-text="H，比不上別人，比較差"><span class="option-letter">H</span>比不上別人，比較差</button>
+          <button class="listen-option" type="button" onclick="selectAnswer(8, 'E')" data-opt="E" data-audio="audio/eating-ice-vocab-quiz/meaning-e.mp3" data-text="E，和別的比起來，變得不精彩"><span class="option-letter">E</span>和別的比起來，變得不精彩</button>
+        </div>
+        <div class="answer-tag" id="tag-8">✅ 正確答案：<strong>（ D ）</strong> 幾乎全部不見了</div>
+      </article>
+    </div>
+
+    <!-- 第二大題 -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">二、選語詞填句子</h2>
+        <p class="section-subtitle">從語詞盒裡選出合適的語詞，寫在空格上。每個語詞只用一次。</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/section2-intro.mp3" data-text="第二大題：選語詞填句子。從語詞盒裡選出合適的語詞，寫在空格上。每個語詞只用一次。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 語詞盒卡片 -->
+    <div class="word-bank-card">
+      <div class="word-bank-head">
+        <span class="word-bank-title">📦 語詞盒（點擊可個別聆聽發音）</span>
+      </div>
+      <div class="word-bank-grid">
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word1.mp3" data-text="1，黯然失色"><span class="word-bank-letter">1</span> 黯然失色</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word2.mp3" data-text="2，五花八門"><span class="word-bank-letter">2</span> 五花八門</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word3.mp3" data-text="3，遜色"><span class="word-bank-letter">3</span> 遜色</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word4.mp3" data-text="4，貨真價實"><span class="word-bank-letter">4</span> 貨真價實</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word5.mp3" data-text="5，垂涎三尺"><span class="word-bank-letter">5</span> 垂涎三尺</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word6.mp3" data-text="6，名聞遐邇"><span class="word-bank-letter">6</span> 名聞遐邇</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word7.mp3" data-text="7，俄頃"><span class="word-bank-letter">7</span> 俄頃</div>
+        <div class="word-bank-item" data-audio="audio/eating-ice-vocab-quiz/bank-word8.mp3" data-text="8，消失殆盡"><span class="word-bank-letter">8</span> 消失殆盡</div>
+      </div>
+    </div>
+
+    <!-- 題卡 9 ~ 16 -->
+    <div id="quiz-section-2">
+      <!-- 第 9 題 -->
+      <article class="question-card" id="q9" data-question="9" data-answer="黯然失色">
+        <div class="question-head">
+          <span class="question-number">第 9 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q09-question.mp3" data-text="第9題。沒有了煙火，中秋節晚會就空格了。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">1. 沒有了煙火，中秋節晚會就<span class="blank-pill" id="ans-box-9">＿＿＿＿＿＿</span>了。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(9, '黯然失色')" data-opt="黯然失色" data-audio="audio/eating-ice-vocab-quiz/bank-word1.mp3" data-text="黯然失色"><span class="option-letter">1</span>黯然失色</button>
+          <button class="listen-option" type="button" onclick="selectWord(9, '遜色')" data-opt="遜色" data-audio="audio/eating-ice-vocab-quiz/bank-word3.mp3" data-text="遜色"><span class="option-letter">3</span>遜色</button>
+          <button class="listen-option" type="button" onclick="selectWord(9, '消失殆盡')" data-opt="消失殆盡" data-audio="audio/eating-ice-vocab-quiz/bank-word8.mp3" data-text="消失殆盡"><span class="option-letter">8</span>消失殆盡</button>
+          <button class="listen-option" type="button" onclick="selectWord(9, '俄頃')" data-opt="俄頃" data-audio="audio/eating-ice-vocab-quiz/bank-word7.mp3" data-text="俄頃"><span class="option-letter">7</span>俄頃</button>
+        </div>
+        <div class="answer-tag" id="tag-9">✅ 正確答案：<strong>【 黯然失色 】</strong></div>
+      </article>
+
+      <!-- 第 10 題 -->
+      <article class="question-card" id="q10" data-question="10" data-answer="五花八門">
+        <div class="question-head">
+          <span class="question-number">第 10 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q10-question.mp3" data-text="第10題。百貨公司的玩具空格，有積木、娃娃，還有遙控車。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">2. 百貨公司的玩具<span class="blank-pill" id="ans-box-10">＿＿＿＿＿＿</span>，有積木、娃娃，還有遙控車。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(10, '五花八門')" data-opt="五花八門" data-audio="audio/eating-ice-vocab-quiz/bank-word2.mp3" data-text="五花八門"><span class="option-letter">2</span>五花八門</button>
+          <button class="listen-option" type="button" onclick="selectWord(10, '貨真價實')" data-opt="貨真價實" data-audio="audio/eating-ice-vocab-quiz/bank-word4.mp3" data-text="貨真價實"><span class="option-letter">4</span>貨真價實</button>
+          <button class="listen-option" type="button" onclick="selectWord(10, '名聞遐邇')" data-opt="名聞遐邇" data-audio="audio/eating-ice-vocab-quiz/bank-word6.mp3" data-text="名聞遐邇"><span class="option-letter">6</span>名聞遐邇</button>
+          <button class="listen-option" type="button" onclick="selectWord(10, '垂涎三尺')" data-opt="垂涎三尺" data-audio="audio/eating-ice-vocab-quiz/bank-word5.mp3" data-text="垂涎三尺"><span class="option-letter">5</span>垂涎三尺</button>
+        </div>
+        <div class="answer-tag" id="tag-10">✅ 正確答案：<strong>【 五花八門 】</strong></div>
+      </article>
+
+      <!-- 第 11 題 -->
+      <article class="question-card" id="q11" data-question="11" data-answer="遜色">
+        <div class="question-head">
+          <span class="question-number">第 11 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q11-question.mp3" data-text="第11題。我做的蛋糕，一點也不比蛋糕店空格。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">3. 我做的蛋糕，一點也不比蛋糕店<span class="blank-pill" id="ans-box-11">＿＿＿＿＿＿</span>。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(11, '遜色')" data-opt="遜色" data-audio="audio/eating-ice-vocab-quiz/bank-word3.mp3" data-text="遜色"><span class="option-letter">3</span>遜色</button>
+          <button class="listen-option" type="button" onclick="selectWord(11, '黯然失色')" data-opt="黯然失色" data-audio="audio/eating-ice-vocab-quiz/bank-word1.mp3" data-text="黯然失色"><span class="option-letter">1</span>黯然失色</button>
+          <button class="listen-option" type="button" onclick="selectWord(11, '貨真價實')" data-opt="貨真價實" data-audio="audio/eating-ice-vocab-quiz/bank-word4.mp3" data-text="貨真價實"><span class="option-letter">4</span>貨真價實</button>
+          <button class="listen-option" type="button" onclick="selectWord(11, '名聞遐邇')" data-opt="名聞遐邇" data-audio="audio/eating-ice-vocab-quiz/bank-word6.mp3" data-text="名聞遐邇"><span class="option-letter">6</span>名聞遐邇</button>
+        </div>
+        <div class="answer-tag" id="tag-11">✅ 正確答案：<strong>【 遜色 】</strong></div>
+      </article>
+
+      <!-- 第 12 題 -->
+      <article class="question-card" id="q12" data-question="12" data-answer="貨真價實">
+        <div class="question-head">
+          <span class="question-number">第 12 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q12-question.mp3" data-text="第12題。阿嬤種的高麗菜沒有灑農藥，又甜又便宜，真是空格。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">4. 阿嬤種的高麗菜沒有灑農藥，又甜又便宜，真是<span class="blank-pill" id="ans-box-12">＿＿＿＿＿＿</span>。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(12, '貨真價實')" data-opt="貨真價實" data-audio="audio/eating-ice-vocab-quiz/bank-word4.mp3" data-text="貨真價實"><span class="option-letter">4</span>貨真價實</button>
+          <button class="listen-option" type="button" onclick="selectWord(12, '五花八門')" data-opt="五花八門" data-audio="audio/eating-ice-vocab-quiz/bank-word2.mp3" data-text="五花八門"><span class="option-letter">2</span>五花八門</button>
+          <button class="listen-option" type="button" onclick="selectWord(12, '名聞遐邇')" data-opt="名聞遐邇" data-audio="audio/eating-ice-vocab-quiz/bank-word6.mp3" data-text="名聞遐邇"><span class="option-letter">6</span>名聞遐邇</button>
+          <button class="listen-option" type="button" onclick="selectWord(12, '垂涎三尺')" data-opt="垂涎三尺" data-audio="audio/eating-ice-vocab-quiz/bank-word5.mp3" data-text="垂涎三尺"><span class="option-letter">5</span>垂涎三尺</button>
+        </div>
+        <div class="answer-tag" id="tag-12">✅ 正確答案：<strong>【 貨真價實 】</strong></div>
+      </article>
+
+      <!-- 第 13 題 -->
+      <article class="question-card" id="q13" data-question="13" data-answer="垂涎三尺">
+        <div class="question-head">
+          <span class="question-number">第 13 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q13-question.mp3" data-text="第13題。聞到烤肉的香味，弟弟空格，一直在旁邊等。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">5. 聞到烤肉的香味，弟弟<span class="blank-pill" id="ans-box-13">＿＿＿＿＿＿</span>，一直在旁邊等。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(13, '垂涎三尺')" data-opt="垂涎三尺" data-audio="audio/eating-ice-vocab-quiz/bank-word5.mp3" data-text="垂涎三尺"><span class="option-letter">5</span>垂涎三尺</button>
+          <button class="listen-option" type="button" onclick="selectWord(13, '俄頃')" data-opt="俄頃" data-audio="audio/eating-ice-vocab-quiz/bank-word7.mp3" data-text="俄頃"><span class="option-letter">7</span>俄頃</button>
+          <button class="listen-option" type="button" onclick="selectWord(13, '五花八門')" data-opt="五花八門" data-audio="audio/eating-ice-vocab-quiz/bank-word2.mp3" data-text="五花八門"><span class="option-letter">2</span>五花八門</button>
+          <button class="listen-option" type="button" onclick="selectWord(13, '遜色')" data-opt="遜色" data-audio="audio/eating-ice-vocab-quiz/bank-word3.mp3" data-text="遜色"><span class="option-letter">3</span>遜色</button>
+        </div>
+        <div class="answer-tag" id="tag-13">✅ 正確答案：<strong>【 垂涎三尺 】</strong></div>
+      </article>
+
+      <!-- 第 14 題 -->
+      <article class="question-card" id="q14" data-question="14" data-answer="名聞遐邇">
+        <div class="question-head">
+          <span class="question-number">第 14 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q14-question.mp3" data-text="第14題。日月潭的風景空格，很多遊客專程來玩。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">6. 日月潭的風景<span class="blank-pill" id="ans-box-14">＿＿＿＿＿＿</span>，很多遊客專程來玩。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(14, '名聞遐邇')" data-opt="名聞遐邇" data-audio="audio/eating-ice-vocab-quiz/bank-word6.mp3" data-text="名聞遐邇"><span class="option-letter">6</span>名聞遐邇</button>
+          <button class="listen-option" type="button" onclick="selectWord(14, '貨真價實')" data-opt="貨真價實" data-audio="audio/eating-ice-vocab-quiz/bank-word4.mp3" data-text="貨真價實"><span class="option-letter">4</span>貨真價實</button>
+          <button class="listen-option" type="button" onclick="selectWord(14, '五花八門')" data-opt="五花八門" data-audio="audio/eating-ice-vocab-quiz/bank-word2.mp3" data-text="五花八門"><span class="option-letter">2</span>五花八門</button>
+          <button class="listen-option" type="button" onclick="selectWord(14, '消失殆盡')" data-opt="消失殆盡" data-audio="audio/eating-ice-vocab-quiz/bank-word8.mp3" data-text="消失殆盡"><span class="option-letter">8</span>消失殆盡</button>
+        </div>
+        <div class="answer-tag" id="tag-14">✅ 正確答案：<strong>【 名聞遐邇 】</strong></div>
+      </article>
+
+      <!-- 第 15 題 -->
+      <article class="question-card" id="q15" data-question="15" data-answer="俄頃">
+        <div class="question-head">
+          <span class="question-number">第 15 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q15-question.mp3" data-text="第15題。媽媽才把餅乾放在桌上，空格之間就被吃完了。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">7. 媽媽才把餅乾放在桌上，<span class="blank-pill" id="ans-box-15">＿＿＿＿＿＿</span>之間就被吃完了。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(15, '俄頃')" data-opt="俄頃" data-audio="audio/eating-ice-vocab-quiz/bank-word7.mp3" data-text="俄頃"><span class="option-letter">7</span>俄頃</button>
+          <button class="listen-option" type="button" onclick="selectWord(15, '垂涎三尺')" data-opt="垂涎三尺" data-audio="audio/eating-ice-vocab-quiz/bank-word5.mp3" data-text="垂涎三尺"><span class="option-letter">5</span>垂涎三尺</button>
+          <button class="listen-option" type="button" onclick="selectWord(15, '消失殆盡')" data-opt="消失殆盡" data-audio="audio/eating-ice-vocab-quiz/bank-word8.mp3" data-text="消失殆盡"><span class="option-letter">8</span>消失殆盡</button>
+          <button class="listen-option" type="button" onclick="selectWord(15, '黯然失色')" data-opt="黯然失色" data-audio="audio/eating-ice-vocab-quiz/bank-word1.mp3" data-text="黯然失色"><span class="option-letter">1</span>黯然失色</button>
+        </div>
+        <div class="answer-tag" id="tag-15">✅ 正確答案：<strong>【 俄頃 】</strong></div>
+      </article>
+
+      <!-- 第 16 題 -->
+      <article class="question-card" id="q16" data-question="16" data-answer="消失殆盡">
+        <div class="question-head">
+          <span class="question-number">第 16 題</span>
+          <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q16-question.mp3" data-text="第16題。冰淇淋放在太陽下，一下子就融化得空格了。">🔊 聽題目</button>
+        </div>
+        <p class="question-text">8. 冰淇淋放在太陽下，一下子就融化得<span class="blank-pill" id="ans-box-16">＿＿＿＿＿＿</span>了。</p>
+        <div class="options-grid options-grid-4">
+          <button class="listen-option" type="button" onclick="selectWord(16, '消失殆盡')" data-opt="消失殆盡" data-audio="audio/eating-ice-vocab-quiz/bank-word8.mp3" data-text="消失殆盡"><span class="option-letter">8</span>消失殆盡</button>
+          <button class="listen-option" type="button" onclick="selectWord(16, '俄頃')" data-opt="俄頃" data-audio="audio/eating-ice-vocab-quiz/bank-word7.mp3" data-text="俄頃"><span class="option-letter">7</span>俄頃</button>
+          <button class="listen-option" type="button" onclick="selectWord(16, '遜色')" data-opt="遜色" data-audio="audio/eating-ice-vocab-quiz/bank-word3.mp3" data-text="遜色"><span class="option-letter">3</span>遜色</button>
+          <button class="listen-option" type="button" onclick="selectWord(16, '貨真價實')" data-opt="貨真價實" data-audio="audio/eating-ice-vocab-quiz/bank-word4.mp3" data-text="貨真價實"><span class="option-letter">4</span>貨真價實</button>
+        </div>
+        <div class="answer-tag" id="tag-16">✅ 正確答案：<strong>【 消失殆盡 】</strong></div>
+      </article>
+    </div>
+
+    <!-- 第三大題 -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">三、畫畫看、寫寫看</h2>
+        <p class="section-subtitle">選一個你最喜歡的語詞，畫一張圖，或寫一個句子。</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/section3-intro.mp3" data-text="第三大題：畫畫看、寫寫看。選一個你最喜歡的語詞，畫一張圖，或寫一個句子。">🔊 聽大題說明</button>
+    </div>
+
+    <article class="question-card" id="q17" data-question="17">
+      <div class="question-head">
+        <span class="question-number">第 17 題</span>
+        <button class="listen-question" type="button" data-audio="audio/eating-ice-vocab-quiz/q17-question.mp3" data-text="第17題。選一個你最喜歡的語詞，畫一張圖，或寫一個句子。我選的語詞是空格。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">選一個你最喜歡的語詞：
+        <select id="userWordSelect" style="padding: 6px 14px; border-radius: 8px; border: 2px solid #0f766e; font-weight: 800; background: #f0fdf4;">
+          <option value="垂涎三尺">垂涎三尺（想吃美味食物）</option>
+          <option value="五花八門">五花八門（各式各樣東西）</option>
+          <option value="貨真價實">貨真價實（實在不假）</option>
+          <option value="名聞遐邇">名聞遐邇（遠近知名）</option>
+          <option value="俄頃">俄頃（一下子時間）</option>
+          <option value="消失殆盡">消失殆盡（全都融化不見）</option>
+          <option value="黯然失色">黯然失色（變得不精彩）</option>
+          <option value="遜色">遜色（比不上別人）</option>
+        </select>
+      </p>
+
+      <div class="canvas-container">
+        <div class="canvas-toolbar">
+          <span style="font-weight: 800; font-size: 0.95rem;">🎨 畫板調色盤：</span>
+          <button type="button" class="color-btn active" style="background:#0c4a5a;" onclick="setPenColor('#0c4a5a', this)"></button>
+          <button type="button" class="color-btn" style="background:#dc2626;" onclick="setPenColor('#dc2626', this)"></button>
+          <button type="button" class="color-btn" style="background:#2563eb;" onclick="setPenColor('#2563eb', this)"></button>
+          <button type="button" class="color-btn" style="background:#16a34a;" onclick="setPenColor('#16a34a', this)"></button>
+          <button type="button" class="color-btn" style="background:#d97706;" onclick="setPenColor('#d97706', this)"></button>
+          <button type="button" class="tool-button" style="color:var(--navy); background:#f1f5f9; border-color:#cbd5e1;" onclick="clearCanvas()">🗑️ 清空重畫</button>
+        </div>
+        <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+
+        <div class="writing-area">
+          <label for="sentenceInput" style="font-weight: 800; display: block; margin-bottom: 6px;">✍️ 寫一個句子（或練習打字）：</label>
+          <textarea id="sentenceInput" placeholder="例如：看到桌上香噴噴的烤雞，我和弟弟都垂涎三尺。"></textarea>
+        </div>
+      </div>
+    </article>
+
+    <p style="margin: 28px 0 0; color: var(--muted); text-align: center; font-size: .95rem;">
+      💡 小提醒：點選深藍色按鈕可單獨聽題目，點選黃色選項可單獨聽選項；播放中的題目卡片與按鈕會自動標示高亮。
+    </p>
+  </main>
+
+  <footer>國文七年級吃冰的滋味・生字語詞聽讀練習｜特教無障礙語音報讀學習網</footer>
+
+  <script>
+    // 考卷題目清單（供目錄統計與自動索引）
+    const questions = [
+      {"section": "一、語詞配意思", "displayId": 1, "question": "語詞：黯然失色", "answer": "E", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 2, "question": "語詞：五花八門", "answer": "A", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 3, "question": "語詞：遜色", "answer": "H", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 4, "question": "語詞：貨真價實", "answer": "G", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 5, "question": "語詞：垂涎三尺", "answer": "F", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 6, "question": "語詞：名聞遐邇", "answer": "C", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 7, "question": "語詞：俄頃", "answer": "B", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "一、語詞配意思", "displayId": 8, "question": "語詞：消失殆盡", "answer": "D", "options": ["A. 種類很多，有各式各樣的東西", "B. 很短的時間，一下子", "C. 名氣很大，遠的、近的人都知道", "D. 幾乎全部不見了", "E. 和別的比起來，變得不精彩", "F. 口水流得很長，形容非常想吃", "G. 東西是真的，價錢也實在", "H. 比不上別人，比較差"]},
+      {"section": "二、選語詞填句子", "displayId": 9, "question": "沒有了煙火，中秋節晚會就＿＿＿＿＿＿了。", "answer": "黯然失色", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 10, "question": "百貨公司的玩具＿＿＿＿＿＿，有積木、娃娃，還有遙控車。", "answer": "五花八門", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 11, "question": "我做的蛋糕，一點也不比蛋糕店＿＿＿＿＿＿。", "answer": "遜色", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 12, "question": "阿嬤種的高麗菜沒有灑農藥，又甜又便宜，真是＿＿＿＿＿＿。", "answer": "貨真價實", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 13, "question": "聞到烤肉的香味，弟弟＿＿＿＿＿＿，一直在旁邊等。", "answer": "垂涎三尺", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 14, "question": "日月潭的風景＿＿＿＿＿＿，很多遊客專程來玩。", "answer": "名聞遐邇", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 15, "question": "媽媽才把餅乾放在桌上，＿＿＿＿＿＿之間就被吃完了。", "answer": "俄頃", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "二、選語詞填句子", "displayId": 16, "question": "冰淇淋放在太陽下，一下子就融化得＿＿＿＿＿＿了。", "answer": "消失殆盡", "options": ["黯然失色", "五花八門", "遜色", "貨真價實", "垂涎三尺", "名聞遐邇", "俄頃", "消失殆盡"]},
+      {"section": "三、畫畫看、寫寫看", "displayId": 17, "question": "選一個你最喜歡的語詞，畫一張圖，或寫一個句子。", "answer": "", "options": []}
+    ];
+
+    const player = document.getElementById('audioPlayer');
+    const speed = document.getElementById('speed');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusText = document.getElementById('statusText');
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const buttons = [...document.querySelectorAll('[data-audio]')];
+    const questionButtons = [...document.querySelectorAll('.listen-question')];
+    let activeButton = null;
+    let queue = [];
+    let queuePosition = -1;
+    let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
+    let answersRevealed = false;
+
+    // 作答互動
+    function selectAnswer(qNum, optLetter) {
+      const pill = document.getElementById(`ans-box-${qNum}`);
+      if (pill) pill.textContent = `（ ${optLetter} ）`;
+      const card = document.getElementById(`q${qNum}`);
+      if (card) {
+        card.querySelectorAll('.listen-option').forEach(btn => {
+          btn.classList.toggle('selected', btn.dataset.opt === optLetter);
+        });
+      }
+    }
+
+    function selectWord(qNum, wordText) {
+      const pill = document.getElementById(`ans-box-${qNum}`);
+      if (pill) pill.textContent = `【 ${wordText} 】`;
+      const card = document.getElementById(`q${qNum}`);
+      if (card) {
+        card.querySelectorAll('.listen-option').forEach(btn => {
+          btn.classList.toggle('selected', btn.dataset.opt === wordText);
+        });
+      }
+    }
+
+    function toggleAnswers() {
+      answersRevealed = !answersRevealed;
+      const toggleBtn = document.getElementById('toggleAnswers');
+      toggleBtn.textContent = answersRevealed ? '🙈 隱藏答案' : '👁 揭曉答案';
+      for (let i = 1; i <= 16; i++) {
+        const tag = document.getElementById(`tag-${i}`);
+        if (tag) tag.classList.toggle('visible', answersRevealed);
+        const card = document.getElementById(`q${i}`);
+        if (card) {
+          const ans = card.dataset.answer;
+          card.querySelectorAll('.listen-option').forEach(btn => {
+            if (answersRevealed && btn.dataset.opt === ans) {
+              btn.classList.add('is-correct-reveal');
+            } else {
+              btn.classList.remove('is-correct-reveal');
+            }
+          });
+        }
+      }
+    }
+
+    // 雙引擎切換與發聲
+    function switchEngine(engine) {
+      stopAll();
+      currentEngine = engine;
+      localStorage.setItem('voice_hub_engine', engine);
+      document.getElementById('engineNative').classList.toggle('active', engine === 'native');
+      document.getElementById('engineMp3').classList.toggle('active', engine === 'mp3');
+      setStatus(engine === 'native' ? '已切換為平板原生語音' : '已切換為微軟真人語音', '點選任一按鈕即可出聲。');
+    }
+
+    function testAudio() {
+      stopAll();
+      setStatus('正在測試發音...', '測試中');
+      const testText = '語音測試正常，歡迎使用吃冰的滋味聽讀練習。';
+      if (currentEngine === 'native') {
+        speakNativeDirect(testText, null);
+      } else {
+        player.playbackRate = Number(speed.value);
+        player.src = 'audio/eating-ice-vocab-quiz/bank-word1.mp3';
+        player.load();
+        player.play().then(() => {
+          setStatus('微軟真人語音正常', '1，黯然失色');
+        }).catch(() => {
+          speakNativeDirect(testText, null);
+        });
+      }
+    }
+
+    function clearActive() {
+      buttons.forEach(button => button.classList.remove('is-playing'));
+      document.querySelectorAll('.question-card').forEach(card => card.classList.remove('is-playing'));
+      activeButton = null;
+    }
+
+    function setStatus(title, text) {
+      statusTitle.textContent = title;
+      statusText.textContent = text;
+    }
+
+    function updateProgress() {
+      const number = queuePosition >= 0 && queue[queuePosition]
+        ? queue[queuePosition].closest('.question-card')?.dataset.question || 0
+        : (activeButton ? activeButton.closest('.question-card')?.dataset.question || 0 : 0);
+      progressBar.value = Number(number);
+      progressText.textContent = `${number} / 17 題`;
+    }
+
+    function speakNativeDirect(text, button) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-TW';
+      utterance.rate = Number(speed.value);
+
+      utterance.onend = () => {
+        clearActive();
+        if (queue.length && queuePosition < queue.length - 1) {
+          queuePosition += 1;
+          playButton(queue[queuePosition]);
+        } else if (queue.length) {
+          setStatus('題目播放完畢', '可以再點選個別題目或選項複習。');
+          queue = [];
+          queuePosition = -1;
+        }
+      };
+
+      utterance.onerror = () => {
+        clearActive();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakFallback(button) {
+      const textToSpeak = button.dataset.text || button.textContent.trim();
+      setStatus('改用裝置朗讀', textToSpeak);
+      speakNativeDirect(textToSpeak, button);
+    }
+
+    function playButton(button) {
+      queuePosition = queue.indexOf(button);
+      clearActive();
+      activeButton = button;
+      button.classList.add('is-playing');
+      const card = button.closest('.question-card');
+      card?.classList.add('is-playing');
+      card?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const label = button.classList.contains('listen-question') ? '題目' : '選項';
+      const displayText = button.dataset.text || button.textContent.trim();
+      setStatus(`正在播放${label}`, displayText);
+      updateProgress();
+
+      if (currentEngine === 'native') {
+        speakFallback(button);
+        return;
+      }
+
+      player.playbackRate = Number(speed.value);
+      player.src = button.dataset.audio;
+      player.load();
+
+      const promise = player.play();
+      if (promise) {
+        promise.catch((err) => {
+          console.warn('MP3 播放受限或載入中斷，自動啟動裝置原生語音備援：', err);
+          speakFallback(button);
+        });
+      }
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        queue = [];
+        playButton(button);
+      });
+    });
+
+    document.getElementById('playQuestions').addEventListener('click', () => {
+      queue = questionButtons.filter(b => b.closest('.question-card'));
+      queuePosition = 0;
+      if (queue.length > 0) {
+        playButton(queue[0]);
+      }
+    });
+
+    function stopAll() {
+      queue = [];
+      queuePosition = -1;
+      player.pause();
+      player.removeAttribute('src');
+      player.load();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      clearActive();
+      progressBar.value = 0;
+      progressText.textContent = '0 / 17 題';
+      setStatus('已停止', '請點選任一個「聽題目」或選項。');
+    }
+
+    document.getElementById('stopAudio').addEventListener('click', stopAll);
+
+    speed.addEventListener('change', () => {
+      player.playbackRate = Number(speed.value);
+    });
+
+    player.addEventListener('ended', () => {
+      clearActive();
+      if (queue.length && queuePosition < queue.length - 1) {
+        queuePosition += 1;
+        playButton(queue[queuePosition]);
+      } else if (queue.length) {
+        setStatus('題目播放完畢', '可以再點選個別題目或選項複習。');
+        queue = [];
+        queuePosition = -1;
+      }
+    });
+
+    player.addEventListener('error', () => {
+      if (activeButton) {
+        console.warn('音訊檔案載入發生錯誤，切換裝置語音備援');
+        speakFallback(activeButton);
+      }
+    });
+
+    // 畫板 Canvas 實作
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let isDrawing = false;
+    let currentColor = '#0c4a5a';
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * (window.devicePixelRatio || 1);
+      canvas.height = rect.height * (window.devicePixelRatio || 1);
+      if (ctx) {
+        ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = currentColor;
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    setTimeout(resizeCanvas, 200);
+
+    function setPenColor(color, btn) {
+      currentColor = color;
+      if (ctx) ctx.strokeStyle = currentColor;
+      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function clearCanvas() {
+      if (!canvas || !ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    if (canvas && ctx) {
+      const startDraw = (e) => {
+        isDrawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        e.preventDefault();
+      };
+      const moveDraw = (e) => {
+        if (!isDrawing) return;
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        e.preventDefault();
+      };
+      const endDraw = () => {
+        isDrawing = false;
+      };
+
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mousemove', moveDraw);
+      window.addEventListener('mouseup', endDraw);
+
+      canvas.addEventListener('touchstart', startDraw, { passive: false });
+      canvas.addEventListener('touchmove', moveDraw, { passive: false });
+      window.addEventListener('touchend', endDraw);
+    }
+
+    // 初始化引擎按鈕樣式
+    if (currentEngine === 'native') {
+      document.getElementById('engineNative').classList.add('active');
+      document.getElementById('engineMp3').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
