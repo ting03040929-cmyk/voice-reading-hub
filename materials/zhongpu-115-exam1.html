@@ -1,0 +1,1681 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c4a5a">
+  <meta name="description" content="嘉義縣立中埔國中 115學年度第一學期 特教班國文科第一次段考語音報讀練習：支援微軟真人音訊與平板語音雙引擎、題目與選項獨立點讀發音、互動點選作答。">
+  <title>中埔國中 115特教國文第一次段考・語音報讀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c4a5a'/%3E%3Cpath d='M16 29h9l12-10v26L25 35h-9z' fill='%23ffd166'/%3E%3Cpath d='M44 25c3 3 3 11 0 14M49 20c6 6 6 18 0 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #12343b;
+      --muted: #557178;
+      --navy: #0c4a5a;
+      --navy-dark: #083542;
+      --teal: #dff5f2;
+      --yellow: #ffd166;
+      --yellow-dark: #9a6500;
+      --card: #ffffff;
+      --line: #cfe4e5;
+      --shadow: 0 12px 30px rgba(12, 74, 90, .10);
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --green-text: #166534;
+      --correct: #10b981;
+      --correct-bg: #ecfdf5;
+      --primary-accent: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #eef8f8;
+      color: var(--ink);
+      font-family: "LXGW WenKai TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    button, select, input { font: inherit; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, select:focus-visible {
+      outline: 4px solid #f4ad38;
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 53, 66, .97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: white;
+      box-shadow: 0 3px 16px rgba(0, 0, 0, .16);
+    }
+
+    .topbar-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-size: 22px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-home:hover { background: rgba(255, 255, 255, 0.28); }
+
+    .engine-toggle-group {
+      display: inline-flex;
+      background: rgba(0, 0, 0, .25);
+      padding: 3px;
+      border-radius: 99px;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .engine-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 11px;
+      font-size: .82rem;
+      font-weight: 800;
+      color: #cfe4e5;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .engine-btn.active {
+      background: var(--yellow);
+      color: var(--navy-dark);
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tool-button, .speed-select {
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.2);
+      color: white;
+      border-radius: 99px;
+      padding: 6px 14px;
+      font-size: .88rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .tool-button:hover, .tool-button:active {
+      background: rgba(255,255,255,.26);
+      transform: translateY(-1px);
+    }
+
+    .speed-select {
+      appearance: none;
+      background: rgba(255,255,255,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat calc(100% - 10px) center;
+      padding-right: 28px;
+      cursor: pointer;
+    }
+    .speed-select option { color: var(--ink); background: white; }
+
+    main {
+      width: min(920px, 100%);
+      margin: 0 auto;
+      padding: 24px 16px 110px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #0c4a5a, #135d6e);
+      color: white;
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      margin: 0 0 8px;
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .hero-desc {
+      margin: 0;
+      color: #d1fae5;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .status-panel {
+      position: sticky;
+      bottom: 12px;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px 16px;
+      align-items: center;
+      padding: 12px 18px;
+      margin: 0 0 24px;
+      background: rgba(255,255,255,.98);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(12,74,90,.16);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .status-label { min-width: 0; }
+    .status-label strong {
+      display: block;
+      color: var(--navy-dark);
+      font-size: .95rem;
+      font-weight: 800;
+    }
+    .status-label span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    audio { width: min(320px, 100%); height: 38px; }
+
+    .progress-wrap {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+
+    progress {
+      width: 100%;
+      height: 10px;
+      accent-color: #147a7c;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      margin: 36px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #147a7c;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--navy-dark);
+      font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+
+    /* 詞語框 */
+    .word-bank-card {
+      background: #ffffff;
+      border: 2px dashed #99d2d0;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(12, 74, 90, 0.05);
+    }
+
+    .word-bank-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .word-bank-title {
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .word-bank-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .word-bank-grid-8 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .word-bank-item {
+      background: #f0fbfb;
+      border: 1px solid #bce1e1;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .word-bank-item:hover {
+      background: #dff5f2;
+      border-color: #147a7c;
+      transform: translateY(-2px);
+    }
+
+    .word-bank-letter {
+      background: var(--navy);
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.82rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* 海報卡片 */
+    .poster-card {
+      background: linear-gradient(135deg, #fefce8, #fffbeb);
+      border: 2px solid #fde047;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.15);
+    }
+    .poster-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .poster-title {
+      margin: 0;
+      color: #854d0e;
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .poster-body {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      border: 1px solid #fef08a;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      color: #451a03;
+    }
+
+    /* 題目卡片 */
+    .question-card {
+      background: var(--card);
+      border: 2px solid var(--line);
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      box-shadow: 0 5px 16px rgba(12,74,90,.06);
+      scroll-margin-top: 88px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .question-card.is-playing {
+      border-color: #e3a82c;
+      box-shadow: 0 0 0 4px rgba(255,209,102,.38), 0 8px 24px rgba(12,74,90,.12);
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 3px 14px;
+      color: var(--navy-dark);
+      background: var(--teal);
+      border-radius: 99px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .ans-tag {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    .ans-tag.visible { display: inline-flex; }
+
+    .listen-question, .listen-option {
+      border: 0;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .listen-question {
+      min-height: 42px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .listen-question:hover, .listen-question:active {
+      background: var(--navy-dark);
+      transform: translateY(-1px);
+    }
+
+    .listen-question.is-playing {
+      background: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+    }
+
+    .question-text {
+      margin: 16px 0 14px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .blank-pill {
+      display: inline-block;
+      min-width: 90px;
+      text-align: center;
+      padding: 2px 10px;
+      margin: 0 4px;
+      background: #fff8e1;
+      border-bottom: 3px solid var(--yellow-dark);
+      color: #92400e;
+      font-weight: 800;
+      border-radius: 6px;
+    }
+
+    .hint-box {
+      margin: 0 0 14px;
+      padding: 8px 12px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 10px;
+      color: var(--green-text);
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .hint-tag {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .options-grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .options-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .listen-option {
+      min-height: 52px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #fffdf5;
+      border: 2px solid #f5e4b2;
+      color: var(--ink);
+      font-size: 1.02rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .listen-option:hover, .listen-option:active {
+      background: #fef3c7;
+      border-color: #d97706;
+      transform: translateY(-1px);
+    }
+
+    .listen-option.selected {
+      background: #dff5f2;
+      border-color: #0f766e;
+      color: #0f766e;
+      font-weight: 800;
+    }
+
+    .listen-option.is-playing {
+      background: #fde68a;
+      border-color: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+      font-weight: 800;
+    }
+
+    .listen-option.is-correct-reveal {
+      background: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+      font-weight: 800;
+    }
+
+    .option-letter {
+      width: 30px;
+      height: 30px;
+      background: var(--navy);
+      color: white;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 820px) {
+      .word-bank-grid { grid-template-columns: repeat(2, 1fr); }
+      .word-bank-grid-8 { grid-template-columns: repeat(2, 1fr); }
+      .options-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      .topbar-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+      .brand { justify-content: center; }
+      .toolbar { width: 100%; justify-content: space-between; }
+      .tool-button, .speed-select { flex: 1 1 auto; padding: 5px 8px; font-size: 0.82rem; }
+      .status-panel { grid-template-columns: 1fr; bottom: 8px; }
+      audio { width: 100%; }
+      .question-head { flex-direction: column; align-items: stretch; gap: 8px; }
+      .listen-question { width: 100%; justify-content: center; min-height: 46px; }
+      .options-grid, .options-grid-4, .options-grid-3 { grid-template-columns: 1fr; }
+      .word-bank-grid, .word-bank-grid-8 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 頂部功能列 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a href="../index.html" class="btn-home" title="返回學習網首頁">🏠 首頁</a>
+        <div class="brand-mark">🎧</div>
+        <h1>中埔國中 115特教國文第一次段考・報讀</h1>
+      </div>
+
+      <div class="engine-toggle-group" title="選擇發音引擎">
+        <button type="button" class="engine-btn" id="engineNative" onclick="switchEngine('native')">📱 平板原生</button>
+        <button type="button" class="engine-btn active" id="engineMp3" onclick="switchEngine('mp3')">☁️ 微軟真人語音</button>
+      </div>
+
+      <div class="toolbar">
+        <select class="speed-select" id="speed" title="選擇朗讀語速">
+          <option value="0.8">0.8x 慢速</option>
+          <option value="0.9" selected>0.9x 特教推薦</option>
+          <option value="1.0">1.0x 標準</option>
+          <option value="1.2">1.2x 稍快</option>
+        </select>
+        <button class="tool-button" type="button" onclick="testAudio()">🔔 測聲音</button>
+        <button class="tool-button" type="button" id="playQuestions">▶ 播放全部</button>
+        <button class="tool-button" type="button" id="stopAudio">⏹ 停止</button>
+        <button class="tool-button" type="button" id="toggleAnswers" onclick="toggleAnswers()">👁 揭曉答案</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 考卷資訊卡片 -->
+    <section class="hero-card">
+      <span class="hero-tag">國中特教國文・第一次段考</span>
+      <h2 class="hero-title">嘉義縣立中埔國中 115學年度第一學期 特教班國文科第一次段考</h2>
+      <p class="hero-desc">全卷語音報讀學習系統｜收錄填充題（12分）、注釋選擇（16分）、課文理解（20分）與素養題（8分），共 35 題。支援微軟真人音訊獨立點讀、答案保密自主核對與全設備免安裝發聲。</p>
+    </section>
+
+    <!-- 底部常駐播放面板 -->
+    <div class="status-panel" id="statusPanel">
+      <div class="status-label">
+        <strong id="statusTitle">語音已就緒</strong>
+        <span id="statusText">點選任何按鈕即可開始聽讀練習。</span>
+      </div>
+      <audio id="audioPlayer" controls preload="auto"></audio>
+      <div class="progress-wrap">
+        <progress id="progressBar" value="0" max="35"></progress>
+        <span id="progressText">0 / 35 題</span>
+      </div>
+    </div>
+
+    <!-- ==================== 三、填充題 ==================== -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">三、填充〔每格1分，共12分〕</h2>
+        <p class="section-subtitle">第一部分：課文詞語選填（第 1 ~ 4 題）</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/sec-fill-a-intro.mp3" data-text="三大題第一部分，課文詞語選填。請從詞語框中選出適當的詞語，填入空格。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 詞語框 A -->
+    <div class="word-bank-card">
+      <div class="word-bank-head">
+        <span class="word-bank-title">📦 詞語框（點選聽讀）：</span>
+      </div>
+      <div class="word-bank-grid">
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-jiedeng.mp3" data-text="詞語：街燈">
+          <span class="word-bank-letter">A</span> 街燈
+        </button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-tianye.mp3" data-text="詞語：田野">
+          <span class="word-bank-letter">B</span> 田野
+        </button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-mitang.mp3" data-text="詞語：蜜糖">
+          <span class="word-bank-letter">C</span> 蜜糖
+        </button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-menglong.mp3" data-text="詞語：朦朧">
+          <span class="word-bank-letter">D</span> 朦朧
+        </button>
+      </div>
+    </div>
+
+    <!-- 第 1 題 -->
+    <article class="question-card" id="q1" data-question="1" data-answer="蜜糖">
+      <div class="question-head">
+        <span class="question-number">第 1 題</span>
+        <span class="ans-tag" id="tag-1">參考答案：蜜糖</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q01-question.mp3" data-text="第1題。蝴蝶和蜜蜂們帶著花朵的空格回來了。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">1. 蝴蝶和蜜蜂們帶著花朵的 <span class="blank-pill" id="ans-box-1">＿＿＿＿＿＿</span> 回來了。</p>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="街燈" data-audio="audio/zhongpu-115-exam1/fill-a-opt-a.mp3" data-text="A，街燈" onclick="selectWord(1, '街燈')">
+          <span class="option-letter">A</span> 街燈
+        </button>
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-a-opt-b.mp3" data-text="B，田野" onclick="selectWord(1, '田野')">
+          <span class="option-letter">B</span> 田野
+        </button>
+        <button class="listen-option" type="button" data-opt="蜜糖" data-audio="audio/zhongpu-115-exam1/fill-a-opt-c.mp3" data-text="C，蜜糖" onclick="selectWord(1, '蜜糖')">
+          <span class="option-letter">C</span> 蜜糖
+        </button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-a-opt-d.mp3" data-text="D，朦朧" onclick="selectWord(1, '朦朧')">
+          <span class="option-letter">D</span> 朦朧
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 2 題 -->
+    <article class="question-card" id="q2" data-question="2" data-answer="田野">
+      <div class="question-head">
+        <span class="question-number">第 2 題</span>
+        <span class="ans-tag" id="tag-2">參考答案：田野</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q02-question.mp3" data-text="第2題。羊隊和牛群告別了空格回家了。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">2. 羊隊和牛群告別了 <span class="blank-pill" id="ans-box-2">＿＿＿＿＿＿</span> 回家了。</p>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="街燈" data-audio="audio/zhongpu-115-exam1/fill-a-opt-a.mp3" data-text="A，街燈" onclick="selectWord(2, '街燈')">
+          <span class="option-letter">A</span> 街燈
+        </button>
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-a-opt-b.mp3" data-text="B，田野" onclick="selectWord(2, '田野')">
+          <span class="option-letter">B</span> 田野
+        </button>
+        <button class="listen-option" type="button" data-opt="蜜糖" data-audio="audio/zhongpu-115-exam1/fill-a-opt-c.mp3" data-text="C，蜜糖" onclick="selectWord(2, '蜜糖')">
+          <span class="option-letter">C</span> 蜜糖
+        </button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-a-opt-d.mp3" data-text="D，朦朧" onclick="selectWord(2, '朦朧')">
+          <span class="option-letter">D</span> 朦朧
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 3 題 -->
+    <article class="question-card" id="q3" data-question="3" data-answer="朦朧">
+      <div class="question-head">
+        <span class="question-number">第 3 題</span>
+        <span class="ans-tag" id="tag-3">參考答案：朦朧</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q03-question.mp3" data-text="第3題。空格地山巒靜靜地睡了。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">3. <span class="blank-pill" id="ans-box-3">＿＿＿＿＿＿</span> 地山巒靜靜地睡了。</p>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="街燈" data-audio="audio/zhongpu-115-exam1/fill-a-opt-a.mp3" data-text="A，街燈" onclick="selectWord(3, '街燈')">
+          <span class="option-letter">A</span> 街燈
+        </button>
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-a-opt-b.mp3" data-text="B，田野" onclick="selectWord(3, '田野')">
+          <span class="option-letter">B</span> 田野
+        </button>
+        <button class="listen-option" type="button" data-opt="蜜糖" data-audio="audio/zhongpu-115-exam1/fill-a-opt-c.mp3" data-text="C，蜜糖" onclick="selectWord(3, '蜜糖')">
+          <span class="option-letter">C</span> 蜜糖
+        </button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-a-opt-d.mp3" data-text="D，朦朧" onclick="selectWord(3, '朦朧')">
+          <span class="option-letter">D</span> 朦朧
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 4 題 -->
+    <article class="question-card" id="q4" data-question="4" data-answer="街燈">
+      <div class="question-head">
+        <span class="question-number">第 4 題</span>
+        <span class="ans-tag" id="tag-4">參考答案：街燈</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q04-question.mp3" data-text="第4題。當空格亮起來向村莊道過晚安，夏天的夜就輕輕地來了。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">4. 當 <span class="blank-pill" id="ans-box-4">＿＿＿＿＿＿</span> 亮起來向村莊道過晚安，夏天的夜就輕輕地來了。</p>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="街燈" data-audio="audio/zhongpu-115-exam1/fill-a-opt-a.mp3" data-text="A，街燈" onclick="selectWord(4, '街燈')">
+          <span class="option-letter">A</span> 街燈
+        </button>
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-a-opt-b.mp3" data-text="B，田野" onclick="selectWord(4, '田野')">
+          <span class="option-letter">B</span> 田野
+        </button>
+        <button class="listen-option" type="button" data-opt="蜜糖" data-audio="audio/zhongpu-115-exam1/fill-a-opt-c.mp3" data-text="C，蜜糖" onclick="selectWord(4, '蜜糖')">
+          <span class="option-letter">C</span> 蜜糖
+        </button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-a-opt-d.mp3" data-text="D，朦朧" onclick="selectWord(4, '朦朧')">
+          <span class="option-letter">D</span> 朦朧
+        </button>
+      </div>
+    </article>
+
+    <!-- 填充第二部分 -->
+    <div class="section-header" style="margin-top: 48px;">
+      <div>
+        <h2 class="section-title">語詞填充（第 5 ~ 12 題）</h2>
+        <p class="section-subtitle">請從下面的語詞中選出適當的答案填入空格。</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/sec-fill-b-intro.mp3" data-text="三大題第二部分，語詞填充。請從下面的語詞中選出適當的答案填入空格。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 詞語框 B -->
+    <div class="word-bank-card">
+      <div class="word-bank-head">
+        <span class="word-bank-title">📦 語詞清單（田野、樹梢、珍珠、涼爽、夢鄉、朦朧、山巒、藤蔓）：</span>
+      </div>
+      <div class="word-bank-grid word-bank-grid-8">
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-tianye.mp3" data-text="語詞：田野"><span class="word-bank-letter">A</span> 田野</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-shushao.mp3" data-text="語詞：樹梢"><span class="word-bank-letter">B</span> 樹梢</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-zhenzhu.mp3" data-text="語詞：珍珠"><span class="word-bank-letter">C</span> 珍珠</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-liangshuang.mp3" data-text="語詞：涼爽"><span class="word-bank-letter">D</span> 涼爽</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-mengxiang.mp3" data-text="語詞：夢鄉"><span class="word-bank-letter">E</span> 夢鄉</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-menglong.mp3" data-text="語詞：朦朧"><span class="word-bank-letter">F</span> 朦朧</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-shanluan.mp3" data-text="語詞：山巒"><span class="word-bank-letter">G</span> 山巒</button>
+        <button type="button" class="word-bank-item" data-audio="audio/zhongpu-115-exam1/word-tengman.mp3" data-text="語詞：藤蔓"><span class="word-bank-letter">H</span> 藤蔓</button>
+      </div>
+    </div>
+
+    <!-- 第 5 題 (原第1題) -->
+    <article class="question-card" id="q5" data-question="5" data-answer="夢鄉">
+      <div class="question-head">
+        <span class="question-number">第 5 題</span>
+        <span class="ans-tag" id="tag-5">參考答案：夢鄉</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q05-question.mp3" data-text="第5題。小朋友睡著後，快樂地進入了空格。提示：睡覺、作夢的世界。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">5. 小朋友睡著後，快樂地進入了 <span class="blank-pill" id="ans-box-5">＿＿＿＿＿＿</span>。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 睡覺、作夢的世界</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(5, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(5, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(5, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(5, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(5, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(5, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(5, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(5, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 6 題 (原第2題) -->
+    <article class="question-card" id="q6" data-question="6" data-answer="山巒">
+      <div class="question-head">
+        <span class="question-number">第 6 題</span>
+        <span class="ans-tag" id="tag-6">參考答案：山巒</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q06-question.mp3" data-text="第6題。遠遠看去，一座一座連在一起的空格很漂亮。提示：很多座山連在一起。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">6. 遠遠看去，一座一座連在一起的 <span class="blank-pill" id="ans-box-6">＿＿＿＿＿＿</span> 很漂亮。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 很多座山連在一起</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(6, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(6, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(6, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(6, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(6, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(6, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(6, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(6, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 7 題 (原第3題) -->
+    <article class="question-card" id="q7" data-question="7" data-answer="朦朧">
+      <div class="question-head">
+        <span class="question-number">第 7 題</span>
+        <span class="ans-tag" id="tag-7">參考答案：朦朧</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q07-question.mp3" data-text="第7題。夜裡有霧，遠處的山看起來空格的。提示：看不清楚、糊糊的。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">7. 夜裡有霧，遠處的山看起來 <span class="blank-pill" id="ans-box-7">＿＿＿＿＿＿</span> 的。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 看不清楚、糊糊的</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(7, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(7, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(7, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(7, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(7, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(7, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(7, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(7, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 8 題 (原第4題) -->
+    <article class="question-card" id="q8" data-question="8" data-answer="樹梢">
+      <div class="question-head">
+        <span class="question-number">第 8 題</span>
+        <span class="ans-tag" id="tag-8">參考答案：樹梢</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q08-question.mp3" data-text="第8題。小鳥停在高高的空格上唱歌。提示：樹木最高的地方。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">8. 小鳥停在高高的 <span class="blank-pill" id="ans-box-8">＿＿＿＿＿＿</span> 上唱歌。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 樹木最高的地方</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(8, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(8, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(8, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(8, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(8, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(8, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(8, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(8, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 9 題 (原第5題) -->
+    <article class="question-card" id="q9" data-question="9" data-answer="藤蔓">
+      <div class="question-head">
+        <span class="question-number">第 9 題</span>
+        <span class="ans-tag" id="tag-9">參考答案：藤蔓</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q09-question.mp3" data-text="第9題。南瓜伸長了空格，慢慢爬上瓜架。提示：植物細長、會爬的莖。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">9. 南瓜伸長了 <span class="blank-pill" id="ans-box-9">＿＿＿＿＿＿</span>，慢慢爬上瓜架。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 植物細長、會爬的莖</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(9, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(9, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(9, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(9, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(9, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(9, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(9, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(9, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 10 題 (原第6題) -->
+    <article class="question-card" id="q10" data-question="10" data-answer="涼爽">
+      <div class="question-head">
+        <span class="question-number">第 10 題</span>
+        <span class="ans-tag" id="tag-10">參考答案：涼爽</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q10-question.mp3" data-text="第10題。風吹過來，晚上感覺很空格。提示：涼快、舒服。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">10. 風吹過來，晚上感覺很 <span class="blank-pill" id="ans-box-10">＿＿＿＿＿＿</span>。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 涼快、舒服</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(10, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(10, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(10, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(10, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(10, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(10, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(10, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(10, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 11 題 (原第7題) -->
+    <article class="question-card" id="q11" data-question="11" data-answer="田野">
+      <div class="question-head">
+        <span class="question-number">第 11 題</span>
+        <span class="ans-tag" id="tag-11">參考答案：田野</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q11-question.mp3" data-text="第11題。羊隊和牛群在大片的空格吃草。提示：大片的農田。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">11. 羊隊和牛群在大片的 <span class="blank-pill" id="ans-box-11">＿＿＿＿＿＿</span> 吃草。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 大片的農田</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(11, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(11, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(11, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(11, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(11, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(11, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(11, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(11, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+    <!-- 第 12 題 (原第8題) -->
+    <article class="question-card" id="q12" data-question="12" data-answer="珍珠">
+      <div class="question-head">
+        <span class="question-number">第 12 題</span>
+        <span class="ans-tag" id="tag-12">參考答案：珍珠</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q12-question.mp3" data-text="第12題。天空中閃閃發亮的星星，好像一顆顆空格。提示：圓圓亮亮的寶石。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">12. 天空中閃閃發亮的星星，好像一顆顆 <span class="blank-pill" id="ans-box-12">＿＿＿＿＿＿</span>。</p>
+      <div class="hint-box"><span class="hint-tag">提示</span> 圓圓亮亮的寶石</div>
+      <div class="options-grid options-grid-4">
+        <button class="listen-option" type="button" data-opt="田野" data-audio="audio/zhongpu-115-exam1/fill-b-opt-a.mp3" data-text="A，田野" onclick="selectWord(12, '田野')"><span class="option-letter">A</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="樹梢" data-audio="audio/zhongpu-115-exam1/fill-b-opt-b.mp3" data-text="B，樹梢" onclick="selectWord(12, '樹梢')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="珍珠" data-audio="audio/zhongpu-115-exam1/fill-b-opt-c.mp3" data-text="C，珍珠" onclick="selectWord(12, '珍珠')"><span class="option-letter">C</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="涼爽" data-audio="audio/zhongpu-115-exam1/fill-b-opt-d.mp3" data-text="D，涼爽" onclick="selectWord(12, '涼爽')"><span class="option-letter">D</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="夢鄉" data-audio="audio/zhongpu-115-exam1/fill-b-opt-e.mp3" data-text="E，夢鄉" onclick="selectWord(12, '夢鄉')"><span class="option-letter">E</span> 夢鄉</button>
+        <button class="listen-option" type="button" data-opt="朦朧" data-audio="audio/zhongpu-115-exam1/fill-b-opt-f.mp3" data-text="F，朦朧" onclick="selectWord(12, '朦朧')"><span class="option-letter">F</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="山巒" data-audio="audio/zhongpu-115-exam1/fill-b-opt-g.mp3" data-text="G，山巒" onclick="selectWord(12, '山巒')"><span class="option-letter">G</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="藤蔓" data-audio="audio/zhongpu-115-exam1/fill-b-opt-h.mp3" data-text="H，藤蔓" onclick="selectWord(12, '藤蔓')"><span class="option-letter">H</span> 藤蔓</button>
+      </div>
+    </article>
+
+
+    <!-- ==================== 五、選擇題，注釋 ==================== -->
+    <div class="section-header" style="margin-top: 48px;">
+      <div>
+        <h2 class="section-title">五、選擇題，注釋〔每題2分，共16分〕</h2>
+        <p class="section-subtitle">請選出正確的答案（第 13 ~ 20 題）</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/sec-choice-intro.mp3" data-text="五、選擇題，注釋。每題2分，共16分。請選出正確的答案。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 第 13 題 (原五-1) -->
+    <article class="question-card" id="q13" data-question="13" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 13 題</span>
+        <span class="ans-tag" id="tag-13">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q13-question.mp3" data-text="第13題。樹梢是指樹木的哪裡？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-13">　</span> ) 13.「樹梢」是指樹木的哪裡？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q13-a.mp3" data-text="選項A，樹根" onclick="selectChoice(13, 'A')"><span class="option-letter">A</span> 樹根</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q13-b.mp3" data-text="選項B，樹木最高的地方" onclick="selectChoice(13, 'B')"><span class="option-letter">B</span> 樹木最高的地方</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q13-c.mp3" data-text="選項C，樹幹" onclick="selectChoice(13, 'C')"><span class="option-letter">C</span> 樹幹</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q13-d.mp3" data-text="選項D，樹葉下面" onclick="selectChoice(13, 'D')"><span class="option-letter">D</span> 樹葉下面</button>
+      </div>
+    </article>
+
+    <!-- 第 14 題 (原五-2) -->
+    <article class="question-card" id="q14" data-question="14" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 14 題</span>
+        <span class="ans-tag" id="tag-14">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q14-question.mp3" data-text="第14題。田野是指什麼地方？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-14">　</span> ) 14.「田野」是指什麼地方？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q14-a.mp3" data-text="選項A，寬廣的農田" onclick="selectChoice(14, 'A')"><span class="option-letter">A</span> 寬廣的農田</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q14-b.mp3" data-text="選項B，熱鬧的市場" onclick="selectChoice(14, 'B')"><span class="option-letter">B</span> 熱鬧的市場</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q14-c.mp3" data-text="選項C，教室" onclick="selectChoice(14, 'C')"><span class="option-letter">C</span> 教室</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q14-d.mp3" data-text="選項D，海邊" onclick="selectChoice(14, 'D')"><span class="option-letter">D</span> 海邊</button>
+      </div>
+    </article>
+
+    <!-- 第 15 題 (原五-3) -->
+    <article class="question-card" id="q15" data-question="15" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 15 題</span>
+        <span class="ans-tag" id="tag-15">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q15-question.mp3" data-text="第15題。夢鄉是指什麼？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-15">　</span> ) 15.「夢鄉」是指什麼？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q15-a.mp3" data-text="選項A，遊樂園" onclick="selectChoice(15, 'A')"><span class="option-letter">A</span> 遊樂園</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q15-b.mp3" data-text="選項B，睡著後作夢的世界" onclick="selectChoice(15, 'B')"><span class="option-letter">B</span> 睡著後作夢的世界</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q15-c.mp3" data-text="選項C，家鄉" onclick="selectChoice(15, 'C')"><span class="option-letter">C</span> 家鄉</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q15-d.mp3" data-text="選項D，山上" onclick="selectChoice(15, 'D')"><span class="option-letter">D</span> 山上</button>
+      </div>
+    </article>
+
+    <!-- 第 16 題 (原五-4) -->
+    <article class="question-card" id="q16" data-question="16" data-answer="C">
+      <div class="question-head">
+        <span class="question-number">第 16 題</span>
+        <span class="ans-tag" id="tag-16">參考答案：( C )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q16-question.mp3" data-text="第16題。朦朧是什麼樣子？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-16">　</span> ) 16.「朦朧」是什麼樣子？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q16-a.mp3" data-text="選項A，看得很清楚" onclick="selectChoice(16, 'A')"><span class="option-letter">A</span> 看得很清楚</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q16-b.mp3" data-text="選項B，又亮又熱" onclick="selectChoice(16, 'B')"><span class="option-letter">B</span> 又亮又熱</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q16-c.mp3" data-text="選項C，糊糊的、不清楚" onclick="selectChoice(16, 'C')"><span class="option-letter">C</span> 糊糊的、不清楚</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q16-d.mp3" data-text="選項D，很吵鬧" onclick="selectChoice(16, 'D')"><span class="option-letter">D</span> 很吵鬧</button>
+      </div>
+    </article>
+
+    <!-- 第 17 題 (原五-5) -->
+    <article class="question-card" id="q17" data-question="17" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 17 題</span>
+        <span class="ans-tag" id="tag-17">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q17-question.mp3" data-text="第17題。涼爽是什麼感覺？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-17">　</span> ) 17.「涼爽」是什麼感覺？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q17-a.mp3" data-text="選項A，涼快又舒服" onclick="selectChoice(17, 'A')"><span class="option-letter">A</span> 涼快又舒服</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q17-b.mp3" data-text="選項B，又熱又渴" onclick="selectChoice(17, 'B')"><span class="option-letter">B</span> 又熱又渴</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q17-c.mp3" data-text="選項C，很冷很痛" onclick="selectChoice(17, 'C')"><span class="option-letter">C</span> 很冷很痛</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q17-d.mp3" data-text="選項D，很暗" onclick="selectChoice(17, 'D')"><span class="option-letter">D</span> 很暗</button>
+      </div>
+    </article>
+
+    <!-- 第 18 題 (原五-6) -->
+    <article class="question-card" id="q18" data-question="18" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 18 題</span>
+        <span class="ans-tag" id="tag-18">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q18-question.mp3" data-text="第18題。藤蔓是什麼？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-18">　</span> ) 18.「藤蔓」是什麼？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q18-a.mp3" data-text="選項A，細長、會攀爬的植物莖" onclick="selectChoice(18, 'A')"><span class="option-letter">A</span> 細長、會攀爬的植物莖</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q18-b.mp3" data-text="選項B，一種昆蟲" onclick="selectChoice(18, 'B')"><span class="option-letter">B</span> 一種昆蟲</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q18-c.mp3" data-text="選項C，一條小河" onclick="selectChoice(18, 'C')"><span class="option-letter">C</span> 一條小河</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q18-d.mp3" data-text="選項D，一盞街燈" onclick="selectChoice(18, 'D')"><span class="option-letter">D</span> 一盞街燈</button>
+      </div>
+    </article>
+
+    <!-- 第 19 題 (原五-7) -->
+    <article class="question-card" id="q19" data-question="19" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 19 題</span>
+        <span class="ans-tag" id="tag-19">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q19-question.mp3" data-text="第19題。珍珠在課文中用來比喻什麼？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-19">　</span> ) 19.「珍珠」在課文中用來比喻什麼？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q19-a.mp3" data-text="選項A，雨傘" onclick="selectChoice(19, 'A')"><span class="option-letter">A</span> 雨傘</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q19-b.mp3" data-text="選項B，天上的星星" onclick="selectChoice(19, 'B')"><span class="option-letter">B</span> 天上的星星</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q19-c.mp3" data-text="選項C，山巒" onclick="selectChoice(19, 'C')"><span class="option-letter">C</span> 山巒</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q19-d.mp3" data-text="選項D，月亮" onclick="selectChoice(19, 'D')"><span class="option-letter">D</span> 月亮</button>
+      </div>
+    </article>
+
+    <!-- 第 20 題 (原五-8) -->
+    <article class="question-card" id="q20" data-question="20" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 20 題</span>
+        <span class="ans-tag" id="tag-20">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q20-question.mp3" data-text="第20題。山巒是指什麼？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-20">　</span> ) 20.「山巒」是指什麼？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q20-a.mp3" data-text="選項A，一座小橋" onclick="selectChoice(20, 'A')"><span class="option-letter">A</span> 一座小橋</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q20-b.mp3" data-text="選項B，一座座連在一起的山" onclick="selectChoice(20, 'B')"><span class="option-letter">B</span> 一座座連在一起的山</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q20-c.mp3" data-text="選項C，一片花園" onclick="selectChoice(20, 'C')"><span class="option-letter">C</span> 一片花園</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q20-d.mp3" data-text="選項D，一間房子" onclick="selectChoice(20, 'D')"><span class="option-letter">D</span> 一間房子</button>
+      </div>
+    </article>
+
+
+    <!-- ==================== 六、閱讀理解 ==================== -->
+    <div class="section-header" style="margin-top: 48px;">
+      <div>
+        <h2 class="section-title">六、閱讀理解，請根據〈夏夜〉課文回答問題〔每題2分，共20分〕</h2>
+        <p class="section-subtitle">請根據課文選出最正確的答案（第 21 ~ 30 題）</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/sec-reading-intro.mp3" data-text="六、閱讀理解。請根據夏夜課文回答問題。每題2分，共20分。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 第 21 題 (原六-1) -->
+    <article class="question-card" id="q21" data-question="21" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 21 題</span>
+        <span class="ans-tag" id="tag-21">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q21-question.mp3" data-text="第21題。誰帶著花朵的蜜糖回來了？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-21">　</span> ) 21. 誰帶著花朵的蜜糖回來了？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q21-a.mp3" data-text="選項A，蝴蝶和蜜蜂們" onclick="selectChoice(21, 'A')"><span class="option-letter">A</span> 蝴蝶和蜜蜂們</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q21-b.mp3" data-text="選項B，羊隊和牛群" onclick="selectChoice(21, 'B')"><span class="option-letter">B</span> 羊隊和牛群</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q21-c.mp3" data-text="選項C，小雞和小鴨" onclick="selectChoice(21, 'C')"><span class="option-letter">C</span> 小雞和小鴨</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q21-d.mp3" data-text="選項D，小弟弟和小妹妹" onclick="selectChoice(21, 'D')"><span class="option-letter">D</span> 小弟弟和小妹妹</button>
+      </div>
+    </article>
+
+    <!-- 第 22 題 (原六-2) -->
+    <article class="question-card" id="q22" data-question="22" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 22 題</span>
+        <span class="ans-tag" id="tag-22">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q22-question.mp3" data-text="第22題。羊隊和牛群告別了哪裡，準備回家？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-22">　</span> ) 22. 羊隊和牛群告別了哪裡，準備回家？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q22-a.mp3" data-text="選項A，山坡" onclick="selectChoice(22, 'A')"><span class="option-letter">A</span> 山坡</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q22-b.mp3" data-text="選項B，田野" onclick="selectChoice(22, 'B')"><span class="option-letter">B</span> 田野</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q22-c.mp3" data-text="選項C，村莊" onclick="selectChoice(22, 'C')"><span class="option-letter">C</span> 村莊</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q22-d.mp3" data-text="選項D，花園" onclick="selectChoice(22, 'D')"><span class="option-letter">D</span> 花園</button>
+      </div>
+    </article>
+
+    <!-- 第 23 題 (原六-3) -->
+    <article class="question-card" id="q23" data-question="23" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 23 題</span>
+        <span class="ans-tag" id="tag-23">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q23-question.mp3" data-text="第23題。火紅的太陽滾著什麼回家了？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-23">　</span> ) 23. 火紅的太陽滾著什麼回家了？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q23-a.mp3" data-text="選項A，火輪子" onclick="selectChoice(23, 'A')"><span class="option-letter">A</span> 火輪子</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q23-b.mp3" data-text="選項B，大皮球" onclick="selectChoice(23, 'B')"><span class="option-letter">B</span> 大皮球</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q23-c.mp3" data-text="選項C，一枚銀幣" onclick="selectChoice(23, 'C')"><span class="option-letter">C</span> 一枚銀幣</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q23-d.mp3" data-text="選項D，一顆珍珠" onclick="selectChoice(23, 'D')"><span class="option-letter">D</span> 一顆珍珠</button>
+      </div>
+    </article>
+
+    <!-- 第 24 題 (原六-4) -->
+    <article class="question-card" id="q24" data-question="24" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 24 題</span>
+        <span class="ans-tag" id="tag-24">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q24-question.mp3" data-text="第24題。街燈亮起來向村莊道晚安後，什麼來了？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-24">　</span> ) 24. 街燈亮起來向村莊道晚安後，什麼來了？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q24-a.mp3" data-text="選項A，白天" onclick="selectChoice(24, 'A')"><span class="option-letter">A</span> 白天</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q24-b.mp3" data-text="選項B，夏天的夜" onclick="selectChoice(24, 'B')"><span class="option-letter">B</span> 夏天的夜</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q24-c.mp3" data-text="選項C，大雨" onclick="selectChoice(24, 'C')"><span class="option-letter">C</span> 大雨</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q24-d.mp3" data-text="選項D，冬天" onclick="selectChoice(24, 'D')"><span class="option-letter">D</span> 冬天</button>
+      </div>
+    </article>
+
+    <!-- 第 25 題 (原六-5) -->
+    <article class="question-card" id="q25" data-question="25" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 25 題</span>
+        <span class="ans-tag" id="tag-25">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q25-question.mp3" data-text="第25題。夏夜從椰子樹的哪裡輕輕爬下來？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-25">　</span> ) 25. 夏夜從椰子樹的哪裡輕輕爬下來？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q25-a.mp3" data-text="選項A，樹根" onclick="selectChoice(25, 'A')"><span class="option-letter">A</span> 樹根</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q25-b.mp3" data-text="選項B，樹梢" onclick="selectChoice(25, 'B')"><span class="option-letter">B</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q25-c.mp3" data-text="選項C，樹幹中間" onclick="selectChoice(25, 'C')"><span class="option-letter">C</span> 樹幹中間</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q25-d.mp3" data-text="選項D，樹下的草地" onclick="selectChoice(25, 'D')"><span class="option-letter">D</span> 樹下的草地</button>
+      </div>
+    </article>
+
+    <!-- 第 26 題 (原六-6) -->
+    <article class="question-card" id="q26" data-question="26" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 26 題</span>
+        <span class="ans-tag" id="tag-26">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q26-question.mp3" data-text="第26題。夏夜在天空撒了滿天的什麼？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-26">　</span> ) 26. 夏夜在天空撒了滿天的什麼？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q26-a.mp3" data-text="選項A，糖果" onclick="selectChoice(26, 'A')"><span class="option-letter">A</span> 糖果</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q26-b.mp3" data-text="選項B，珍珠" onclick="selectChoice(26, 'B')"><span class="option-letter">B</span> 珍珠</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q26-c.mp3" data-text="選項C，花瓣" onclick="selectChoice(26, 'C')"><span class="option-letter">C</span> 花瓣</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q26-d.mp3" data-text="選項D，雨傘" onclick="selectChoice(26, 'D')"><span class="option-letter">D</span> 雨傘</button>
+      </div>
+    </article>
+
+    <!-- 第 27 題 (原六-7) -->
+    <article class="question-card" id="q27" data-question="27" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 27 題</span>
+        <span class="ans-tag" id="tag-27">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q27-question.mp3" data-text="第27題。小弟弟和小妹妹聽完誰的故事後走向夢鄉？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-27">　</span> ) 27. 小弟弟和小妹妹聽完誰的故事後走向夢鄉？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q27-a.mp3" data-text="選項A，老師" onclick="selectChoice(27, 'A')"><span class="option-letter">A</span> 老師</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q27-b.mp3" data-text="選項B，老祖母" onclick="selectChoice(27, 'B')"><span class="option-letter">B</span> 老祖母</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q27-c.mp3" data-text="選項C，鄰居" onclick="selectChoice(27, 'C')"><span class="option-letter">C</span> 鄰居</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q27-d.mp3" data-text="選項D，警察" onclick="selectChoice(27, 'D')"><span class="option-letter">D</span> 警察</button>
+      </div>
+    </article>
+
+    <!-- 第 28 題 (原六-8) -->
+    <article class="question-card" id="q28" data-question="28" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 28 題</span>
+        <span class="ans-tag" id="tag-28">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q28-question.mp3" data-text="第28題。大家都睡了，只有哪一種植物還醒著？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-28">　</span> ) 28. 大家都睡了，只有哪一種植物還醒著？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q28-a.mp3" data-text="選項A，南瓜" onclick="selectChoice(28, 'A')"><span class="option-letter">A</span> 南瓜</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q28-b.mp3" data-text="選項B，水稻" onclick="selectChoice(28, 'B')"><span class="option-letter">B</span> 水稻</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q28-c.mp3" data-text="選項C，椰子樹" onclick="selectChoice(28, 'C')"><span class="option-letter">C</span> 椰子樹</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q28-d.mp3" data-text="選項D，玫瑰花" onclick="selectChoice(28, 'D')"><span class="option-letter">D</span> 玫瑰花</button>
+      </div>
+    </article>
+
+    <!-- 第 29 題 (原六-9) -->
+    <article class="question-card" id="q29" data-question="29" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 29 題</span>
+        <span class="ans-tag" id="tag-29">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q29-question.mp3" data-text="第29題。南瓜伸長了什麼，往屋頂上爬？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-29">　</span> ) 29. 南瓜伸長了什麼，往屋頂上爬？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q29-a.mp3" data-text="選項A，樹梢" onclick="selectChoice(29, 'A')"><span class="option-letter">A</span> 樹梢</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q29-b.mp3" data-text="選項B，藤蔓" onclick="selectChoice(29, 'B')"><span class="option-letter">B</span> 藤蔓</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q29-c.mp3" data-text="選項C，小橋" onclick="selectChoice(29, 'C')"><span class="option-letter">C</span> 小橋</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q29-d.mp3" data-text="選項D，街燈" onclick="selectChoice(29, 'D')"><span class="option-letter">D</span> 街燈</button>
+      </div>
+    </article>
+
+    <!-- 第 30 題 (原六-10) -->
+    <article class="question-card" id="q30" data-question="30" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 30 題</span>
+        <span class="ans-tag" id="tag-30">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q30-question.mp3" data-text="第30題。夜風跟著誰，在美麗的夏夜裡愉快旅行？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-30">　</span> ) 30. 夜風跟著誰，在美麗的夏夜裡愉快旅行？</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q30-a.mp3" data-text="選項A，提燈的螢火蟲" onclick="selectChoice(30, 'A')"><span class="option-letter">A</span> 提燈的螢火蟲</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q30-b.mp3" data-text="選項B，羊隊和牛群" onclick="selectChoice(30, 'B')"><span class="option-letter">B</span> 羊隊和牛群</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q30-c.mp3" data-text="選項C，蝴蝶和蜜蜂" onclick="selectChoice(30, 'C')"><span class="option-letter">C</span> 蝴蝶和蜜蜂</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q30-d.mp3" data-text="選項D，小雞和小鴨" onclick="selectChoice(30, 'D')"><span class="option-letter">D</span> 小雞和小鴨</button>
+      </div>
+    </article>
+
+
+    <!-- ==================== 七、素養題 ==================== -->
+    <div class="section-header" style="margin-top: 48px;">
+      <div>
+        <h2 class="section-title">七、素養題〔共8分〕</h2>
+        <p class="section-subtitle">請仔細思考與閱讀生活資料後作答（第 31 ~ 35 題）</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/sec-literacy-intro.mp3" data-text="七、素養題。共8分。請仔細閱讀並回答問題。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 第 31 題 (原七-1) -->
+    <article class="question-card" id="q31" data-question="31" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 31 題</span>
+        <span class="ans-tag" id="tag-31">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q31-question.mp3" data-text="第31題。晚上起霧了，遠遠的山看起來不清楚。這時可以用課文中的哪一個詞？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-31">　</span> ) 31. 晚上起霧了，遠遠的山看起來不清楚。這時可以用課文中的哪一個詞？〔2分〕</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q31-a.mp3" data-text="選項A，朦朧" onclick="selectChoice(31, 'A')"><span class="option-letter">A</span> 朦朧</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q31-b.mp3" data-text="選項B，涼爽" onclick="selectChoice(31, 'B')"><span class="option-letter">B</span> 涼爽</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q31-c.mp3" data-text="選項C，愉快" onclick="selectChoice(31, 'C')"><span class="option-letter">C</span> 愉快</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q31-d.mp3" data-text="選項D，迎接" onclick="selectChoice(31, 'D')"><span class="option-letter">D</span> 迎接</button>
+      </div>
+    </article>
+
+    <!-- 第 32 題 (原七-2) -->
+    <article class="question-card" id="q32" data-question="32" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 32 題</span>
+        <span class="ans-tag" id="tag-32">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q32-question.mp3" data-text="第32題。小美在田裡看到一隻螢火蟲。根據課文，螢火蟲在夏夜裡做什麼？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-32">　</span> ) 32. 小美在田裡看到一隻螢火蟲。根據課文，螢火蟲在夏夜裡做什麼？〔2分〕</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q32-a.mp3" data-text="選項A，睡覺" onclick="selectChoice(32, 'A')"><span class="option-letter">A</span> 睡覺</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q32-b.mp3" data-text="選項B，提燈旅行" onclick="selectChoice(32, 'B')"><span class="option-letter">B</span> 提燈旅行</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q32-c.mp3" data-text="選項C，吃草" onclick="selectChoice(32, 'C')"><span class="option-letter">C</span> 吃草</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q32-d.mp3" data-text="選項D，爬上屋頂" onclick="selectChoice(32, 'D')"><span class="option-letter">D</span> 爬上屋頂</button>
+      </div>
+    </article>
+
+    <!-- 第 33 題 (原七-3) -->
+    <article class="question-card" id="q33" data-question="33" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 33 題</span>
+        <span class="ans-tag" id="tag-33">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q33-question.mp3" data-text="第33題。課文把星星寫成滿天的珍珠，這樣寫讓我們感覺夏夜怎麼樣？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-33">　</span> ) 33. 課文把星星寫成滿天的珍珠，這樣寫讓我們感覺夏夜怎麼樣？〔2分〕</p>
+      <div class="options-grid">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q33-a.mp3" data-text="選項A，美麗、閃亮" onclick="selectChoice(33, 'A')"><span class="option-letter">A</span> 美麗、閃亮</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q33-b.mp3" data-text="選項B，吵鬧、可怕" onclick="selectChoice(33, 'B')"><span class="option-letter">B</span> 吵鬧、可怕</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q33-c.mp3" data-text="選項C，寒冷、黑暗" onclick="selectChoice(33, 'C')"><span class="option-letter">C</span> 寒冷、黑暗</button>
+        <button class="listen-option" type="button" data-opt="D" data-audio="audio/zhongpu-115-exam1/q33-d.mp3" data-text="選項D，生氣、難過" onclick="selectChoice(33, 'D')"><span class="option-letter">D</span> 生氣、難過</button>
+      </div>
+    </article>
+
+    <!-- 素養第 4 題生活資料卡片 -->
+    <div class="poster-card">
+      <div class="poster-head">
+        <h3 class="poster-title">📄 閱讀生活資料：學校活動公告海報</h3>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/poster-info.mp3" data-text="閱讀資料：中埔國中夏夜星空草地音樂會。時間：晚上7點開始。地點：學校大操場草坪。注意事項：第一，請準時入場，安靜坐好欣賞表演。第二，請勿大聲聊天，禁止在場內跑步。歡迎全校親師生一起來享受美麗夏夜！">🔊 聽海報內容</button>
+      </div>
+      <div class="poster-body">
+        <p style="font-size: 1.2rem; font-weight: 800; color: #92400e; margin: 0 0 10px; text-align: center;">🎶【中埔國中 夏夜星空草地音樂會】🎶</p>
+        <p style="margin: 6px 0;"><strong>⏰ 時間：</strong>晚上 7 點（19:00）準時開始</p>
+        <p style="margin: 6px 0;"><strong>📍 地點：</strong>學校大操場草坪</p>
+        <p style="margin: 6px 0;"><strong>📌 欣賞注意事項：</strong></p>
+        <ul style="margin: 4px 0 10px 20px; padding: 0;">
+          <li>請大家準時入場，<strong>安靜坐好</strong>欣賞同學與樂團表演。</li>
+          <li>為了安全與維護良好欣賞品質，<strong>請勿大聲聊天</strong>，場內<strong>嚴禁跑步</strong>。</li>
+        </ul>
+        <p style="margin: 0; color: #166534; font-weight: 700; text-align: center;">✨ 歡迎大家帶著好心情，在美麗夏夜一起吹微風、聽音樂！ ✨</p>
+      </div>
+    </div>
+
+    <!-- 第 34 題 (原七-4-(1)) -->
+    <article class="question-card" id="q34" data-question="34" data-answer="B">
+      <div class="question-head">
+        <span class="question-number">第 34 題</span>
+        <span class="ans-tag" id="tag-34">參考答案：( B )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q34-question.mp3" data-text="第34題。第1小題。音樂會幾點開始？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-34">　</span> ) 34. (1) 音樂會幾點開始？〔1分〕</p>
+      <div class="options-grid options-grid-3">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q34-a.mp3" data-text="選項A，晚上6點" onclick="selectChoice(34, 'A')"><span class="option-letter">A</span> 晚上6點</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q34-b.mp3" data-text="選項B，晚上7點" onclick="selectChoice(34, 'B')"><span class="option-letter">B</span> 晚上7點</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q34-c.mp3" data-text="選項C，晚上8點" onclick="selectChoice(34, 'C')"><span class="option-letter">C</span> 晚上8點</button>
+      </div>
+    </article>
+
+    <!-- 第 35 題 (原七-4-(2)) -->
+    <article class="question-card" id="q35" data-question="35" data-answer="A">
+      <div class="question-head">
+        <span class="question-number">第 35 題</span>
+        <span class="ans-tag" id="tag-35">參考答案：( A )</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-exam1/q35-question.mp3" data-text="第35題。第2小題。聽音樂會時，怎麼做比較合適？">🔊 聽題目</button>
+      </div>
+      <p class="question-text">( <span id="ans-box-35">　</span> ) 35. (2) 聽音樂會時，怎麼做比較合適？〔1分〕</p>
+      <div class="options-grid options-grid-3">
+        <button class="listen-option" type="button" data-opt="A" data-audio="audio/zhongpu-115-exam1/q35-a.mp3" data-text="選項A，安靜坐好" onclick="selectChoice(35, 'A')"><span class="option-letter">A</span> 安靜坐好</button>
+        <button class="listen-option" type="button" data-opt="B" data-audio="audio/zhongpu-115-exam1/q35-b.mp3" data-text="選項B，大聲聊天" onclick="selectChoice(35, 'B')"><span class="option-letter">B</span> 大聲聊天</button>
+        <button class="listen-option" type="button" data-opt="C" data-audio="audio/zhongpu-115-exam1/q35-c.mp3" data-text="選項C，在場內跑步" onclick="selectChoice(35, 'C')"><span class="option-letter">C</span> 在場內跑步</button>
+      </div>
+    </article>
+
+    <p style="margin: 36px 0 0; color: var(--muted); text-align: center; font-size: .95rem;">
+      💡 小提醒：點選深藍色按鈕可單獨聽題目，點選黃色選項可單獨聽選項；播放中的題目卡片與按鈕會自動高亮提示。
+    </p>
+  </main>
+
+  <footer>嘉義縣立中埔國中 115學年度第一學期 特教班國文科第一次段考｜特教無障礙語音報讀學習網</footer>
+
+  <script>
+    // 考卷題目清單（供目錄統計與自動索引）
+    const questions = [
+      {"section": "三、填充 Part A", "displayId": 1, "question": "蝴蝶和蜜蜂們帶著花朵的＿＿________＿＿回來了。", "answer": "蜜糖", "options": ["街燈", "田野", "蜜糖", "朦朧"]},
+      {"section": "三、填充 Part A", "displayId": 2, "question": "羊隊和牛群告別了＿＿________＿＿回家了。", "answer": "田野", "options": ["街燈", "田野", "蜜糖", "朦朧"]},
+      {"section": "三、填充 Part A", "displayId": 3, "question": "＿＿________＿＿地山巒靜靜地睡了。", "answer": "朦朧", "options": ["街燈", "田野", "蜜糖", "朦朧"]},
+      {"section": "三、填充 Part A", "displayId": 4, "question": "當＿＿_______＿＿亮起來向村莊道過晚安，夏天的夜就輕輕地來了。", "answer": "街燈", "options": ["街燈", "田野", "蜜糖", "朦朧"]},
+      {"section": "三、填充 Part B", "displayId": 5, "question": "小朋友睡著後，快樂地進入了＿＿＿＿＿＿。", "answer": "夢鄉", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 6, "question": "遠遠看去，一座一座連在一起的＿＿＿＿＿＿很漂亮。", "answer": "山巒", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 7, "question": "夜裡有霧，遠處的山看起來＿＿＿＿＿＿的。", "answer": "朦朧", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 8, "question": "小鳥停在高高的＿＿＿＿＿＿上唱歌。", "answer": "樹梢", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 9, "question": "南瓜伸長了＿＿＿＿＿＿，慢慢爬上瓜架。", "answer": "藤蔓", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 10, "question": "風吹過來，晚上感覺很＿＿＿＿＿＿。", "answer": "涼爽", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 11, "question": "羊隊和牛群在大片的＿＿＿＿＿＿吃草。", "answer": "田野", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "三、填充 Part B", "displayId": 12, "question": "天空中閃閃發亮的星星，好像一顆顆＿＿＿＿＿＿。", "answer": "珍珠", "options": ["田野", "樹梢", "珍珠", "涼爽", "夢鄉", "朦朧", "山巒", "藤蔓"]},
+      {"section": "五、選擇題，注釋", "displayId": 13, "question": "「樹梢」是指樹木的哪裡？", "answer": "B", "options": ["A. 樹根", "B. 樹木最高的地方", "C. 樹幹", "D. 樹葉下面"]},
+      {"section": "五、選擇題，注釋", "displayId": 14, "question": "「田野」是指什麼地方？", "answer": "A", "options": ["A. 寬廣的農田", "B. 熱鬧的市場", "C. 教室", "D. 海邊"]},
+      {"section": "五、選擇題，注釋", "displayId": 15, "question": "「夢鄉」是指什麼？", "answer": "B", "options": ["A. 遊樂園", "B. 睡著後作夢的世界", "C. 家鄉", "D. 山上"]},
+      {"section": "五、選擇題，注釋", "displayId": 16, "question": "「朦朧」是什麼樣子？", "answer": "C", "options": ["A. 看得很清楚", "B. 又亮又熱", "C. 糊糊的、不清楚", "D. 很吵鬧"]},
+      {"section": "五、選擇題，注釋", "displayId": 17, "question": "「涼爽」是什麼感覺？", "answer": "A", "options": ["A. 涼快又舒服", "B. 又熱又渴", "C. 很冷很痛", "D. 很暗"]},
+      {"section": "五、選擇題，注釋", "displayId": 18, "question": "「藤蔓」是什麼？", "answer": "A", "options": ["A. 細長、會攀爬的植物莖", "B. 一種昆蟲", "C. 一條小河", "D. 一盞街燈"]},
+      {"section": "五、選擇題，注釋", "displayId": 19, "question": "「珍珠」在課文中用來比喻什麼？", "answer": "B", "options": ["A. 雨傘", "B. 天上的星星", "C. 山巒", "D. 月亮"]},
+      {"section": "五、選擇題，注釋", "displayId": 20, "question": "「山巒」是指什麼？", "answer": "B", "options": ["A. 一座小橋", "B. 一座座連在一起的山", "C. 一片花園", "D. 一間房子"]},
+      {"section": "六、閱讀理解", "displayId": 21, "question": "誰帶著花朵的蜜糖回來了？", "answer": "A", "options": ["A. 蝴蝶和蜜蜂們", "B. 羊隊和牛群", "C. 小雞和小鴨", "D. 小弟弟和小妹妹"]},
+      {"section": "六、閱讀理解", "displayId": 22, "question": "羊隊和牛群告別了哪裡，準備回家？", "answer": "B", "options": ["A. 山坡", "B. 田野", "C. 村莊", "D. 花園"]},
+      {"section": "六、閱讀理解", "displayId": 23, "question": "火紅的太陽滾著什麼回家了？", "answer": "A", "options": ["A. 火輪子", "B. 大皮球", "C. 一枚銀幣", "D. 一顆珍珠"]},
+      {"section": "六、閱讀理解", "displayId": 24, "question": "街燈亮起來向村莊道晚安後，什麼來了？", "answer": "B", "options": ["A. 白天", "B. 夏天的夜", "C. 大雨", "D. 冬天"]},
+      {"section": "六、閱讀理解", "displayId": 25, "question": "夏夜從椰子樹的哪裡輕輕爬下來？", "answer": "B", "options": ["A. 樹根", "B. 樹梢", "C. 樹幹中間", "D. 樹下的草地"]},
+      {"section": "六、閱讀理解", "displayId": 26, "question": "夏夜在天空撒了滿天的什麼？", "answer": "B", "options": ["A. 糖果", "B. 珍珠", "C. 花瓣", "D. 雨傘"]},
+      {"section": "六、閱讀理解", "displayId": 27, "question": "小弟弟和小妹妹聽完誰的故事後走向夢鄉？", "answer": "B", "options": ["A. 老師", "B. 老祖母", "C. 鄰居", "D. 警察"]},
+      {"section": "六、閱讀理解", "displayId": 28, "question": "大家都睡了，只有哪一種植物還醒著？", "answer": "A", "options": ["A. 南瓜", "B. 水稻", "C. 椰子樹", "D. 玫瑰花"]},
+      {"section": "六、閱讀理解", "displayId": 29, "question": "南瓜伸長了什麼，往屋頂上爬？", "answer": "B", "options": ["A. 樹梢", "B. 藤蔓", "C. 小橋", "D. 街燈"]},
+      {"section": "六、閱讀理解", "displayId": 30, "question": "夜風跟著誰，在美麗的夏夜裡愉快旅行？", "answer": "A", "options": ["A. 提燈的螢火蟲", "B. 羊隊和牛群", "C. 蝴蝶和蜜蜂", "D. 小雞和小鴨"]},
+      {"section": "七、素養題", "displayId": 31, "question": "晚上起霧了，遠遠的山看起來不清楚。這時可以用課文中的哪一個詞？", "answer": "A", "options": ["A. 朦朧", "B. 涼爽", "C. 愉快", "D. 迎接"]},
+      {"section": "七、素養題", "displayId": 32, "question": "小美在田裡看到一隻螢火蟲。根據課文，螢火蟲在夏夜裡做什麼？", "answer": "B", "options": ["A. 睡覺", "B. 提燈旅行", "C. 吃草", "D. 爬上屋頂"]},
+      {"section": "七、素養題", "displayId": 33, "question": "課文把星星寫成滿天的珍珠，這樣寫讓我們感覺夏夜怎麼樣？", "answer": "A", "options": ["A. 美麗、閃亮", "B. 吵鬧、可怕", "C. 寒冷、黑暗", "D. 生氣、難過"]},
+      {"section": "七、素養題", "displayId": 34, "question": "音樂會幾點開始？", "answer": "B", "options": ["A. 晚上6點", "B. 晚上7點", "C. 晚上8點"]},
+      {"section": "七、素養題", "displayId": 35, "question": "聽音樂會時，怎麼做比較合適？", "answer": "A", "options": ["A. 安靜坐好", "B. 大聲聊天", "C. 在場內跑步"]}
+    ];
+
+    const player = document.getElementById('audioPlayer');
+    const speed = document.getElementById('speed');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusText = document.getElementById('statusText');
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const buttons = [...document.querySelectorAll('[data-audio]')];
+    const questionButtons = [...document.querySelectorAll('.listen-question')];
+    let activeButton = null;
+    let queue = [];
+    let queuePosition = -1;
+    let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
+    let answersRevealed = false;
+
+    // 互動點選答題
+    function selectWord(qNum, wordText) {
+      const pill = document.getElementById(`ans-box-${qNum}`);
+      if (pill) pill.textContent = wordText;
+      const card = document.getElementById(`q${qNum}`);
+      if (card) {
+        card.querySelectorAll('.listen-option').forEach(btn => {
+          btn.classList.toggle('selected', btn.dataset.opt === wordText);
+        });
+      }
+    }
+
+    function selectChoice(qNum, optLetter) {
+      const box = document.getElementById(`ans-box-${qNum}`);
+      if (box) box.textContent = optLetter;
+      const card = document.getElementById(`q${qNum}`);
+      if (card) {
+        card.querySelectorAll('.listen-option').forEach(btn => {
+          btn.classList.toggle('selected', btn.dataset.opt === optLetter);
+        });
+      }
+    }
+
+    // 揭曉答案
+    function toggleAnswers() {
+      answersRevealed = !answersRevealed;
+      const toggleBtn = document.getElementById('toggleAnswers');
+      toggleBtn.textContent = answersRevealed ? '🙈 隱藏答案' : '👁 揭曉答案';
+      for (let i = 1; i <= 35; i++) {
+        const tag = document.getElementById(`tag-${i}`);
+        if (tag) tag.classList.toggle('visible', answersRevealed);
+        const card = document.getElementById(`q${i}`);
+        if (card) {
+          const ans = card.dataset.answer;
+          card.querySelectorAll('.listen-option').forEach(btn => {
+            if (answersRevealed && btn.dataset.opt === ans) {
+              btn.classList.add('is-correct-reveal');
+            } else {
+              btn.classList.remove('is-correct-reveal');
+            }
+          });
+        }
+      }
+    }
+
+    // 雙引擎切換與發聲
+    function switchEngine(engine) {
+      stopAll();
+      currentEngine = engine;
+      localStorage.setItem('voice_hub_engine', engine);
+      document.getElementById('engineNative').classList.toggle('active', engine === 'native');
+      document.getElementById('engineMp3').classList.toggle('active', engine === 'mp3');
+      setStatus(engine === 'native' ? '已切換為平板原生語音' : '已切換為微軟真人語音', '點選任一按鈕即可出聲。');
+    }
+
+    function testAudio() {
+      stopAll();
+      setStatus('正在測試發音...', '測試中');
+      const testText = '語音測試正常，歡迎使用中埔國中特教國文段考報讀練習。';
+      if (currentEngine === 'native') {
+        speakNativeDirect(testText, null);
+      } else {
+        player.playbackRate = Number(speed.value);
+        player.src = 'audio/zhongpu-115-exam1/word-jiedeng.mp3';
+        player.load();
+        player.play().then(() => {
+          setStatus('微軟真人語音正常', '詞語：街燈');
+        }).catch(() => {
+          speakNativeDirect(testText, null);
+        });
+      }
+    }
+
+    function clearActive() {
+      buttons.forEach(button => button.classList.remove('is-playing'));
+      document.querySelectorAll('.question-card').forEach(card => card.classList.remove('is-playing'));
+      activeButton = null;
+    }
+
+    function setStatus(title, text) {
+      statusTitle.textContent = title;
+      statusText.textContent = text;
+    }
+
+    function updateProgress() {
+      const number = queuePosition >= 0 && queue[queuePosition]
+        ? queue[queuePosition].closest('.question-card')?.dataset.question || 0
+        : (activeButton ? activeButton.closest('.question-card')?.dataset.question || 0 : 0);
+      progressBar.value = Number(number);
+      progressText.textContent = `${number} / 35 題`;
+    }
+
+    function speakNativeDirect(text, button) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-TW';
+      utterance.rate = Number(speed.value);
+
+      utterance.onend = () => {
+        clearActive();
+        if (queue.length && queuePosition < queue.length - 1) {
+          queuePosition += 1;
+          playButton(queue[queuePosition]);
+        } else if (queue.length) {
+          setStatus('題目播放完畢', '可以再點選個別題目或選項複習。');
+          queue = [];
+          queuePosition = -1;
+        }
+      };
+
+      utterance.onerror = () => {
+        clearActive();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakFallback(button) {
+      const textToSpeak = button.dataset.text || button.textContent.trim();
+      setStatus('改用裝置朗讀', textToSpeak);
+      speakNativeDirect(textToSpeak, button);
+    }
+
+    function playButton(button) {
+      queuePosition = queue.indexOf(button);
+      clearActive();
+      activeButton = button;
+      button.classList.add('is-playing');
+      const card = button.closest('.question-card');
+      card?.classList.add('is-playing');
+      card?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const label = button.classList.contains('listen-question') ? '題目' : '選項';
+      const displayText = button.dataset.text || button.textContent.trim();
+      setStatus(`正在播放${label}`, displayText);
+      updateProgress();
+
+      if (currentEngine === 'native') {
+        speakFallback(button);
+        return;
+      }
+
+      player.playbackRate = Number(speed.value);
+      player.src = button.dataset.audio;
+      player.load();
+
+      const promise = player.play();
+      if (promise) {
+        promise.catch((err) => {
+          console.warn('MP3 播放受限或載入中斷，自動啟動裝置原生語音備援：', err);
+          speakFallback(button);
+        });
+      }
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        queue = [];
+        playButton(button);
+      });
+    });
+
+    document.getElementById('playQuestions').addEventListener('click', () => {
+      queue = questionButtons.filter(b => b.closest('.question-card'));
+      queuePosition = 0;
+      if (queue.length > 0) {
+        playButton(queue[0]);
+      }
+    });
+
+    function stopAll() {
+      queue = [];
+      queuePosition = -1;
+      player.pause();
+      player.removeAttribute('src');
+      player.load();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      clearActive();
+      progressBar.value = 0;
+      progressText.textContent = '0 / 35 題';
+      setStatus('已停止', '請點選任一個「聽題目」或選項。');
+    }
+
+    document.getElementById('stopAudio').addEventListener('click', stopAll);
+
+    speed.addEventListener('change', () => {
+      player.playbackRate = Number(speed.value);
+    });
+
+    player.addEventListener('ended', () => {
+      clearActive();
+      if (queue.length && queuePosition < queue.length - 1) {
+        queuePosition += 1;
+        playButton(queue[queuePosition]);
+      } else if (queue.length) {
+        setStatus('題目播放完畢', '可以再點選個別題目或選項複習。');
+        queue = [];
+        queuePosition = -1;
+      }
+    });
+
+    player.addEventListener('error', () => {
+      if (activeButton) {
+        console.warn('音訊檔案載入發生錯誤，切換裝置語音備援');
+        speakFallback(activeButton);
+      }
+    });
+  </script>
+</body>
+</html>

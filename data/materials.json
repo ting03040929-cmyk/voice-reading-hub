@@ -1,40 +1,43 @@
 [
   {
-    "id": "math-g7-pos-neg",
-    "title": "正數與負數講義 (一年級數學)",
-    "subject": "數學",
+    "id": "zhongpu-115-exam1",
+    "title": "中埔國中 115特教國文第一次段考・語音報讀",
+    "subject": "國文",
     "grade": "七年級",
-    "unit": "第 1 單元",
-    "questionsCount": 55,
-    "description": "認識正數與負數、生活中相反量的正負表示、數線與點的座標、負數圖示運算、兩點間距離。",
-    "file": "materials/math-g7-pos-neg.html",
-    "date": "2026-09-17",
+    "unit": "第一次段考",
+    "questionsCount": 35,
+    "description": "嘉義縣立中埔國中 115學年度第一學期 特教班國文科第一次段考全卷語音報讀（填充題、注釋選擇題、夏夜課文理解、生活素養題共 35 題），支援微軟真人音訊獨立點讀、平板原生語音備援與答案核對。",
+    "file": "materials/zhongpu-115-exam1.html",
+    "date": "2026-10-14",
     "tags": [
-      "正負數",
-      "數線",
-      "相反量",
-      "國一數學",
-      "講義",
-      "特教數學"
+      "中埔國中",
+      "第一次段考",
+      "國文",
+      "特教國文",
+      "夏夜",
+      "段考報讀",
+      "語音報讀",
+      "微軟真人語音"
     ]
   },
   {
-    "id": "math-917-quiz",
-    "title": "正負數家族與相反量練習題 (一年級數學)",
-    "subject": "數學",
+    "id": "eating-ice-vocab-quiz",
+    "title": "吃冰的滋味・語詞配意思與選詞填空聽讀練習",
+    "subject": "國文",
     "grade": "七年級",
-    "unit": "917 隨堂練習",
-    "questionsCount": 0,
-    "description": "「+」家族與「-」家族相反詞整理（賺錢/花錢、收入/支出、上升/下降、贏了/輸了、東/西）與生活情境正負數選擇題。",
-    "file": "materials/math-917-quiz.html",
-    "date": "2026-09-17",
+    "unit": "吃冰的滋味",
+    "questionsCount": 17,
+    "description": "七年級國文《吃冰的滋味》語詞配意思、選詞填句子與畫畫寫寫，共 17 題。支援微軟真人 MP3 點讀、平板原生 Web Speech、互動填答與線上繪圖板。",
+    "file": "materials/eating-ice-vocab-quiz.html",
+    "date": "2026-10-13",
     "tags": [
-      "正負數",
-      "相反量",
-      "家族分類",
-      "生活情境",
-      "特教數學",
-      "選擇題"
+      "吃冰的滋味",
+      "國文",
+      "生字語詞",
+      "語詞配意思",
+      "選詞填空",
+      "聽讀練習",
+      "特教國文"
     ]
   },
   {
@@ -57,23 +60,41 @@
     ]
   },
   {
-    "id": "eating-ice-vocab-quiz",
-    "title": "吃冰的滋味・語詞配意思與選詞填空聽讀練習",
-    "subject": "國文",
+    "id": "math-917-quiz",
+    "title": "正負數家族與相反量練習題 (一年級數學)",
+    "subject": "數學",
     "grade": "七年級",
-    "unit": "吃冰的滋味",
-    "questionsCount": 17,
-    "description": "七年級國文《吃冰的滋味》語詞配意思、選詞填句子與畫畫寫寫，共 17 題。支援微軟真人 MP3 點讀、平板原生 Web Speech、互動填答與線上繪圖板。",
-    "file": "materials/eating-ice-vocab-quiz.html",
-    "date": "2026-10-13",
+    "unit": "917 隨堂練習",
+    "questionsCount": 15,
+    "description": "「+」家族與「-」家族相反詞整理（賺錢/花錢、收入/支出、上升/下降、贏了/輸了、東/西）與生活情境正負數選擇題。",
+    "file": "materials/math-917-quiz.html",
+    "date": "2026-09-17",
     "tags": [
-      "吃冰的滋味",
-      "國文",
-      "生字語詞",
-      "語詞配意思",
-      "選詞填空",
-      "聽讀練習",
-      "特教國文"
+      "正負數",
+      "相反量",
+      "家族分類",
+      "生活情境",
+      "特教數學",
+      "選擇題"
+    ]
+  },
+  {
+    "id": "math-g7-pos-neg",
+    "title": "正數與負數講義 (一年級數學)",
+    "subject": "數學",
+    "grade": "七年級",
+    "unit": "第 1 單元",
+    "questionsCount": 55,
+    "description": "認識正數與負數、生活中相反量的正負表示、數線與點的座標、負數圖示運算、兩點間距離。",
+    "file": "materials/math-g7-pos-neg.html",
+    "date": "2026-09-17",
+    "tags": [
+      "正負數",
+      "數線",
+      "相反量",
+      "國一數學",
+      "講義",
+      "特教數學"
     ]
   }
 ]
