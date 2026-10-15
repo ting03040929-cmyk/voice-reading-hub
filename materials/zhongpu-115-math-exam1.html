@@ -1,0 +1,1723 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c4a5a">
+  <meta name="description" content="嘉義縣立中埔國中 115學年度第一學期 特教班數學科第一次段考語音報讀練習：支援微軟真人音訊與平板語音雙引擎、題目與選項獨立點讀發音、互動點選作答。">
+  <title>中埔國中 115特教數學第一次段考・語音報讀</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c4a5a'/%3E%3Cpath d='M16 29h9l12-10v26L25 35h-9z' fill='%23ffd166'/%3E%3Cpath d='M44 25c3 3 3 11 0 14M49 20c6 6 6 18 0 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #12343b;
+      --muted: #557178;
+      --navy: #0c4a5a;
+      --navy-dark: #083542;
+      --teal: #dff5f2;
+      --yellow: #ffd166;
+      --yellow-dark: #9a6500;
+      --card: #ffffff;
+      --line: #cfe4e5;
+      --shadow: 0 12px 30px rgba(12, 74, 90, .10);
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --green-text: #166534;
+      --correct: #10b981;
+      --correct-bg: #ecfdf5;
+      --primary-accent: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #eef8f8;
+      color: var(--ink);
+      font-family: "LXGW WenKai TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    button, select, input { font: inherit; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 4px solid #f4ad38;
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 53, 66, .97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: white;
+      box-shadow: 0 3px 16px rgba(0, 0, 0, .16);
+    }
+
+    .topbar-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-size: 22px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-home:hover { background: rgba(255, 255, 255, 0.28); }
+
+    .engine-toggle-group {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 3px;
+      border-radius: 2rem;
+      gap: 3px;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .engine-btn {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      border-radius: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .engine-btn.active {
+      background: var(--yellow);
+      color: var(--navy-dark);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tool-button, .speed-select {
+      min-height: 38px;
+      border: 1px solid rgba(255, 255, 255, .32);
+      border-radius: 10px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, .14);
+      color: white;
+      font-size: .88rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: background .15s ease, transform .15s ease;
+      cursor: pointer;
+    }
+
+    .tool-button:hover, .tool-button:active {
+      background: rgba(255, 255, 255, .25);
+      transform: translateY(-1px);
+    }
+
+    .speed-select {
+      appearance: none;
+      background: rgba(255, 255, 255, .14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat calc(100% - 10px) center;
+      padding-right: 28px;
+    }
+    .speed-select option { color: var(--ink); background: white; }
+
+    main {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      padding: 24px 18px 120px;
+    }
+
+    /* 橫幅卡片 */
+    .hero-card {
+      background: linear-gradient(135deg, #0c4a5a 0%, #115e59 100%);
+      color: white;
+      padding: 24px 28px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-size: 0.85rem;
+      font-weight: 800;
+      border-radius: 99px;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.2rem, 3vw, 1.65rem);
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .hero-desc {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #e0f2f1;
+      line-height: 1.65;
+    }
+
+    /* 常駐控制面板 */
+    .status-panel {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(960px, calc(100% - 24px));
+      z-index: 40;
+      background: rgba(8, 53, 66, 0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .status-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .status-label strong {
+      font-size: 0.95rem;
+      color: var(--yellow);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .status-label span {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    audio {
+      height: 36px;
+      max-width: 240px;
+      border-radius: 99px;
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      white-space: nowrap;
+    }
+
+    progress {
+      width: 100px;
+      height: 10px;
+      accent-color: var(--yellow);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    /* 觀念引導卡（即考卷提及的「上面的圖片」） */
+    .concept-card {
+      margin: 0 0 28px;
+      padding: 22px 24px;
+      background: #ffffff;
+      border: 3px solid #bbf7d0;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .concept-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .concept-card-title {
+      font-weight: 800;
+      color: var(--navy-dark);
+      font-size: 1.18rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .concept-box {
+      padding: 16px 20px;
+      border-radius: 14px;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .concept-box-plus {
+      background: #fef9c3;
+      border: 2px solid #fde047;
+      color: #713f12;
+    }
+
+    .concept-box-minus {
+      background: #e0f2fe;
+      border: 2px solid #bae6fd;
+      color: #075985;
+    }
+
+    .concept-box-head {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+    }
+
+    .concept-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .keyword-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .concept-extra-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .extra-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .extra-card-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .extra-card-text strong {
+      display: block;
+      color: var(--navy-dark);
+      font-size: 0.98rem;
+      margin-bottom: 2px;
+    }
+
+    .extra-card-text span {
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    /* 大題標題 */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 36px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
+      color: var(--navy-dark);
+      font-size: 1.28rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-subtitle {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    /* 題目卡片 */
+    .question-card {
+      background: var(--card);
+      border: 2px solid var(--line);
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      box-shadow: 0 5px 16px rgba(12,74,90,.06);
+      scroll-margin-top: 88px;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .question-card.is-playing {
+      border-color: #e3a82c;
+      box-shadow: 0 0 0 4px rgba(255,209,102,.38), 0 8px 24px rgba(12,74,90,.12);
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .question-head-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 3px 14px;
+      color: var(--navy-dark);
+      background: var(--teal);
+      border-radius: 99px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .ans-tag {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    .ans-tag.visible { display: inline-flex; }
+
+    .head-btn-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .listen-question, .listen-full, .listen-option {
+      border: 0;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .listen-question {
+      min-height: 42px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .listen-question:hover, .listen-question:active {
+      background: var(--navy-dark);
+      transform: translateY(-1px);
+    }
+
+    .listen-question.is-playing {
+      background: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+    }
+
+    .listen-full {
+      min-height: 42px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      background: #147a7c;
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .listen-full:hover, .listen-full:active {
+      background: #0f5b5c;
+      transform: translateY(-1px);
+    }
+
+    .listen-full.is-playing {
+      background: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+    }
+
+    .question-text {
+      margin: 16px 0 16px;
+      font-weight: 700;
+      font-size: 1.18rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .blank-num {
+      color: var(--yellow-dark);
+      font-weight: 800;
+      margin-right: 4px;
+    }
+
+    .options-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .listen-option {
+      min-height: 56px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: #fffdf5;
+      border: 2px solid #f5e4b2;
+      color: var(--ink);
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .listen-option:hover, .listen-option:active {
+      background: #fef3c7;
+      border-color: #d97706;
+      transform: translateY(-1px);
+    }
+
+    .listen-option.selected {
+      background: #dff5f2;
+      border-color: #0f766e;
+      color: #0f766e;
+      font-weight: 800;
+    }
+
+    .listen-option.is-playing {
+      background: #fde68a;
+      border-color: #b45309;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.4);
+      font-weight: 800;
+    }
+
+    .listen-option.is-correct-reveal {
+      background: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+      font-weight: 800;
+    }
+
+    .option-letter {
+      width: 32px;
+      height: 32px;
+      background: var(--navy);
+      color: white;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    /* 填充題專用填答介面 */
+    .fill-interactive-area {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .fill-interactive-label {
+      font-weight: 800;
+      color: #334155;
+      font-size: 1.02rem;
+    }
+
+    .fill-input-box {
+      width: 130px;
+      height: 46px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      text-align: center;
+      border: 2px solid #94a3b8;
+      border-radius: 10px;
+      color: var(--navy-dark);
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+
+    .fill-input-box:focus {
+      border-color: #0f766e;
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2);
+    }
+
+    .fill-quick-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .fill-quick-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .fill-quick-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .fill-blank-highlight {
+      display: inline-block;
+      min-width: 100px;
+      padding: 2px 10px;
+      border-bottom: 3px solid var(--yellow-dark);
+      color: #92400e;
+      font-weight: 800;
+      text-align: center;
+      background: #fff8e1;
+      border-radius: 4px;
+    }
+
+    footer {
+      padding: 28px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 820px) {
+      .concept-grid { grid-template-columns: 1fr; }
+      .concept-extra-grid { grid-template-columns: 1fr; }
+      .options-grid-3 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .topbar-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+      .brand { justify-content: center; }
+      .toolbar { width: 100%; justify-content: space-between; }
+      .tool-button, .speed-select { flex: 1 1 auto; padding: 5px 8px; font-size: 0.82rem; }
+      .status-panel { grid-template-columns: 1fr; bottom: 8px; }
+      audio { width: 100%; }
+      .question-head { flex-direction: column; align-items: stretch; gap: 8px; }
+      .listen-question, .listen-full { width: 100%; justify-content: center; min-height: 46px; }
+      .fill-interactive-area { flex-direction: column; align-items: stretch; }
+      .fill-input-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 頂部導航列 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a href="../index.html" class="btn-home" title="返回學習網首頁">🏠 首頁</a>
+        <div class="brand-mark">🔢</div>
+        <h1>115第一次數學段考・報讀</h1>
+      </div>
+
+      <div class="engine-toggle-group" title="選擇發音引擎">
+        <button type="button" class="engine-btn" id="engineNative" onclick="switchEngine('native')">📱 平板原生</button>
+        <button type="button" class="engine-btn active" id="engineMp3" onclick="switchEngine('mp3')">☁️ 微軟真人語音</button>
+      </div>
+
+      <div class="toolbar">
+        <select class="speed-select" id="speed" title="選擇朗讀語速">
+          <option value="0.8">0.8x 慢速</option>
+          <option value="0.9" selected>0.9x 特教推薦</option>
+          <option value="1.0">1.0x 標準</option>
+          <option value="1.2">1.2x 稍快</option>
+        </select>
+        <button class="tool-button" type="button" onclick="testAudio()">🔔 測聲音</button>
+        <button class="tool-button" type="button" id="playQuestions">▶ 播放全部</button>
+        <button class="tool-button" type="button" id="stopAudio">⏹ 停止</button>
+        <button class="tool-button" type="button" id="toggleAnswers" onclick="toggleAnswers()">👁 揭曉答案</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 考卷主標題卡片 -->
+    <section class="hero-card">
+      <span class="hero-tag">國中特教數學・七年級第一次段考</span>
+      <h2 class="hero-title">115學年度第一學期 第一次數學段考</h2>
+      <p class="hero-desc">特教班數學科全卷語音報讀系統｜收錄一、選擇題（12題）與二、填充題（10題），共 22 題。支援微軟真人音訊獨立點讀、平板原生語音無縫備援與答案自主核對。</p>
+    </section>
+
+    <!-- 底部常駐播放控制面板 -->
+    <div class="status-panel" id="statusPanel">
+      <div class="status-label">
+        <strong id="statusTitle">語音已就緒</strong>
+        <span id="statusText">點選任何「聽題目」、「唸整題」或選項即可開始聽讀。</span>
+      </div>
+      <audio id="audioPlayer" controls preload="auto"></audio>
+      <div class="progress-wrap">
+        <progress id="progressBar" value="0" max="22"></progress>
+        <span id="progressText">0 / 22 題</span>
+      </div>
+    </div>
+
+    <!-- 視覺化觀念圖表卡片（考卷題目所指的「上面的圖片」） -->
+    <section class="concept-card" id="concept-reference" aria-label="正負數相反量觀念圖表">
+      <div class="concept-card-head">
+        <span class="concept-card-title">📊 考卷參考圖表：正負數家族「+」與「-」相反量概念圖</span>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/concept-intro.mp3" data-text="觀念引導：正負數家族與相反詞整理。加號家族代表增加、變多、正向，例如：賺錢、收入、上升、往上、贏了、向東。減號家族代表減少、變少、負向，例如：花錢、支出、下降、往下、輸了、向西。指南針指向東邊記作加號，指向西邊記作減號。氣溫比零度低記作負數。">🔊 聽觀念圖表說明</button>
+      </div>
+
+      <div class="concept-grid">
+        <!-- 加號家族 -->
+        <div class="concept-box concept-box-plus">
+          <div class="concept-box-head">
+            <span>🟡</span>
+            <span>黃色【「+」加號家族】（代表：增加、變多、正向）</span>
+          </div>
+          <div>關鍵語詞情境整理：</div>
+          <div class="concept-keywords">
+            <span class="keyword-pill">💰 賺錢 (+)</span>
+            <span class="keyword-pill">💵 收入 (+)</span>
+            <span class="keyword-pill">📈 上升 (+)</span>
+            <span class="keyword-pill">⬆️ 往上 (+)</span>
+            <span class="keyword-pill">🏆 贏了 (+)</span>
+            <span class="keyword-pill">🧭 向東 (+)</span>
+          </div>
+        </div>
+
+        <!-- 減號家族 -->
+        <div class="concept-box concept-box-minus">
+          <div class="concept-box-head">
+            <span>🔵</span>
+            <span>藍色【「-」減號家族】（代表：減少、變少、負向）</span>
+          </div>
+          <div>關鍵語詞情境整理：</div>
+          <div class="concept-keywords">
+            <span class="keyword-pill">💸 花錢 (-)</span>
+            <span class="keyword-pill">🧾 支出 (-)</span>
+            <span class="keyword-pill">📉 下降 (-)</span>
+            <span class="keyword-pill">⬇️ 往下 (-)</span>
+            <span class="keyword-pill">⏳ 輸了 (-)</span>
+            <span class="keyword-pill">🧭 向西 (-)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="concept-extra-grid">
+        <div class="extra-card">
+          <div class="extra-card-icon">🧭</div>
+          <div class="extra-card-text">
+            <strong>指南針方向約定：</strong>
+            <span>向東 (E) 記作 <strong>「+」</strong> ； 向西 (W) 記作 <strong>「-」</strong></span>
+          </div>
+        </div>
+        <div class="extra-card">
+          <div class="extra-card-icon">🌡️</div>
+          <div class="extra-card-text">
+            <strong>溫度與 0 度基準：</strong>
+            <span>比 0 度高記作正（如上升 3 度記為 +3）；比 0 度低記作負（如比 0 度低 12 度記為 -12 度C）</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 一、選擇題 ==================== -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">一、選擇題（共 12 題）</h2>
+        <p class="section-subtitle">請觀察情境關鍵字與上方圖片，選出最適合的選項。</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/sec-choice-intro.mp3" data-text="一大題，選擇題。共12題。請觀察題目與生活關鍵字，選出正確的選項。">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 第 1 題 -->
+    <article class="question-card" id="q1" data-question="1" data-answer="opt-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 1 題</span>
+          <span class="ans-tag" id="tag-1">參考答案：② 增加、變多</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q1-question.mp3" data-text="第1題。圖片中，黃色的加號家族代表什麼意思？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q1-full.mp3" data-text="第1題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">1.（ ）</span>圖片中，黃色的「+」家族代表什麼意思？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q1-opt1.mp3" data-text="選項1，減少、變少" onclick="selectChoice(1, 'opt-1')">
+          <span class="option-letter">①</span> 減少、變少
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q1-opt2.mp3" data-text="選項2，增加、變多" onclick="selectChoice(1, 'opt-2')">
+          <span class="option-letter">②</span> 增加、變多
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q1-opt3.mp3" data-text="選項3，不動" onclick="selectChoice(1, 'opt-3')">
+          <span class="option-letter">③</span> 不動
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 2 題 -->
+    <article class="question-card" id="q2" data-question="2" data-answer="opt-1">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 2 題</span>
+          <span class="ans-tag" id="tag-2">參考答案：① 減少、變少</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q2-question.mp3" data-text="第2題。圖片中，藍色的減號家族代表什麼意思？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q2-full.mp3" data-text="第2題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">2.（ ）</span>圖片中，藍色的「-」家族代表什麼意思？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q2-opt1.mp3" data-text="選項1，減少、變少" onclick="selectChoice(2, 'opt-1')">
+          <span class="option-letter">①</span> 減少、變少
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q2-opt2.mp3" data-text="選項2，增加、變多" onclick="selectChoice(2, 'opt-2')">
+          <span class="option-letter">②</span> 增加、變多
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q2-opt3.mp3" data-text="選項3，變大" onclick="selectChoice(2, 'opt-3')">
+          <span class="option-letter">③</span> 變大
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 3 題 -->
+    <article class="question-card" id="q3" data-question="3" data-answer="opt-1">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 3 題</span>
+          <span class="ans-tag" id="tag-3">參考答案：① + (加號)</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q3-question.mp3" data-text="第3題。如果看到錢袋旁邊寫著「賺錢」，我們應該用哪一個符號？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q3-full.mp3" data-text="第3題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">3.（ ）</span>如果看到錢袋旁邊寫著「賺錢」，我們應該用哪一個符號？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q3-opt1.mp3" data-text="選項1，加號" onclick="selectChoice(3, 'opt-1')">
+          <span class="option-letter">①</span> + (加號)
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q3-opt2.mp3" data-text="選項2，減號" onclick="selectChoice(3, 'opt-2')">
+          <span class="option-letter">②</span> - (減號)
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q3-opt3.mp3" data-text="選項3，乘號" onclick="selectChoice(3, 'opt-3')">
+          <span class="option-letter">③</span> × (乘號)
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 4 題 -->
+    <article class="question-card" id="q4" data-question="4" data-answer="opt-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 4 題</span>
+          <span class="ans-tag" id="tag-4">參考答案：② -25</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q4-question.mp3" data-text="第4題。「花錢」買果汁用了 25 元，應該記作什麼？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q4-full.mp3" data-text="第4題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">4.（ ）</span>「花錢」買果汁用了 25 元，應該記作什麼？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q4-opt1.mp3" data-text="選項1，正25" onclick="selectChoice(4, 'opt-1')">
+          <span class="option-letter">①</span> +25
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q4-opt2.mp3" data-text="選項2，負25" onclick="selectChoice(4, 'opt-2')">
+          <span class="option-letter">②</span> -25
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q4-opt3.mp3" data-text="選項3，0" onclick="selectChoice(4, 'opt-3')">
+          <span class="option-letter">③</span> 0
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 5 題 -->
+    <article class="question-card" id="q5" data-question="5" data-answer="opt-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 5 題</span>
+          <span class="ans-tag" id="tag-5">參考答案：② 「-」家族</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q5-question.mp3" data-text="第5題。氣溫「下降」了 5 度，這屬於哪一個家族？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q5-full.mp3" data-text="第5題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">5.（ ）</span>氣溫「下降」了 5 度，這屬於哪一個家族？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q5-opt1.mp3" data-text="選項1，加號家族" onclick="selectChoice(5, 'opt-1')">
+          <span class="option-letter">①</span> 「+」家族
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q5-opt2.mp3" data-text="選項2，減號家族" onclick="selectChoice(5, 'opt-2')">
+          <span class="option-letter">②</span> 「-」家族
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q5-opt3.mp3" data-text="選項3，以上都不是" onclick="selectChoice(5, 'opt-3')">
+          <span class="option-letter">③</span> 以上都不是
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 6 題 -->
+    <article class="question-card" id="q6" data-question="6" data-answer="opt-1">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 6 題</span>
+          <span class="ans-tag" id="tag-6">參考答案：① 向東 (+)</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q6-question.mp3" data-text="第6題。指南針指向 E，東邊，圖片說這要記作什麼？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q6-full.mp3" data-text="第6題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">6.（ ）</span>指南針指向 E (東邊)，圖片說這要記作什麼？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q6-opt1.mp3" data-text="選項1，向東加號" onclick="selectChoice(6, 'opt-1')">
+          <span class="option-letter">①</span> 向東 (+)
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q6-opt2.mp3" data-text="選項2，向東減號" onclick="selectChoice(6, 'opt-2')">
+          <span class="option-letter">②</span> 向東 (-)
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q6-opt3.mp3" data-text="選項3，向東乘號" onclick="selectChoice(6, 'opt-3')">
+          <span class="option-letter">③</span> 向東 (×)
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 7 題 -->
+    <article class="question-card" id="q7" data-question="7" data-answer="opt-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 7 題</span>
+          <span class="ans-tag" id="tag-7">參考答案：② +10</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q7-question.mp3" data-text="第7題。看到獎盃且寫著「贏了」 10 分，正確的記法是？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q7-full.mp3" data-text="第7題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">7.（ ）</span>看到獎盃且寫著「贏了」 10 分，正確的記法是？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q7-opt1.mp3" data-text="選項1，負10" onclick="selectChoice(7, 'opt-1')">
+          <span class="option-letter">①</span> -10
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q7-opt2.mp3" data-text="選項2，正10" onclick="selectChoice(7, 'opt-2')">
+          <span class="option-letter">②</span> +10
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q7-opt3.mp3" data-text="選項3，10加" onclick="selectChoice(7, 'opt-3')">
+          <span class="option-letter">③</span> 10+
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 8 題 -->
+    <article class="question-card" id="q8" data-question="8" data-answer="opt-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 8 題</span>
+          <span class="ans-tag" id="tag-8">參考答案：② 支出</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q8-question.mp3" data-text="第8題。「收入」 100 元與「支出」 100 元，哪一個要用減號？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q8-full.mp3" data-text="第8題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">8.（ ）</span>「收入」 100 元與「支出」 100 元，哪一個要用「-」號？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q8-opt1.mp3" data-text="選項1，收入" onclick="selectChoice(8, 'opt-1')">
+          <span class="option-letter">①</span> 收入
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q8-opt2.mp3" data-text="選項2，支出" onclick="selectChoice(8, 'opt-2')">
+          <span class="option-letter">②</span> 支出
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q8-opt3.mp3" data-text="選項3，兩個都要" onclick="selectChoice(8, 'opt-3')">
+          <span class="option-letter">③</span> 兩個都要
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 9 題 -->
+    <article class="question-card" id="q9" data-question="9" data-answer="opt-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 9 題</span>
+          <span class="ans-tag" id="tag-9">參考答案：② -3</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q9-question.mp3" data-text="第9題。小兔子「往下」移動 3 層樓，應該選哪一個？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q9-full.mp3" data-text="第9題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">9.（ ）</span>小兔子「往下」移動 3 層樓，應該選哪一個？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q9-opt1.mp3" data-text="選項1，正3" onclick="selectChoice(9, 'opt-1')">
+          <span class="option-letter">①</span> +3
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q9-opt2.mp3" data-text="選項2，負3" onclick="selectChoice(9, 'opt-2')">
+          <span class="option-letter">②</span> -3
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q9-opt3.mp3" data-text="選項3，往下 0" onclick="selectChoice(9, 'opt-3')">
+          <span class="option-letter">③</span> 往下 0
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 10 題 -->
+    <article class="question-card" id="q10" data-question="10" data-answer="opt-3">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 10 題</span>
+          <span class="ans-tag" id="tag-10">參考答案：③ 上升</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q10-question.mp3" data-text="第10題。下列哪一個屬於加號家族的關鍵字？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q10-full.mp3" data-text="第10題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">10.（ ）</span>下列哪一個屬於「+」家族的關鍵字？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q10-opt1.mp3" data-text="選項1，下降" onclick="selectChoice(10, 'opt-1')">
+          <span class="option-letter">①</span> 下降
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q10-opt2.mp3" data-text="選項2，向西" onclick="selectChoice(10, 'opt-2')">
+          <span class="option-letter">②</span> 向西
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q10-opt3.mp3" data-text="選項3，上升" onclick="selectChoice(10, 'opt-3')">
+          <span class="option-letter">③</span> 上升
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 11 題 -->
+    <article class="question-card" id="q11" data-question="11" data-answer="opt-1">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 11 題</span>
+          <span class="ans-tag" id="tag-11">參考答案：(A) -12 度C</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q11-question.mp3" data-text="第11題。冰箱冷凍庫的溫度，設定為比 0 度還要低 12 度。請問冷凍庫是多少度？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q11-full.mp3" data-text="第11題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">11.（ ）</span>冰箱冷凍庫的溫度，設定為比 0 度還要低 12 度。請問冷凍庫是多少度？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q11-opt1.mp3" data-text="選項A，負12度C" onclick="selectChoice(11, 'opt-1')">
+          <span class="option-letter">A</span> -12 度C
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q11-opt2.mp3" data-text="選項B，12度C" onclick="selectChoice(11, 'opt-2')">
+          <span class="option-letter">B</span> 12 度C
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q11-opt3.mp3" data-text="選項C，0度C" onclick="selectChoice(11, 'opt-3')">
+          <span class="option-letter">C</span> 0 度C
+        </button>
+      </div>
+    </article>
+
+    <!-- 第 12 題 -->
+    <article class="question-card" id="q12" data-question="12" data-answer="opt-3">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">第 12 題</span>
+          <span class="ans-tag" id="tag-12">參考答案：(C) -3 度C</span>
+        </div>
+        <div class="head-btn-group">
+          <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q12-question.mp3" data-text="第12題。在高山上非常冷，氣溫比 0 度還要低 3 度。請問山上的溫度是多少度？">🔊 聽題目</button>
+          <button class="listen-full" type="button" data-audio="audio/zhongpu-115-math-exam1/choice-q12-full.mp3" data-text="第12題整題朗讀">🎧 唸整題</button>
+        </div>
+      </div>
+      <p class="question-text"><span class="blank-num">12.（ ）</span>在高山上非常冷，氣溫比 0 度還要低 3 度。請問山上的溫度是多少度？</p>
+      <div class="options-grid-3">
+        <button class="listen-option" type="button" data-opt="opt-1" data-audio="audio/zhongpu-115-math-exam1/choice-q12-opt1.mp3" data-text="選項A，0度C" onclick="selectChoice(12, 'opt-1')">
+          <span class="option-letter">A</span> 0 度C
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-2" data-audio="audio/zhongpu-115-math-exam1/choice-q12-opt2.mp3" data-text="選項B，3度C" onclick="selectChoice(12, 'opt-2')">
+          <span class="option-letter">B</span> 3 度C
+        </button>
+        <button class="listen-option" type="button" data-opt="opt-3" data-audio="audio/zhongpu-115-math-exam1/choice-q12-opt3.mp3" data-text="選項C，負3度C" onclick="selectChoice(12, 'opt-3')">
+          <span class="option-letter">C</span> -3 度C
+        </button>
+      </div>
+    </article>
+
+    <!-- ==================== 二、填充題 ==================== -->
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">二、填充題（共 10 題）</h2>
+        <p class="section-subtitle">請根據題目中的關鍵字，參考上面的圖片，填入正確的數字（記得要寫「+」或「-」喔！）：</p>
+      </div>
+      <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/sec-fill-intro.mp3" data-text="二大題，填充題。共10題。請根據題目中的關鍵字，參考上面的圖片，填入正確的數字，記得要寫正號或負號喔！">🔊 聽大題說明</button>
+    </div>
+
+    <!-- 填充第 1 題 -->
+    <article class="question-card" id="q13" data-question="13" data-answer="+50">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 1</span>
+          <span class="ans-tag" id="tag-13">參考答案：+50</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q1-question.mp3" data-text="第1題。媽媽給我 50 元當零用錢，這是一筆收入，可以記作空格元。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">1. 媽媽給我 50 元當零用錢，這是一筆收入，可以記作 <span class="fill-blank-highlight" id="fill-display-1">________</span> 元。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-1" placeholder="+ 或 -" oninput="updateFillDisplay(1, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(1, '+50')">+50</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(1, '-50')">-50</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(1)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 2 題 -->
+    <article class="question-card" id="q14" data-question="14" data-answer="-20">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 2</span>
+          <span class="ans-tag" id="tag-14">參考答案：-20</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q2-question.mp3" data-text="第2題。我去文具店買鉛筆花錢花了 20 元，可以記作空格元。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">2. 我去文具店買鉛筆花錢花了 20 元，可以記作 <span class="fill-blank-highlight" id="fill-display-2">________</span> 元。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-2" placeholder="+ 或 -" oninput="updateFillDisplay(2, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(2, '+20')">+20</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(2, '-20')">-20</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(2)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 3 題 -->
+    <article class="question-card" id="q15" data-question="15" data-answer="+3">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 3</span>
+          <span class="ans-tag" id="tag-15">參考答案：+3</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q3-question.mp3" data-text="第3題。今天的天氣很熱，氣溫上升了 3 度，可以記作空格度。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">3. 今天的天氣很熱，氣溫上升了 3 度，可以記作 <span class="fill-blank-highlight" id="fill-display-3">________</span> 度。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-3" placeholder="+ 或 -" oninput="updateFillDisplay(3, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(3, '+3')">+3</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(3, '-3')">-3</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(3)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 4 題 -->
+    <article class="question-card" id="q16" data-question="16" data-answer="-5">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 4</span>
+          <span class="ans-tag" id="tag-16">參考答案：-5</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q4-question.mp3" data-text="第4題。大隊接力比賽，我們班最後輸了 5 秒，可以記作空格秒。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">4. 大隊接力比賽，我們班最後輸了 5 秒，可以記作 <span class="fill-blank-highlight" id="fill-display-4">________</span> 秒。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-4" placeholder="+ 或 -" oninput="updateFillDisplay(4, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(4, '+5')">+5</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(4, '-5')">-5</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(4)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 5 題 -->
+    <article class="question-card" id="q17" data-question="17" data-answer="+100">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 5</span>
+          <span class="ans-tag" id="tag-17">參考答案：+100</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q5-question.mp3" data-text="第5題。小明在操場跑步，向東走了 100 公尺，可以記作空格公尺。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">5. 小明在操場跑步，向東走了 100 公尺，可以記作 <span class="fill-blank-highlight" id="fill-display-5">________</span> 公尺。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-5" placeholder="+ 或 -" oninput="updateFillDisplay(5, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(5, '+100')">+100</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(5, '-100')">-100</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(5)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 6 題 -->
+    <article class="question-card" id="q18" data-question="18" data-answer="+500">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 6</span>
+          <span class="ans-tag" id="tag-18">參考答案：+500</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q6-question.mp3" data-text="第6題。爸爸在路邊幫忙修車賺錢賺了 500 元，可以記作空格元。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">6. 爸爸在路邊幫忙修車賺錢賺了 500 元，可以記作 <span class="fill-blank-highlight" id="fill-display-6">________</span> 元。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-6" placeholder="+ 或 -" oninput="updateFillDisplay(6, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(6, '+500')">+500</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(6, '-500')">-500</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(6)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 7 題 -->
+    <article class="question-card" id="q19" data-question="19" data-answer="-2">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 7</span>
+          <span class="ans-tag" id="tag-19">參考答案：-2</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q7-question.mp3" data-text="第7題。因為很久沒下雨，水庫的水位下降了 2 公尺，可以記作空格公尺。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">7. 因為很久沒下雨，水庫的水位下降了 2 公尺，可以記作 <span class="fill-blank-highlight" id="fill-display-7">________</span> 公尺。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-7" placeholder="+ 或 -" oninput="updateFillDisplay(7, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(7, '+2')">+2</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(7, '-2')">-2</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(7)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 8 題 -->
+    <article class="question-card" id="q20" data-question="20" data-answer="-1">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 8</span>
+          <span class="ans-tag" id="tag-20">參考答案：-1</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q8-question.mp3" data-text="第8題。搭電梯要去地下室，電梯往下移動了 1 層樓，可以記作空格層。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">8. 搭電梯要去地下室，電梯往下移動了 1 層樓，可以記作 <span class="fill-blank-highlight" id="fill-display-8">________</span> 層。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-8" placeholder="+ 或 -" oninput="updateFillDisplay(8, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(8, '+1')">+1</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(8, '-1')">-1</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(8)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 9 題 -->
+    <article class="question-card" id="q21" data-question="21" data-answer="-300">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 9</span>
+          <span class="ans-tag" id="tag-21">參考答案：-300</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q9-question.mp3" data-text="第9題。這星期買早餐的總支出是 300 元，可以記作空格元。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">9. 這星期買早餐的總支出是 300 元，可以記作 <span class="fill-blank-highlight" id="fill-display-9">________</span> 元。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-9" placeholder="+ 或 -" oninput="updateFillDisplay(9, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(9, '+300')">+300</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(9, '-300')">-300</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(9)">清除</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 填充第 10 題 -->
+    <article class="question-card" id="q22" data-question="22" data-answer="-5">
+      <div class="question-head">
+        <div class="question-head-left">
+          <span class="question-number">填充 10</span>
+          <span class="ans-tag" id="tag-22">參考答案：-5</span>
+        </div>
+        <button class="listen-question" type="button" data-audio="audio/zhongpu-115-math-exam1/fill-q10-question.mp3" data-text="第10題。小華騎腳踏車向西前進了 5 公里，可以記作空格公里。">🔊 聽題目</button>
+      </div>
+      <p class="question-text">10. 小華騎腳踏車向西前進了 5 公里，可以記作 <span class="fill-blank-highlight" id="fill-display-10">________</span> 公里。</p>
+      <div class="fill-interactive-area">
+        <span class="fill-interactive-label">✏️ 輸入作答：</span>
+        <input type="text" class="fill-input-box" id="fill-input-10" placeholder="+ 或 -" oninput="updateFillDisplay(10, this.value)">
+        <div class="fill-quick-btn-group">
+          <button type="button" class="fill-quick-btn" onclick="quickFill(10, '+5')">+5</button>
+          <button type="button" class="fill-quick-btn" onclick="quickFill(10, '-5')">-5</button>
+          <button type="button" class="fill-quick-btn" onclick="clearFill(10)">清除</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>嘉義縣立中埔國中 特教班 115學年度第一學期 第一次數學段考・語音報讀學習系統</p>
+    <p>© 特教無障礙語音報讀學習網・支援雙語音引擎全設備出聲</p>
+  </footer>
+
+  <script>
+    // 考卷題目資料清單
+    const questions = [
+      { id: 1, title: '第1題', audio: 'audio/zhongpu-115-math-exam1/choice-q1-question.mp3', text: '第1題。圖片中，黃色的加號家族代表什麼意思？' },
+      { id: 2, title: '第2題', audio: 'audio/zhongpu-115-math-exam1/choice-q2-question.mp3', text: '第2題。圖片中，藍色的減號家族代表什麼意思？' },
+      { id: 3, title: '第3題', audio: 'audio/zhongpu-115-math-exam1/choice-q3-question.mp3', text: '第3題。如果看到錢袋旁邊寫著「賺錢」，我們應該用哪一個符號？' },
+      { id: 4, title: '第4題', audio: 'audio/zhongpu-115-math-exam1/choice-q4-question.mp3', text: '第4題。「花錢」買果汁用了 25 元，應該記作什麼？' },
+      { id: 5, title: '第5題', audio: 'audio/zhongpu-115-math-exam1/choice-q5-question.mp3', text: '第5題。氣溫「下降」了 5 度，這屬於哪一個家族？' },
+      { id: 6, title: '第6題', audio: 'audio/zhongpu-115-math-exam1/choice-q6-question.mp3', text: '第6題。指南針指向 E，東邊，圖片說這要記作什麼？' },
+      { id: 7, title: '第7題', audio: 'audio/zhongpu-115-math-exam1/choice-q7-question.mp3', text: '第7題。看到獎盃且寫著「贏了」 10 分，正確的記法是？' },
+      { id: 8, title: '第8題', audio: 'audio/zhongpu-115-math-exam1/choice-q8-question.mp3', text: '第8題。「收入」 100 元與「支出」 100 元，哪一個要用減號？' },
+      { id: 9, title: '第9題', audio: 'audio/zhongpu-115-math-exam1/choice-q9-question.mp3', text: '第9題。小兔子「往下」移動 3 層樓，應該選哪一個？' },
+      { id: 10, title: '第10題', audio: 'audio/zhongpu-115-math-exam1/choice-q10-question.mp3', text: '第10題。下列哪一個屬於加號家族的關鍵字？' },
+      { id: 11, title: '第11題', audio: 'audio/zhongpu-115-math-exam1/choice-q11-question.mp3', text: '第11題。冰箱冷凍庫的溫度，設定為比 0 度還要低 12 度。請問冷凍庫是多少度？' },
+      { id: 12, title: '第12題', audio: 'audio/zhongpu-115-math-exam1/choice-q12-question.mp3', text: '第12題。在高山上非常冷，氣溫比 0 度還要低 3 度。請問山上的溫度是多少度？' },
+      { id: 13, title: '填充1', audio: 'audio/zhongpu-115-math-exam1/fill-q1-question.mp3', text: '第1題。媽媽給我 50 元當零用錢，這是一筆收入，可以記作空格元。' },
+      { id: 14, title: '填充2', audio: 'audio/zhongpu-115-math-exam1/fill-q2-question.mp3', text: '第2題。我去文具店買鉛筆花錢花了 20 元，可以記作空格元。' },
+      { id: 15, title: '填充3', audio: 'audio/zhongpu-115-math-exam1/fill-q3-question.mp3', text: '第3題。今天的天氣很熱，氣溫上升了 3 度，可以記作空格度。' },
+      { id: 16, title: '填充4', audio: 'audio/zhongpu-115-math-exam1/fill-q4-question.mp3', text: '第4題。大隊接力比賽，我們班最後輸了 5 秒，可以記作空格秒。' },
+      { id: 17, title: '填充5', audio: 'audio/zhongpu-115-math-exam1/fill-q5-question.mp3', text: '第5題。小明在操場跑步，向東走了 100 公尺，可以記作空格公尺。' },
+      { id: 18, title: '填充6', audio: 'audio/zhongpu-115-math-exam1/fill-q6-question.mp3', text: '第6題。爸爸在路邊幫忙修車賺錢賺了 500 元，可以記作空格元。' },
+      { id: 19, title: '填充7', audio: 'audio/zhongpu-115-math-exam1/fill-q7-question.mp3', text: '第7題。因為很久沒下雨，水庫的水位下降了 2 公尺，可以記作空格公尺。' },
+      { id: 20, title: '填充8', audio: 'audio/zhongpu-115-math-exam1/fill-q8-question.mp3', text: '第8題。搭電梯要去地下室，電梯往下移動了 1 層樓，可以記作空格層。' },
+      { id: 21, title: '填充9', audio: 'audio/zhongpu-115-math-exam1/fill-q9-question.mp3', text: '第9題。這星期買早餐的總支出是 300 元，可以記作空格元。' },
+      { id: 22, title: '填充10', audio: 'audio/zhongpu-115-math-exam1/fill-q10-question.mp3', text: '第10題。小華騎腳踏車向西前進了 5 公里，可以記作空格公里。' }
+    ];
+
+    // 全域變數
+    let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
+    let isAutoPlayingAll = false;
+    let autoPlayIndex = 0;
+    let currentPlayingBtn = null;
+    let answersRevealed = false;
+
+    const audioPlayer = document.getElementById('audioPlayer');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusText = document.getElementById('statusText');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const speedSelect = document.getElementById('speed');
+    const btnPlayAll = document.getElementById('playQuestions');
+    const btnStop = document.getElementById('stopAudio');
+
+    // 選擇題點選互動
+    window.selectChoice = function(qNum, optCode) {
+      const card = document.getElementById('q' + qNum);
+      if (!card) return;
+      card.querySelectorAll('.listen-option').forEach(btn => btn.classList.remove('selected'));
+      const target = card.querySelector(`[data-opt="${optCode}"]`);
+      if (target) target.classList.add('selected');
+    };
+
+    // 填充題輸入同步與快捷按鈕
+    window.updateFillDisplay = function(fillIdx, val) {
+      const disp = document.getElementById('fill-display-' + fillIdx);
+      if (disp) {
+        disp.textContent = val.trim() ? val.trim() : '________';
+      }
+    };
+
+    window.quickFill = function(fillIdx, text) {
+      const input = document.getElementById('fill-input-' + fillIdx);
+      if (input) {
+        input.value = text;
+        updateFillDisplay(fillIdx, text);
+      }
+    };
+
+    window.clearFill = function(fillIdx) {
+      const input = document.getElementById('fill-input-' + fillIdx);
+      if (input) {
+        input.value = '';
+        updateFillDisplay(fillIdx, '');
+      }
+    };
+
+    // 答案揭曉開關
+    window.toggleAnswers = function() {
+      answersRevealed = !answersRevealed;
+      const tags = document.querySelectorAll('.ans-tag');
+      const toggleBtn = document.getElementById('toggleAnswers');
+
+      tags.forEach(tag => {
+        if (answersRevealed) {
+          tag.classList.add('visible');
+        } else {
+          tag.classList.remove('visible');
+        }
+      });
+
+      // 選擇題綠色高亮
+      for (let i = 1; i <= 12; i++) {
+        const card = document.getElementById('q' + i);
+        if (!card) continue;
+        const correctOpt = card.dataset.answer;
+        const optBtn = card.querySelector(`[data-opt="${correctOpt}"]`);
+        if (optBtn) {
+          if (answersRevealed) {
+            optBtn.classList.add('is-correct-reveal');
+          } else {
+            optBtn.classList.remove('is-correct-reveal');
+          }
+        }
+      }
+
+      if (toggleBtn) {
+        toggleBtn.textContent = answersRevealed ? '🙈 隱藏答案' : '👁 揭曉答案';
+        toggleBtn.style.background = answersRevealed ? '#b45309' : 'rgba(255,255,255,.14)';
+      }
+    };
+
+    // 語音引擎切換
+    window.switchEngine = function(engine) {
+      stopAllAudio();
+      currentEngine = engine;
+      localStorage.setItem('voice_hub_engine', engine);
+      updateEngineUI();
+    };
+
+    function updateEngineUI() {
+      const btnNative = document.getElementById('engineNative');
+      const btnMp3 = document.getElementById('engineMp3');
+      if (btnNative && btnMp3) {
+        if (currentEngine === 'native') {
+          btnNative.classList.add('active');
+          btnMp3.classList.remove('active');
+          updateStatus('語音引擎', '已切換為：📱 平板原生語音 (Web Speech API)');
+        } else {
+          btnMp3.classList.add('active');
+          btnNative.classList.remove('active');
+          updateStatus('語音引擎', '已切換為：☁️ 微軟真人語音 (全設備通用 MP3)');
+        }
+      }
+    }
+
+    function updateStatus(title, text) {
+      if (statusTitle) statusTitle.textContent = title;
+      if (statusText) statusText.textContent = text;
+    }
+
+    // 停止所有語音
+    function stopAllAudio() {
+      isAutoPlayingAll = false;
+      if (audioPlayer) {
+        try {
+          audioPlayer.pause();
+          audioPlayer.currentTime = 0;
+        } catch(e) {}
+      }
+      if ('speechSynthesis' in window) {
+        try { window.speechSynthesis.cancel(); } catch(e) {}
+      }
+      document.querySelectorAll('.is-playing').forEach(el => el.classList.remove('is-playing'));
+      currentPlayingBtn = null;
+      if (btnPlayAll) btnPlayAll.textContent = '▶ 播放全部';
+    }
+
+    // 原生朗讀 Web Speech
+    function speakNative(text, onEndCallback) {
+      if (!('speechSynthesis' in window)) {
+        updateStatus('提示', '此裝置不支援原生語音合成');
+        if (onEndCallback) onEndCallback();
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = parseFloat(speedSelect.value) || 0.9;
+      u.onend = () => {
+        if (onEndCallback) onEndCallback();
+      };
+      u.onerror = (err) => {
+        console.warn('Native speech error:', err);
+        if (onEndCallback) onEndCallback();
+      };
+      window.speechSynthesis.speak(u);
+    }
+
+    // 播放指定音訊 (MP3 優先，若失敗自動切換 Web Speech 原生朗讀)
+    function playAudio(audioSrc, rawText, triggerBtn, onEndCallback) {
+      stopAllAudio();
+
+      if (triggerBtn) {
+        triggerBtn.classList.add('is-playing');
+        currentPlayingBtn = triggerBtn;
+        const card = triggerBtn.closest('.question-card');
+        if (card) {
+          card.classList.add('is-playing');
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      if (currentEngine === 'native') {
+        updateStatus('正在朗讀 (平板原生)', rawText);
+        speakNative(rawText, () => {
+          if (triggerBtn) triggerBtn.classList.remove('is-playing');
+          const card = triggerBtn ? triggerBtn.closest('.question-card') : null;
+          if (card) card.classList.remove('is-playing');
+          currentPlayingBtn = null;
+          updateStatus('朗讀完成', rawText);
+          if (onEndCallback) onEndCallback();
+        });
+      } else {
+        // 微軟真人 MP3
+        updateStatus('載入真人音訊...', rawText);
+        const fullUrl = new URL(audioSrc, window.location.href).href;
+        audioPlayer.src = fullUrl;
+        audioPlayer.playbackRate = parseFloat(speedSelect.value) || 0.9;
+
+        const playPromise = audioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            updateStatus('正在播放 (微軟真人)', rawText);
+          }).catch(err => {
+            console.warn('MP3 playback blocked/failed, auto fallback to native:', err);
+            updateStatus('改用裝置原生語音朗讀...', rawText);
+            speakNative(rawText, () => {
+              if (triggerBtn) triggerBtn.classList.remove('is-playing');
+              const card = triggerBtn ? triggerBtn.closest('.question-card') : null;
+              if (card) card.classList.remove('is-playing');
+              currentPlayingBtn = null;
+              updateStatus('朗讀完成', rawText);
+              if (onEndCallback) onEndCallback();
+            });
+          });
+        }
+
+        audioPlayer.onended = () => {
+          if (triggerBtn) triggerBtn.classList.remove('is-playing');
+          const card = triggerBtn ? triggerBtn.closest('.question-card') : null;
+          if (card) card.classList.remove('is-playing');
+          currentPlayingBtn = null;
+          updateStatus('播放完成', rawText);
+          if (onEndCallback) onEndCallback();
+        };
+
+        audioPlayer.onerror = (e) => {
+          console.warn('Audio tag error, fallback to native:', e);
+          updateStatus('改用裝置原生語音朗讀...', rawText);
+          speakNative(rawText, () => {
+            if (triggerBtn) triggerBtn.classList.remove('is-playing');
+            const card = triggerBtn ? triggerBtn.closest('.question-card') : null;
+            if (card) card.classList.remove('is-playing');
+            currentPlayingBtn = null;
+            updateStatus('朗讀完成', rawText);
+            if (onEndCallback) onEndCallback();
+          });
+        };
+      }
+    }
+
+    // 循序自動播放全部題目
+    function playAllQuestions() {
+      if (isAutoPlayingAll) {
+        stopAllAudio();
+        return;
+      }
+      isAutoPlayingAll = true;
+      autoPlayIndex = 0;
+      if (btnPlayAll) btnPlayAll.textContent = '⏹ 停止播放';
+      playNextQuestionInSequence();
+    }
+
+    function playNextQuestionInSequence() {
+      if (!isAutoPlayingAll || autoPlayIndex >= questions.length) {
+        stopAllAudio();
+        updateStatus('全卷播放完畢', '所有題目已依序播放完成！');
+        if (progressBar) progressBar.value = questions.length;
+        if (progressText) progressText.textContent = `${questions.length} / ${questions.length} 題`;
+        return;
+      }
+
+      const q = questions[autoPlayIndex];
+      const card = document.getElementById('q' + q.id);
+      let btn = null;
+      if (card) {
+        btn = card.querySelector('.listen-question') || card.querySelector('.listen-full');
+      }
+
+      if (progressBar) progressBar.value = autoPlayIndex + 1;
+      if (progressText) progressText.textContent = `${autoPlayIndex + 1} / ${questions.length} 題`;
+
+      playAudio(q.audio, q.text, btn, () => {
+        if (!isAutoPlayingAll) return;
+        autoPlayIndex++;
+        setTimeout(() => {
+          playNextQuestionInSequence();
+        }, 600);
+      });
+    }
+
+    // 測試發音
+    window.testAudio = function() {
+      stopAllAudio();
+      const testText = '語音測試正常！這裡是中埔國中特教班第一次數學段考語音報讀。';
+      if (currentEngine === 'native') {
+        updateStatus('正在測試發音...', testText);
+        speakNative(testText, () => updateStatus('語音正常', '平板原生語音測試完畢。'));
+      } else {
+        playAudio('audio/zhongpu-115-math-exam1/concept-intro.mp3', testText, null, () => {
+          updateStatus('語音正常', '微軟真人語音測試完畢。');
+        });
+      }
+    };
+
+    // 事件監聽綁定
+    function initEvents() {
+      // 點選所有可朗讀按鈕
+      document.querySelectorAll('[data-audio]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const audioSrc = btn.dataset.audio;
+          const text = btn.dataset.text || btn.textContent.trim();
+          playAudio(audioSrc, text, btn, null);
+        });
+      });
+
+      if (btnPlayAll) btnPlayAll.addEventListener('click', playAllQuestions);
+      if (btnStop) btnStop.addEventListener('click', stopAllAudio);
+
+      if (speedSelect) {
+        speedSelect.addEventListener('change', () => {
+          if (audioPlayer) audioPlayer.playbackRate = parseFloat(speedSelect.value) || 0.9;
+        });
+      }
+    }
+
+    // 初始化
+    updateEngineUI();
+    initEvents();
+  </script>
+</body>
+</html>
