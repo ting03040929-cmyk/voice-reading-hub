@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c4a5a">
-  <meta name="description" content="七年級國文《吃冰的滋味》課文閱讀測驗語音報讀練習：支援微軟真人音訊與平板語音雙引擎、題目與選項獨立點讀發音、互動點選作答與答案核對。">
+  <meta name="description" content="七年級國文《吃冰的滋味》課文閱讀測驗語音報讀練習：支援微軟真人音訊與平板語音雙引擎、題目與選項獨立點讀發音、互動點選作答。">
   <title>吃冰的滋味・課文閱讀測驗聽讀練習</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +26,6 @@
       --green-bg: #f0fdf4;
       --green-border: #bbf7d0;
       --green-text: #166534;
-      --correct: #10b981;
-      --correct-bg: #ecfdf5;
       --primary-accent: #0f766e;
     }
 
@@ -304,20 +302,6 @@
       font-size: 0.95rem;
     }
 
-    .ans-tag {
-      display: none;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-weight: 800;
-      font-size: 0.9rem;
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-    }
-    .ans-tag.visible { display: inline-flex; }
-
     .user-feedback {
       display: none;
       align-items: center;
@@ -326,18 +310,12 @@
       border-radius: 6px;
       font-weight: 800;
       font-size: 0.88rem;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
     }
-    .user-feedback.correct {
+    .user-feedback.answered {
       display: inline-flex;
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-    }
-    .user-feedback.wrong {
-      display: inline-flex;
-      background: #fef2f2;
-      color: #b91c1c;
-      border: 1px solid #fecaca;
     }
 
     .listen-question, .listen-option {
@@ -438,13 +416,6 @@
       font-weight: 800;
     }
 
-    .listen-option.is-correct-reveal {
-      background: #ecfdf5 !important;
-      border-color: #10b981 !important;
-      color: #065f46 !important;
-      font-weight: 800;
-    }
-
     .option-letter {
       width: 32px;
       height: 32px;
@@ -497,7 +468,6 @@
       <div class="toolbar">
         <button class="tool-button" id="playQuestions" type="button" title="從第 1 題開始依序播放">▶ 播放全部題目</button>
         <button class="tool-button" id="stopAudio" type="button" title="停止目前播放">⏹ 停止</button>
-        <button class="tool-button" id="toggleAnswers" type="button" title="顯示或隱藏解答" onclick="toggleAnswers()">👁️ 顯示答案</button>
         <button class="tool-button" id="resetQuiz" type="button" title="清除所有點選答案" onclick="resetQuiz()">🔄 重新作答</button>
         <label for="speed" class="sr-only" style="display:none;">語速</label>
         <select id="speed" class="speed-select" aria-label="語速調整">
@@ -513,8 +483,8 @@
   <main>
     <section class="intro">
       <div class="intro-content">
-        <h2>🍧 國文七年級《吃冰的滋味》閱讀理解測驗</h2>
-        <p>全卷共 15 題選擇題。支援微軟真人語音與平板原生發音雙引擎。點選「🔊 聽題目」可聽題目，點選個別選項可聽選項內容；點擊選項立即作答核對！</p>
+        <h2>🍧 國文七年級《吃冰的滋味》閱讀測驗</h2>
+        <p>全卷共 15 題選擇題。支援微軟真人語音與平板原生發音雙引擎。點選「🔊 聽題目」可聽題目，點選個別選項可聽選項內容；點擊選項即可填入答案作答！</p>
       </div>
       <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/intro.mp3" data-text="吃冰的滋味，課文閱讀測驗。請仔細聽題目，選出最適合的答案。">🔊 聽測驗說明</button>
     </section>
@@ -533,11 +503,10 @@
     </section>
 
     <!-- 第 1 題 -->
-    <article class="question-card" id="q1" data-question="1" data-answer="2">
+    <article class="question-card" id="q1" data-question="1">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 1 題</span>
-          <span class="ans-tag">解答：(2) 黯然失色</span>
           <span class="user-feedback" id="fb-q1"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q01-question.mp3" data-text="第1題。作者認為童年如果沒有冰，生活會變得如何？">🔊 聽題目</button>
@@ -552,11 +521,10 @@
     </article>
 
     <!-- 第 2 題 -->
-    <article class="question-card" id="q2" data-question="2" data-answer="3">
+    <article class="question-card" id="q2" data-question="2">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 2 題</span>
-          <span class="ans-tag">解答：(3) 五花八門</span>
           <span class="user-feedback" id="fb-q2"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q02-question.mp3" data-text="第2題。現在社會富裕了，小孩對於冰品的選擇情況為何？">🔊 聽題目</button>
@@ -571,11 +539,10 @@
     </article>
 
     <!-- 第 3 題 -->
-    <article class="question-card" id="q3" data-question="3" data-answer="1">
+    <article class="question-card" id="q3" data-question="3">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 3 題</span>
-          <span class="ans-tag">解答：(1) 嗜冰如命</span>
           <span class="user-feedback" id="fb-q3"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q03-question.mp3" data-text="第3題。文中提到現代的小孩子對冰的喜愛程度可以用哪個詞形容？">🔊 聽題目</button>
@@ -590,11 +557,10 @@
     </article>
 
     <!-- 第 4 題 -->
-    <article class="question-card" id="q4" data-question="4" data-answer="3">
+    <article class="question-card" id="q4" data-question="4">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 4 題</span>
-          <span class="ans-tag">解答：(3) 貨真價實</span>
           <span class="user-feedback" id="fb-q4"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q04-question.mp3" data-text="第4題。根據課文，早期的生意人有什麼特質，讓冰品口味值得信賴？">🔊 聽題目</button>
@@ -609,11 +575,10 @@
     </article>
 
     <!-- 第 5 題 -->
-    <article class="question-card" id="q5" data-question="5" data-answer="4">
+    <article class="question-card" id="q5" data-question="5">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 5 題</span>
-          <span class="ans-tag">解答：(4) 花生與紅豆</span>
           <span class="user-feedback" id="fb-q5"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q05-question.mp3" data-text="第5題。作者小時候住在糖廠宿舍，當時最受歡迎的冰品口味是什麼？">🔊 聽題目</button>
@@ -628,11 +593,10 @@
     </article>
 
     <!-- 第 6 題 -->
-    <article class="question-card" id="q6" data-question="6" data-answer="1">
+    <article class="question-card" id="q6" data-question="6">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 6 題</span>
-          <span class="ans-tag">解答：(1) 一毛錢</span>
           <span class="user-feedback" id="fb-q6"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q06-question.mp3" data-text="第6題。根據課文，當時一枝冰棒的售價是多少錢？">🔊 聽題目</button>
@@ -647,11 +611,10 @@
     </article>
 
     <!-- 第 7 題 -->
-    <article class="question-card" id="q7" data-question="7" data-answer="3">
+    <article class="question-card" id="q7" data-question="7">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 7 題</span>
-          <span class="ans-tag">解答：(3) 使用砂糖，乾淨衛生</span>
           <span class="user-feedback" id="fb-q7"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q07-question.mp3" data-text="第7題。關於糖廠冰棒的描述，下列何者正確？">🔊 聽題目</button>
@@ -666,11 +629,10 @@
     </article>
 
     <!-- 第 8 題 -->
-    <article class="question-card" id="q8" data-question="8" data-answer="2">
+    <article class="question-card" id="q8" data-question="8">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 8 題</span>
-          <span class="ans-tag">解答：(2) 拿來做遊戲</span>
           <span class="user-feedback" id="fb-q8"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q08-question.mp3" data-text="第8題。小孩子吃完冰棒後，會把收集起來的竹桿拿來做什麼？">🔊 聽題目</button>
@@ -685,11 +647,10 @@
     </article>
 
     <!-- 第 9 題 -->
-    <article class="question-card" id="q9" data-question="9" data-answer="4">
+    <article class="question-card" id="q9" data-question="9">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 9 題</span>
-          <span class="ans-tag">解答：(4) 愛玉</span>
           <span class="user-feedback" id="fb-q9"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q09-question.mp3" data-text="第9題。文中提到的刨冰配料中，包含下列哪一項？">🔊 聽題目</button>
@@ -704,11 +665,10 @@
     </article>
 
     <!-- 第 10 題 -->
-    <article class="question-card" id="q10" data-question="10" data-answer="3">
+    <article class="question-card" id="q10" data-question="10">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 10 題</span>
-          <span class="ans-tag">解答：(3) 搖動鈴鐺</span>
           <span class="user-feedback" id="fb-q10"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q10-question.mp3" data-text="第10題。賣芋冰的小販在叫賣時，會發出什麼樣的聲音來吸引注意？">🔊 聽題目</button>
@@ -723,11 +683,10 @@
     </article>
 
     <!-- 第 11 題 -->
-    <article class="question-card" id="q11" data-question="11" data-answer="1">
+    <article class="question-card" id="q11" data-question="11">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 11 題</span>
-          <span class="ans-tag">解答：(1) 想起童年美好往事</span>
           <span class="user-feedback" id="fb-q11"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q11-question.mp3" data-text="第11題。作者每到夏天吃冰時，心情通常會是如何？">🔊 聽題目</button>
@@ -742,11 +701,10 @@
     </article>
 
     <!-- 第 12 題 -->
-    <article class="question-card" id="q12" data-question="12" data-answer="3">
+    <article class="question-card" id="q12" data-question="12">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 12 題</span>
-          <span class="ans-tag">解答：(3) 童年的記憶</span>
           <span class="user-feedback" id="fb-q12"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q12-question.mp3" data-text="第12題。作者認為雖然冰淇淋味道好，但什麼才是最甜美的？">🔊 聽題目</button>
@@ -761,11 +719,10 @@
     </article>
 
     <!-- 第 13 題 -->
-    <article class="question-card" id="q13" data-question="13" data-answer="1">
+    <article class="question-card" id="q13" data-question="13">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 13 題</span>
-          <span class="ans-tag">解答：(1) 玩射擊遊戲賭冰</span>
           <span class="user-feedback" id="fb-q13"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q13-question.mp3" data-text="第13題。除了直接購買外，以前的人還能透過哪種方式來得到芋冰？">🔊 聽題目</button>
@@ -780,11 +737,10 @@
     </article>
 
     <!-- 第 14 題 -->
-    <article class="question-card" id="q14" data-question="14" data-answer="2">
+    <article class="question-card" id="q14" data-question="14">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 14 題</span>
-          <span class="ans-tag">解答：(2) 腳踏車</span>
           <span class="user-feedback" id="fb-q14"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q14-question.mp3" data-text="第14題。賣芋冰的小販主要是騎乘什麼交通工具沿街叫賣？">🔊 聽題目</button>
@@ -799,11 +755,10 @@
     </article>
 
     <!-- 第 15 題 -->
-    <article class="question-card" id="q15" data-question="15" data-answer="3">
+    <article class="question-card" id="q15" data-question="15">
       <div class="question-head">
         <div class="head-left">
           <span class="question-number">第 15 題</span>
-          <span class="ans-tag">解答：(3) 童年吃冰的記憶多已消失殆盡</span>
           <span class="user-feedback" id="fb-q15"></span>
         </div>
         <button class="listen-question" type="button" data-audio="audio/eating-ice-reading-quiz/q15-question.mp3" data-text="第15題。根據課文內容，下列關於作者童年吃冰記憶的敘述何者正確？">🔊 聽題目</button>
@@ -817,31 +772,31 @@
       </div>
     </article>
 
-    <p class="hint-footer">💡 小提醒：點選深藍色按鈕可單獨聽題目，點選選項可直接作答與聽發音；點擊「顯示答案」可對答案。</p>
+    <p class="hint-footer">💡 小提醒：點選深藍色按鈕可單獨聽題目，點選選項可單獨聽選項並選取填入括號。</p>
   </main>
 
   <footer>
-    <p>國文七年級《吃冰的滋味》閱讀理解測驗｜特教無障礙語音報讀學習網</p>
+    <p>國文七年級《吃冰的滋味》閱讀測驗｜特教無障礙語音報讀學習網</p>
   </footer>
 
   <script>
     // 考卷題目清單（供目錄索引與題數自動統計）
     const questions = [
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 1, "question": "作者認為童年如果沒有冰，生活會變得如何？", "options": ["1. 更充實", "2. 黯然失色", "3. 沒有變化", "4. 更有動力"], "answer": "2"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 2, "question": "現在社會富裕了，小孩對於冰品的選擇情況為何？", "options": ["1. 只有單一口味", "2. 變得越來越少", "3. 五花八門", "4. 沒有任何進步"], "answer": "3"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 3, "question": "文中提到現代的小孩子對冰的喜愛程度可以用哪個詞形容？", "options": ["1. 嗜冰如命", "2. 不屑一顧", "3. 偶爾嘗試", "4. 可有可無"], "answer": "1"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 4, "question": "根據課文，早期的生意人有什麼特質，讓冰品口味值得信賴？", "options": ["1. 價格昂貴", "2. 只賣外國產品", "3. 貨真價實", "4. 追求包裝華麗"], "answer": "3"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 5, "question": "作者小時候住在糖廠宿舍，當時最受歡迎的冰品口味是什麼？", "options": ["1. 芋頭與鳳梨", "2. 巧克力與香草", "3. 草莓與薄荷", "4. 花生與紅豆"], "answer": "4"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 6, "question": "根據課文，當時一枝冰棒的售價是多少錢？", "options": ["1. 一毛錢", "2. 一元錢", "3. 五毛錢", "4. 十元錢"], "answer": "1"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 7, "question": "關於糖廠冰棒的描述，下列何者正確？", "options": ["1. 含有大量糖精", "2. 使用自來水製成", "3. 使用砂糖，乾淨衛生", "4. 吃起來苦苦的"], "answer": "3"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 8, "question": "小孩子吃完冰棒後，會把收集起來的竹桿拿來做什麼？", "options": ["1. 當作柴火", "2. 拿來做遊戲", "3. 拿去賣錢", "4. 當作筷子"], "answer": "2"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 9, "question": "文中提到的刨冰配料中，包含下列哪一項？", "options": ["1. 草莓", "2. 巧克力", "3. 芋頭", "4. 愛玉"], "answer": "4"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 10, "question": "賣芋冰的小販在叫賣時，會發出什麼樣的聲音來吸引注意？", "options": ["1. 大聲喊叫", "2. 吹奏樂器", "3. 搖動鈴鐺", "4. 播放音樂"], "answer": "3"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 11, "question": "作者每到夏天吃冰時，心情通常會是如何？", "options": ["1. 想起童年美好往事", "2. 感到十分悲傷", "3. 擔心冰太甜", "4. 覺得口渴想喝水"], "answer": "1"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 12, "question": "作者認為雖然冰淇淋味道好，但什麼才是最甜美的？", "options": ["1. 芋冰的滋味", "2. 轉盤遊戲的獎勵", "3. 童年的記憶", "4. 清脆的鈴鐺聲"], "answer": "3"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 13, "question": "除了直接購買外，以前的人還能透過哪種方式來得到芋冰？", "options": ["1. 玩射擊遊戲賭冰", "2. 幫小販推腳踏車", "3. 用玩具交換", "4. 唱歌給小販聽"], "answer": "1"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 14, "question": "賣芋冰的小販主要是騎乘什麼交通工具沿街叫賣？", "options": ["1. 摩托車", "2. 腳踏車", "3. 三輪車", "4. 推車"], "answer": "2"},
-      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 15, "question": "根據課文內容，下列關於作者童年吃冰記憶的敘述何者正確？", "options": ["1. 那種記憶現在隨處可見", "2. 現在的冰淇淋比記憶更甜美", "3. 童年吃冰的記憶多已消失殆盡", "4. 作者不喜歡芋冰的味道"], "answer": "3"}
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 1, "question": "作者認為童年如果沒有冰，生活會變得如何？", "options": ["1. 更充實", "2. 黯然失色", "3. 沒有變化", "4. 更有動力"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 2, "question": "現在社會富裕了，小孩對於冰品的選擇情況為何？", "options": ["1. 只有單一口味", "2. 變得越來越少", "3. 五花八門", "4. 沒有任何進步"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 3, "question": "文中提到現代的小孩子對冰的喜愛程度可以用哪個詞形容？", "options": ["1. 嗜冰如命", "2. 不屑一顧", "3. 偶爾嘗試", "4. 可有可無"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 4, "question": "根據課文，早期的生意人有什麼特質，讓冰品口味值得信賴？", "options": ["1. 價格昂貴", "2. 只賣外國產品", "3. 貨真價實", "4. 追求包裝華麗"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 5, "question": "作者小時候住在糖廠宿舍，當時最受歡迎的冰品口味是什麼？", "options": ["1. 芋頭與鳳梨", "2. 巧克力與香草", "3. 草莓與薄荷", "4. 花生與紅豆"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 6, "question": "根據課文，當時一枝冰棒的售價是多少錢？", "options": ["1. 一毛錢", "2. 一元錢", "3. 五毛錢", "4. 十元錢"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 7, "question": "關於糖廠冰棒的描述，下列何者正確？", "options": ["1. 含有大量糖精", "2. 使用自來水製成", "3. 使用砂糖，乾淨衛生", "4. 吃起來苦苦的"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 8, "question": "小孩子吃完冰棒後，會把收集起來的竹桿拿來做什麼？", "options": ["1. 當作柴火", "2. 拿來做遊戲", "3. 拿去賣錢", "4. 當作筷子"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 9, "question": "文中提到的刨冰配料中，包含下列哪一項？", "options": ["1. 草莓", "2. 巧克力", "3. 芋頭", "4. 愛玉"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 10, "question": "賣芋冰的小販在叫賣時，會發出什麼樣的聲音來吸引注意？", "options": ["1. 大聲喊叫", "2. 吹奏樂器", "3. 搖動鈴鐺", "4. 播放音樂"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 11, "question": "作者每到夏天吃冰時，心情通常會是如何？", "options": ["1. 想起童年美好往事", "2. 感到十分悲傷", "3. 擔心冰太甜", "4. 覺得口渴想喝水"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 12, "question": "作者認為雖然冰淇淋味道好，但什麼才是最甜美的？", "options": ["1. 芋冰的滋味", "2. 轉盤遊戲的獎勵", "3. 童年的記憶", "4. 清脆的鈴鐺聲"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 13, "question": "除了直接購買外，以前的人還能透過哪種方式來得到芋冰？", "options": ["1. 玩射擊遊戲賭冰", "2. 幫小販推腳踏車", "3. 用玩具交換", "4. 唱歌給小販聽"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 14, "question": "賣芋冰的小販主要是騎乘什麼交通工具沿街叫賣？", "options": ["1. 摩托車", "2. 腳踏車", "3. 三輪車", "4. 推車"]},
+      {"section": "吃冰的滋味 課文閱讀測驗", "displayId": 15, "question": "根據課文內容，下列關於作者童年吃冰記憶的敘述何者正確？", "options": ["1. 那種記憶現在隨處可見", "2. 現在的冰淇淋比記憶更甜美", "3. 童年吃冰的記憶多已消失殆盡", "4. 作者不喜歡芋冰的味道"]}
     ];
 
     const player = document.getElementById('audioPlayer');
@@ -857,12 +812,10 @@
     let queue = [];
     let queuePosition = -1;
     let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
-    let answersRevealed = false;
 
-    // 互動點選作答
+    // 互動點選作答（單純填入學生所選選項，不劇透答案）
     document.querySelectorAll('.question-card').forEach(card => {
       const qNum = card.dataset.question;
-      const correctAns = card.dataset.answer;
       const blankEl = document.getElementById(`blank-q${qNum}`);
       const fbEl = document.getElementById(`fb-q${qNum}`);
       const options = card.querySelectorAll('.listen-option');
@@ -878,13 +831,8 @@
           }
 
           if (fbEl) {
-            if (chosenOpt === correctAns) {
-              fbEl.className = 'user-feedback correct';
-              fbEl.textContent = '⭕ 答對了！';
-            } else {
-              fbEl.className = 'user-feedback wrong';
-              fbEl.textContent = '❌ 再想想看';
-            }
+            fbEl.className = 'user-feedback answered';
+            fbEl.textContent = `已選擇：選項 ${chosenOpt}`;
           }
         });
       });
@@ -903,41 +851,9 @@
         }
         card.querySelectorAll('.listen-option').forEach(b => {
           b.classList.remove('selected');
-          b.classList.remove('is-correct-reveal');
         });
       });
-      answersRevealed = false;
-      const toggleBtn = document.getElementById('toggleAnswers');
-      if (toggleBtn) toggleBtn.textContent = '👁️ 顯示答案';
-      document.querySelectorAll('.ans-tag').forEach(tag => tag.classList.remove('visible'));
       setStatus('已清除作答記錄', '可以重新進行作答練習！');
-    }
-
-    // 顯示 / 隱藏答案
-    function toggleAnswers() {
-      answersRevealed = !answersRevealed;
-      const toggleBtn = document.getElementById('toggleAnswers');
-      if (toggleBtn) {
-        toggleBtn.textContent = answersRevealed ? '🙈 隱藏答案' : '👁️ 顯示答案';
-      }
-
-      document.querySelectorAll('.ans-tag').forEach(tag => {
-        tag.classList.toggle('visible', answersRevealed);
-      });
-
-      for (let i = 1; i <= 15; i++) {
-        const card = document.getElementById(`q${i}`);
-        if (card) {
-          const ans = card.dataset.answer;
-          card.querySelectorAll('.listen-option').forEach(btn => {
-            if (answersRevealed && btn.dataset.opt === ans) {
-              btn.classList.add('is-correct-reveal');
-            } else {
-              btn.classList.remove('is-correct-reveal');
-            }
-          });
-        }
-      }
     }
 
     // 雙引擎切換與發聲
