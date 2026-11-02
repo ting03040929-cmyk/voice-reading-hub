@@ -1,5 +1,27 @@
 [
   {
+    "id": "eating-ice-reading-quiz",
+    "title": "吃冰的滋味・課文閱讀測驗聽讀練習",
+    "subject": "國文",
+    "grade": "七年級",
+    "unit": "吃冰的滋味",
+    "questionsCount": 15,
+    "description": "七年級國文《吃冰的滋味》（古蒙仁）課文深入理解與閱讀測驗共 15 題。支援微軟真人 MP3 點讀、平板原生 Web Speech、題目與選項獨立點讀發音、互動點選作答與答案核對。",
+    "file": "materials/eating-ice-reading-quiz.html",
+    "date": "2026-11-02",
+    "tags": [
+      "吃冰的滋味",
+      "古蒙仁",
+      "國文",
+      "特教國文",
+      "課文閱讀測驗",
+      "閱讀理解",
+      "選擇題",
+      "語音報讀",
+      "微軟真人語音"
+    ]
+  },
+  {
     "id": "zhongpu-115-math-exam1",
     "title": "中埔國中 115特教數學第一次段考・語音報讀",
     "subject": "數學",
