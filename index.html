@@ -792,150 +792,189 @@
     <script>
         // Embedded materials dataset (fallback for local file:// protocol)
         const initialMaterials = [
-        {
-                "id": "eating-ice-reading-quiz",
-                "title": "吃冰的滋味・課文閱讀測驗聽讀練習",
-                "subject": "國文",
-                "grade": "七年級",
-                "unit": "吃冰的滋味",
-                "questionsCount": 15,
-                "description": "七年級國文《吃冰的滋味》（古蒙仁）課文閱讀測驗共 15 題（學生練習測驗版，無解答劇透）。支援微軟真人 MP3 點讀、平板原生 Web Speech、題目與選項獨立點讀發音、互動點選作答填入。",
-                "file": "materials/eating-ice-reading-quiz.html?t=" + Date.now(),
-                "date": "2026-11-02",
-                "tags": [
-                        "吃冰的滋味",
-                        "古蒙仁",
-                        "國文",
-                        "特教國文",
-                        "課文閱讀測驗",
-                        "閱讀理解",
-                        "選擇題",
-                        "語音報讀",
-                        "微軟真人語音"
-                ]
-        },
-        {
-                "id": "zhongpu-115-math-exam1",
-                "title": "中埔國中 115特教數學第一次段考・語音報讀",
-                "subject": "數學",
-                "grade": "七年級",
-                "unit": "第一次段考",
-                "questionsCount": 22,
-                "description": "嘉義縣立中埔國中 115學年度第一學期 特教班數學科第一次段考全卷語音報讀（選擇題 12 題、正負數相反量生活情境填充題 10 題，共 22 題），支援微軟真人音訊獨立點讀、平板原生語音備援與答案核對。",
-                "file": "materials/zhongpu-115-math-exam1.html?t=" + Date.now(),
-                "date": "2026-10-16",
-                "tags": [
-                        "中埔國中",
-                        "第一次段考",
-                        "數學",
-                        "特教數學",
-                        "正負數",
-                        "相反量",
-                        "段考報讀",
-                        "語音報讀",
-                        "微軟真人語音"
-                ]
-        },
-        {
-                "id": "zhongpu-115-exam1",
-                "title": "中埔國中 115特教國文第一次段考・語音報讀",
-                "subject": "國文",
-                "grade": "七年級",
-                "unit": "第一次段考",
-                "questionsCount": 35,
-                "description": "嘉義縣立中埔國中 115學年度第一學期 特教班國文科第一次段考全卷語音報讀（填充題、注釋選擇題、夏夜課文理解、生活素養題共 35 題），支援微軟真人音訊獨立點讀、平板原生語音備援與答案核對。",
-                "file": "materials/zhongpu-115-exam1.html?t=1791920000000",
-                "date": "2026-10-14",
-                "tags": [
-                        "中埔國中",
-                        "第一次段考",
-                        "國文",
-                        "特教國文",
-                        "夏夜",
-                        "段考報讀",
-                        "語音報讀",
-                        "微軟真人語音"
-                ]
-        },
-        {
-                "id": "math-g7-pos-neg",
-                "title": "正數與負數講義 (一年級數學)",
-                "subject": "數學",
-                "grade": "七年級",
-                "unit": "第 1 單元",
-                "questionsCount": 55,
-                "description": "認識正數與負數、生活中相反量的正負表示、數線與點的座標、負數圖示運算、兩點間距離。",
-                "file": "materials/math-g7-pos-neg.html?t=1789692249702",
-                "date": "2026-09-17",
-                "tags": [
-                        "正負數",
-                        "數線",
-                        "相反量",
-                        "國一數學",
-                        "講義",
-                        "微軟真人語音"
-                ]
-        },
-        {
-                "id": "math-917-quiz",
-                "title": "正負數家族與相反量練習題 (一年級數學)",
-                "subject": "數學",
-                "grade": "七年級",
-                "unit": "917 隨堂練習",
-                "questionsCount": 15,
-                "description": "「+」家族與「-」家族相反詞整理（賺錢/花錢、收入/支出、上升/下降、贏了/輸了、東/西）與生活情境正負數選擇題。",
-                "file": "materials/math-917-quiz.html?t=1791763100000",
-                "date": "2026-09-17",
-                "tags": [
-                        "正負數",
-                        "相反量",
-                        "家族分類",
-                        "生活情境",
-                        "特教數學",
-                        "選擇題",
-                        "微軟真人語音"
-                ]
-        },
-        {
-                "id": "summer-night-vocab-quiz",
-                "title": "夏夜・生字語詞與句子概念聽讀練習",
-                "subject": "國文",
-                "grade": "七年級",
-                "unit": "夏夜",
-                "questionsCount": 16,
-                "description": "七年級國文《夏夜》課文生字語詞－句子（挖空選擇題）與句子概念選擇題，共 16 題。支援微軟真人 MP3 點讀與裝置原生語音備援。",
-                "file": "materials/summer-night-vocab-quiz.html?t=1791761400000",
-                "date": "2026-09-23",
-                "tags": [
-                        "夏夜",
-                        "國文",
-                        "生字語詞",
-                        "句子概念",
-                        "選擇題",
-                        "聽讀練習",
-                        "微軟真人語音"
-                ]
-        },
-        {
-                "id": "eating-ice-vocab-quiz",
-                "title": "吃冰的滋味・語詞配意思與選詞填空聽讀練習",
-                "subject": "國文",
-                "grade": "七年級",
-                "unit": "吃冰的滋味",
-                "questionsCount": 17,
-                "description": "七年級國文《吃冰的滋味》語詞配意思、選詞填句子與畫畫寫寫，共 17 題。支援微軟真人 MP3 點讀、平板原生 Web Speech、互動填答與線上繪圖板。",
-                "file": "materials/eating-ice-vocab-quiz.html?t=1791890000000",
-                "date": "2026-10-13",
-                "tags": [
-                        "吃冰的滋味",
-                        "國文",
-                        "生字語詞",
-                        "語詞配意思",
-                        "選詞填空",
-                        "聽讀練習",
-                        "微軟真人語音"
-                ]
-        }
+    {
+        "id": "eating-ice-vocab-fill-quiz",
+        "title": "吃冰的滋味【第一大題】生字語詞－句子填充聽讀練習",
+        "subject": "國文",
+        "grade": "七年級",
+        "unit": "吃冰的滋味",
+        "questionsCount": 8,
+        "description": "七年級國文《吃冰的滋味》第一大題：生字語詞－句子填充題（純淨學生練習測驗版，無公佈答案）。支援微軟真人 MP3 點讀、平板原生語音、點選詞庫互動填入空格、列印純淨學習單。",
+        "file": "materials/eating-ice-vocab-fill-quiz.html",
+        "date": "2026-11-10",
+        "tags": [
+            "吃冰的滋味",
+            "國文",
+            "生字語詞",
+            "句子填充",
+            "特教國文",
+            "語音報讀",
+            "純淨練習版"
+        ]
+    },
+    {
+        "id": "eating-ice-concept-matching-quiz",
+        "title": "吃冰的滋味【第二大題】生字語詞－句子概念配對聽讀練習",
+        "subject": "國文",
+        "grade": "七年級",
+        "unit": "吃冰的滋味",
+        "questionsCount": 8,
+        "description": "七年級國文《吃冰的滋味》第二大題：生字語詞－句子概念配對（純淨學生練習測驗版，無公佈答案）。支援微軟真人 MP3 點讀、平板原生語音、點選代號填入括號、列印純淨學習單。",
+        "file": "materials/eating-ice-concept-matching-quiz.html",
+        "date": "2026-11-10",
+        "tags": [
+            "吃冰的滋味",
+            "國文",
+            "生字語詞",
+            "句子概念",
+            "配對題",
+            "特教國文",
+            "語音報讀",
+            "純淨練習版"
+        ]
+    },
+    {
+        "id": "eating-ice-reading-quiz",
+        "title": "吃冰的滋味・課文閱讀測驗聽讀練習",
+        "subject": "國文",
+        "grade": "七年級",
+        "unit": "吃冰的滋味",
+        "questionsCount": 15,
+        "description": "七年級國文《吃冰的滋味》（古蒙仁）課文閱讀測驗共 15 題（學生練習測驗版，無解答劇透）。支援微軟真人 MP3 點讀、平板原生 Web Speech、題目與選項獨立點讀發音、互動點選作答填入。",
+        "file": "materials/eating-ice-reading-quiz.html",
+        "date": "2026-11-02",
+        "tags": [
+            "吃冰的滋味",
+            "古蒙仁",
+            "國文",
+            "特教國文",
+            "課文閱讀測驗",
+            "閱讀理解",
+            "選擇題",
+            "語音報讀",
+            "微軟真人語音"
+        ]
+    },
+    {
+        "id": "zhongpu-115-math-exam1",
+        "title": "中埔國中 115特教數學第一次段考・語音報讀",
+        "subject": "數學",
+        "grade": "七年級",
+        "unit": "第一次段考",
+        "questionsCount": 0,
+        "description": "嘉義縣立中埔國中 115學年度第一學期 特教班數學科第一次段考全卷語音報讀（選擇題 12 題、正負數相反量生活情境填充題 10 題，共 22 題），支援微軟真人音訊獨立點讀、平板原生語音備援與答案核對。",
+        "file": "materials/zhongpu-115-math-exam1.html",
+        "date": "2026-10-16",
+        "tags": [
+            "中埔國中",
+            "第一次段考",
+            "數學",
+            "特教數學",
+            "正負數",
+            "相反量",
+            "段考報讀",
+            "語音報讀",
+            "微軟真人語音"
+        ]
+    },
+    {
+        "id": "zhongpu-115-exam1",
+        "title": "中埔國中 115特教國文第一次段考・語音報讀",
+        "subject": "國文",
+        "grade": "七年級",
+        "unit": "第一次段考",
+        "questionsCount": 35,
+        "description": "嘉義縣立中埔國中 115學年度第一學期 特教班國文科第一次段考全卷語音報讀（填充題、注釋選擇題、夏夜課文理解、生活素養題共 35 題），支援微軟真人音訊獨立點讀、平板原生語音備援與答案核對。",
+        "file": "materials/zhongpu-115-exam1.html",
+        "date": "2026-10-14",
+        "tags": [
+            "中埔國中",
+            "第一次段考",
+            "國文",
+            "特教國文",
+            "夏夜",
+            "段考報讀",
+            "語音報讀",
+            "微軟真人語音"
+        ]
+    },
+    {
+        "id": "eating-ice-vocab-quiz",
+        "title": "吃冰的滋味・語詞配意思與選詞填空聽讀練習",
+        "subject": "國文",
+        "grade": "七年級",
+        "unit": "吃冰的滋味",
+        "questionsCount": 17,
+        "description": "七年級國文《吃冰的滋味》語詞配意思、選詞填句子與畫畫寫寫，共 17 題。支援微軟真人 MP3 點讀、平板原生 Web Speech、互動填答與線上繪圖板。",
+        "file": "materials/eating-ice-vocab-quiz.html",
+        "date": "2026-10-13",
+        "tags": [
+            "吃冰的滋味",
+            "國文",
+            "生字語詞",
+            "語詞配意思",
+            "選詞填空",
+            "聽讀練習",
+            "特教國文"
+        ]
+    },
+    {
+        "id": "summer-night-vocab-quiz",
+        "title": "夏夜・生字語詞與句子概念聽讀練習",
+        "subject": "國文",
+        "grade": "七年級",
+        "unit": "夏夜",
+        "questionsCount": 16,
+        "description": "七年級國文《夏夜》課文生字語詞－句子（挖空選擇題）與句子概念選擇題，共 16 題。支援微軟真人 MP3 點讀與裝置原生語音備援。",
+        "file": "materials/summer-night-vocab-quiz.html",
+        "date": "2026-09-23",
+        "tags": [
+            "夏夜",
+            "國文",
+            "生字語詞",
+            "句子概念",
+            "選擇題",
+            "聽讀練習"
+        ]
+    },
+    {
+        "id": "math-917-quiz",
+        "title": "正負數家族與相反量練習題 (一年級數學)",
+        "subject": "數學",
+        "grade": "七年級",
+        "unit": "917 隨堂練習",
+        "questionsCount": 0,
+        "description": "「+」家族與「-」家族相反詞整理（賺錢/花錢、收入/支出、上升/下降、贏了/輸了、東/西）與生活情境正負數選擇題。",
+        "file": "materials/math-917-quiz.html",
+        "date": "2026-09-17",
+        "tags": [
+            "正負數",
+            "相反量",
+            "家族分類",
+            "生活情境",
+            "特教數學",
+            "選擇題"
+        ]
+    },
+    {
+        "id": "math-g7-pos-neg",
+        "title": "正數與負數講義 (一年級數學)",
+        "subject": "數學",
+        "grade": "七年級",
+        "unit": "第 1 單元",
+        "questionsCount": 55,
+        "description": "認識正數與負數、生活中相反量的正負表示、數線與點的座標、負數圖示運算、兩點間距離。",
+        "file": "materials/math-g7-pos-neg.html",
+        "date": "2026-09-17",
+        "tags": [
+            "正負數",
+            "數線",
+            "相反量",
+            "國一數學",
+            "講義",
+            "特教數學"
+        ]
+    }
 ];
 
         let currentSubject = 'all';

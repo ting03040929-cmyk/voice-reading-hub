@@ -60,3 +60,15 @@ files.forEach(file => {
 
 fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf8');
 console.log('Successfully updated data/materials.json!');
+
+// Also sync index.html initialMaterials
+const indexPath = path.join(rootDir, 'index.html');
+if (fs.existsSync(indexPath)) {
+  let indexHtml = fs.readFileSync(indexPath, 'utf8');
+  if (indexHtml.includes('const initialMaterials =')) {
+    const newListStr = 'const initialMaterials = ' + JSON.stringify(catalog, null, 4) + ';';
+    indexHtml = indexHtml.replace(/const initialMaterials = \[[\s\S]*?\];/, newListStr);
+    fs.writeFileSync(indexPath, indexHtml, 'utf8');
+    console.log('Successfully synchronized index.html initialMaterials!');
+  }
+}
