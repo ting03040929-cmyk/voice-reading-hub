@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c4a5a">
+  <meta name="description" content="國文七年級《吃冰的滋味》生字語詞－句子概念配對聽讀練習：純淨練習版無公佈答案，支援微軟真人語音與平板原生發音雙引擎。">
+  <title>吃冰的滋味・生字語詞－句子概念配對聽讀練習</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c4a5a'/%3E%3Cpath d='M16 29h9l12-10v26L25 35h-9z' fill='%23ffd166'/%3E%3Cpath d='M44 25c3 3 3 11 0 14M49 20c6 6 6 18 0 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #12343b;
+      --muted: #557178;
+      --navy: #0c4a5a;
+      --navy-dark: #083542;
+      --teal: #dff5f2;
+      --teal-light: #f0fdf4;
+      --yellow: #ffd166;
+      --yellow-dark: #9a6500;
+      --card: #ffffff;
+      --line: #cfe4e5;
+      --shadow: 0 10px 25px rgba(12, 74, 90, .08);
+      --highlight-bg: #fffde7;
+      --primary-accent: #0f766e;
+      --selected-bg: #e0f2fe;
+      --selected-border: #0284c7;
+      --selected-text: #0369a1;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #eef8f8;
+      color: var(--ink);
+      font-family: "LXGW WenKai TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      font-size: 19px;
+      line-height: 1.65;
+    }
+
+    button, select, input { font: inherit; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, select:focus-visible {
+      outline: 4px solid #f4ad38;
+      outline-offset: 2px;
+    }
+
+    /* 頂部導覽列 */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 53, 66, .98);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: white;
+      box-shadow: 0 3px 16px rgba(0, 0, 0, .18);
+    }
+
+    .topbar-inner {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--yellow);
+      color: var(--navy-dark);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .engine-toggle-group {
+      display: inline-flex;
+      background: rgba(255, 255, 255, .15);
+      padding: 3px;
+      border-radius: 2rem;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .engine-btn {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      border-radius: 1.5rem;
+      transition: all 0.2s;
+    }
+
+    .engine-btn.active {
+      background: #ffd166;
+      color: var(--navy-dark);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tool-button {
+      border: 1px solid rgba(255, 255, 255, .25);
+      background: rgba(255, 255, 255, .12);
+      color: white;
+      padding: 6px 13px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s ease;
+    }
+
+    .tool-button:hover { background: rgba(255, 255, 255, .22); }
+    .tool-button.active { background: #e11d48; border-color: #fda4af; }
+
+    .speed-select {
+      border: 1px solid rgba(255, 255, 255, .3);
+      background: rgba(255, 255, 255, .15);
+      color: white;
+      padding: 5px 8px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .speed-select option { color: var(--ink); background: #ffffff; }
+
+    main {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+    }
+
+    /* 列印表頭 */
+    .print-header { display: none; }
+
+    /* 說明區 */
+    .intro-banner {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .intro-banner h2 {
+      margin: 0 0 6px;
+      color: var(--navy);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .intro-banner p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    /* 狀態面板 */
+    .status-panel {
+      position: sticky;
+      top: 65px;
+      z-index: 40;
+      background: #ffffff;
+      border: 2px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 10px 18px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 18px rgba(12, 74, 90, .10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+
+    .status-pill {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    .status-text {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .progress-info {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 題號快速跳題導覽列 */
+    .q-nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 8px 14px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .q-nav-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .q-nav-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--ink);
+      font-weight: 800;
+      display: inline-grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .q-nav-btn:hover {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+
+    .q-nav-btn.done {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: 900;
+    }
+
+    /* 備選語詞卡 Word Bank (A~H) */
+    .word-bank-card {
+      background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .word-bank-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .word-bank-title {
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .word-bank-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .word-chip {
+      background: #ffffff;
+      border: 1.5px solid #bae6fd;
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      transition: all 0.2s;
+    }
+
+    .word-chip:hover {
+      border-color: #0284c7;
+      background: #f0f9ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(2, 132, 199, .15);
+    }
+
+    .word-chip-letter {
+      background: #0284c7;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.9rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .word-chip-text {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ink);
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .word-chip-btn {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    /* 題目卡片 */
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+      transition: border-color .2s ease;
+      scroll-margin-top: 130px;
+    }
+
+    .question-card:focus-within {
+      border-color: var(--primary-accent);
+    }
+
+    .question-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .question-badge {
+      background: var(--navy);
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .listen-btn {
+      background: var(--teal);
+      border: 1.5px solid #99f6e4;
+      color: var(--navy-dark);
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .listen-btn:hover {
+      background: #ccfbf1;
+      border-color: #5eead4;
+    }
+
+    .listen-btn.speaking {
+      background: #fde047;
+      border-color: #ca8a04;
+      color: #854d0e;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.03); }
+    }
+
+    .question-sentence {
+      font-size: 1.25rem;
+      line-height: 1.85;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0 0 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    /* 括號填答區 */
+    .paren-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 65px;
+      padding: 2px 10px;
+      background: #f8fafc;
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      color: #64748b;
+      font-weight: 900;
+      font-size: 1.2rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .paren-box:hover {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+
+    .paren-box.filled {
+      background: #e0f2fe;
+      border: 2px solid #0284c7;
+      color: #0369a1;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.15);
+    }
+
+    .sentence-body {
+      flex-grow: 1;
+    }
+
+    .hint-box {
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.98rem;
+      color: #713f12;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .hint-tag {
+      background: #fde047;
+      color: #854d0e;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    /* 選填選項區域 */
+    .options-label {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
+    }
+
+    .choice-btn {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .choice-btn:hover {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+
+    .choice-btn.selected {
+      background: #0284c7;
+      border-color: #0369a1;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+
+    .choice-badge {
+      background: #f1f5f9;
+      color: #0f172a;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .choice-btn.selected .choice-badge {
+      background: #ffffff;
+      color: #0369a1;
+    }
+
+    .btn-clear-q {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      color: #64748b;
+      cursor: pointer;
+    }
+    .btn-clear-q:hover {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .bottom-bar {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .btn-reset-all {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .btn-reset-all:hover { background: #fee2e2; }
+
+    .btn-print {
+      background: var(--navy);
+      border: none;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .btn-print:hover { background: var(--navy-dark); }
+
+    #globalAudioPlayer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 1px;
+      height: 1px;
+      opacity: 0.01;
+      pointer-events: none;
+    }
+
+    /* 列印樣式 */
+    @media print {
+      .topbar, .status-panel, .q-nav-bar, .listen-btn, .options-grid, .options-label, .bottom-bar, .word-chip-btn {
+        display: none !important;
+      }
+      .print-header {
+        display: block !important;
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #000;
+      }
+      .print-header h1 {
+        margin: 0 0 10px;
+        font-size: 18pt;
+        text-align: center;
+      }
+      .print-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13pt;
+        font-weight: bold;
+      }
+      body {
+        background: #ffffff;
+        font-size: 14pt;
+        line-height: 1.8;
+      }
+      main { padding: 0; }
+      .intro-banner {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        padding: 0 0 10px;
+        margin-bottom: 12px;
+      }
+      .intro-banner button { display: none; }
+      .word-bank-card {
+        border: 1.5px solid #333;
+        background: #fff;
+        box-shadow: none;
+        page-break-inside: avoid;
+        padding: 12px;
+        margin-bottom: 18px;
+      }
+      .word-bank-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .word-chip {
+        border: 1px solid #666;
+        box-shadow: none;
+        padding: 6px 8px;
+      }
+      .word-chip-text { font-size: 12pt; }
+      .question-card {
+        box-shadow: none;
+        border: 1px solid #999;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        page-break-inside: avoid;
+        padding: 12px 14px;
+      }
+      .paren-box {
+        border: none;
+        border-bottom: 1.5px solid #000;
+        border-radius: 0;
+        background: transparent !important;
+        color: transparent !important;
+        min-width: 50px;
+      }
+      .hint-box {
+        background: #fbfbfb;
+        border: 1px dashed #888;
+        padding: 6px 10px;
+        font-size: 11pt;
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">🍧</div>
+        <h1>吃冰的滋味・生字語詞－句子概念配對練習</h1>
+      </div>
+
+      <div class="engine-toggle-group" title="切換語音引擎">
+        <button type="button" class="engine-btn" id="engineNative" onclick="switchEngine('native')">📱 平板原生</button>
+        <button type="button" class="engine-btn active" id="engineMp3" onclick="switchEngine('mp3')">☁️ 微軟真人</button>
+        <button type="button" class="engine-btn" id="btnTestSound" onclick="testAudioSound()" style="background:#fef3c7; color:#92400e;">🔔 測聲</button>
+      </div>
+
+      <div class="toolbar">
+        <button class="tool-button" id="btnPlayAll" type="button" onclick="togglePlayAll()">▶ 播全部</button>
+        <button class="tool-button" id="btnStop" type="button" onclick="stopAllSpeech()">■ 停止</button>
+        <label for="speedSelect" style="display:none;">語速</label>
+        <select class="speed-select" id="speedSelect" onchange="changeSpeed(this.value)" title="調整播放速度">
+          <option value="0.8">0.8x 慢速</option>
+          <option value="0.9" selected>0.9x 偏慢</option>
+          <option value="1.0">1.0x 正常</option>
+          <option value="1.2">1.2x 快速</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <audio id="globalAudioPlayer" preload="auto" playsinline webkit-playsinline></audio>
+
+  <main>
+    <header class="print-header">
+      <h1>《吃冰的滋味》生字語詞－句子概念配對練習單</h1>
+      <div class="print-meta">
+        <span>班級：＿＿＿＿＿＿</span>
+        <span>座號：＿＿</span>
+        <span>姓名：＿＿＿＿＿＿</span>
+        <span>得分：＿＿＿＿</span>
+      </div>
+    </header>
+
+    <section class="intro-banner">
+      <div>
+        <h2>第二大題：生字語詞-句子概念（配對）</h2>
+        <p>請將生字語詞，配對到最符合句子「意思」的選項。點選選項代號即可填入括號，點擊「🔊 聽題目」可聽讀發音！</p>
+      </div>
+      <button class="listen-btn" type="button" onclick="playIntroAudio()">🔊 聽大題說明</button>
+    </section>
+
+    <section class="status-panel">
+      <div class="status-label">
+        <span class="status-pill" id="statusPill">🔊 語音就緒</span>
+        <span class="status-text" id="statusText">請點選「🔊 聽題目」或點選選項作答。</span>
+      </div>
+      <div class="progress-info">
+        <span>配對進度：</span>
+        <span id="progressCount">0 / 8 題</span>
+      </div>
+    </section>
+
+    <!-- 題號跳轉列 -->
+    <nav class="q-nav-bar" aria-label="題號跳轉導覽">
+      <span class="q-nav-title">題號跳轉：</span>
+      <div style="display:flex; gap:6px;" id="qNavButtons"></div>
+    </nav>
+
+    <!-- 語詞選項目錄 (Word Bank A~H) -->
+    <section class="word-bank-card">
+      <div class="word-bank-head">
+        <div class="word-bank-title">
+          <span>📦 生字語詞選項目錄（點擊可聽真人發音）：</span>
+        </div>
+      </div>
+      <div class="word-bank-grid" id="wordBankGrid"></div>
+    </section>
+
+    <!-- 8 道配對題容器 -->
+    <div id="quizContainer"></div>
+
+    <section class="bottom-bar">
+      <button class="btn-reset-all" type="button" onclick="resetAllAnswers()">↺ 清除全部作答</button>
+      <button class="btn-print" type="button" onclick="window.print()">🖨️ 列印純淨學習單 (A4)</button>
+    </section>
+  </main>
+
+  <script>
+    // 選項資料 (A~H)
+    const optionsData = [
+      { "letter": "A", "word": "黯然失色", "mp3": "opt-A.mp3" },
+      { "letter": "B", "word": "五花八門", "mp3": "opt-B.mp3" },
+      { "letter": "C", "word": "遜色", "mp3": "opt-C.mp3" },
+      { "letter": "D", "word": "貨真價實", "mp3": "opt-D.mp3" },
+      { "letter": "E", "word": "垂涎三尺", "mp3": "opt-E.mp3" },
+      { "letter": "F", "word": "名聞遐邇", "mp3": "opt-F.mp3" },
+      { "letter": "G", "word": "俄頃", "mp3": "opt-G.mp3" },
+      { "letter": "H", "word": "消失殆盡", "mp3": "opt-H.mp3" }
+    ];
+
+    // 8 道配對題目（純淨練習，無答案公佈）
+    const questions = [
+      {
+        "id": 1,
+        "text": "形容東西真材實料，價格公道，誠實不騙人。",
+        "hint": "與「信用、實在」有關的詞。",
+        "mp3": "q01.mp3",
+        "spokenText": "第1題。括號，形容東西真材實料，價格公道，誠實不騙人。提示：與信用、實在有關的詞。"
+      },
+      {
+        "id": 2,
+        "text": "一會兒、很短的時間。課文用來形容刨冰很快堆成小冰山。",
+        "hint": "與「時間非常短暫」有關的詞。",
+        "mp3": "q02.mp3",
+        "spokenText": "第2題。括號，一會兒、很短的時間。課文用來形容刨冰很快堆成小冰山。提示：與時間非常短暫有關的詞。"
+      },
+      {
+        "id": 3,
+        "text": "失去光彩，課文用來形容如果童年少了吃冰，生活就會變得無趣。",
+        "hint": "與「失去光彩、不好看」有關的詞。",
+        "mp3": "q03.mp3",
+        "spokenText": "第3題。括號，失去光彩，課文用來形容如果童年少了吃冰，生活就會變得無趣。提示：與失去光彩、不好看有關的詞。"
+      },
+      {
+        "id": 4,
+        "text": "看見美食非常想吃，口水流了三尺長的樣子。",
+        "hint": "與「想吃東西流口水」有關的詞。",
+        "mp3": "q04.mp3",
+        "spokenText": "第4題。括號，看見美食非常想吃，口水流了三尺長的樣子。提示：與想吃東西流口水有關的詞。"
+      },
+      {
+        "id": 5,
+        "text": "遠近皆知，很有名氣。課文用來形容糖廠的冰水和冰棒很有名。",
+        "hint": "與「名氣很大、很有名」有關的詞。",
+        "mp3": "q05.mp3",
+        "spokenText": "第5題。括號，遠近皆知，很有名氣。課文用來形容糖廠的冰水和冰棒很有名。提示：與名氣很大、很有名有關的詞。"
+      },
+      {
+        "id": 6,
+        "text": "種類繁多，各式各樣。課文用來形容現代社會富裕，冰品選擇很多。",
+        "hint": "與「各式各樣、花樣繁多」有關的詞。",
+        "mp3": "q06.mp3",
+        "spokenText": "第6題。括號，種類繁多，各式各樣。課文用來形容現代社會富裕，冰品選擇很多。提示：與各式各樣、花樣繁多有關的詞。"
+      },
+      {
+        "id": 7,
+        "text": "已經大多消失，所剩不多。課文用來形容童年吃冰記憶如今大多消失了。",
+        "hint": "與「大多消失、所剩不多」有關的詞。",
+        "mp3": "q07.mp3",
+        "spokenText": "第7題。括號，已經大多消失，所剩不多。課文用來形容童年吃冰記憶如今大多消失了。提示：與大多消失、所剩不多有關的詞。"
+      },
+      {
+        "id": 8,
+        "text": "比較差、比不上。課文用來形容現代冰品口味可能不如早期的。",
+        "hint": "與「比較差、比下去」有關的詞。",
+        "mp3": "q08.mp3",
+        "spokenText": "第8題。括號，比較差、比不上。課文用來形容現代冰品口味可能不如早期的。提示：與比較差、比下去有關的詞。"
+      }
+    ];
+
+    const AUDIO_BASE_DIR = 'audio/eating-ice-concept-matching-quiz/';
+    let currentEngine = localStorage.getItem('voice_hub_engine') || 'mp3';
+    let currentPlaybackRate = 0.9;
+    let isPlayingAll = false;
+    let playAllIndex = 0;
+    let userAnswers = {}; // { qId: letter }
+
+    const player = document.getElementById('globalAudioPlayer');
+    const synth = window.speechSynthesis;
+    let currentSpeakingElement = null;
+
+    function initUI() {
+      // 1. 渲染快速跳題按鈕
+      const qNav = document.getElementById('qNavButtons');
+      qNav.innerHTML = questions.map(q => `
+        <button class="q-nav-btn" id="qnav-${q.id}" type="button" onclick="scrollToQuestion(${q.id})" title="跳至第 ${q.id} 題">
+          ${q.id}
+        </button>
+      `).join('');
+
+      // 2. 渲染語詞盒 (A~H)
+      const bankGrid = document.getElementById('wordBankGrid');
+      bankGrid.innerHTML = optionsData.map(item => `
+        <div class="word-chip" onclick="playOptionAudio('${item.mp3}', '${item.letter}. ${item.word}', this)">
+          <span class="word-chip-letter">${item.letter}</span>
+          <span class="word-chip-text">${item.word}</span>
+          <span class="word-chip-btn" title="聽發音">🔊 聽</span>
+        </div>
+      `).join('');
+
+      // 3. 渲染題目卡片
+      const quizContainer = document.getElementById('quizContainer');
+      quizContainer.innerHTML = questions.map(q => `
+        <article class="question-card" id="card-${q.id}">
+          <div class="question-head">
+            <span class="question-badge">第 ${q.id} 題</span>
+            <button class="listen-btn" id="listen-btn-${q.id}" type="button" onclick="playQuestionAudio(${q.id}, this)">
+              🔊 聽題目
+            </button>
+          </div>
+
+          <div class="question-sentence">
+            <span class="paren-box" id="paren-${q.id}" onclick="handleParenClick(${q.id})" title="點擊聽讀所選代號">( &nbsp; )</span>
+            <div class="sentence-body">
+              <span>${q.id}. ${q.text}</span>
+            </div>
+          </div>
+
+          <div class="hint-box">
+            <span class="hint-tag">提示</span>
+            <span>${q.hint}</span>
+          </div>
+
+          <div class="options-label">
+            <span>選擇生字語詞代號配對：</span>
+            <button class="btn-clear-q" type="button" onclick="clearQuestionAnswer(${q.id})">↺ 清除本題</button>
+          </div>
+
+          <div class="options-grid">
+            ${optionsData.map(item => `
+              <button 
+                class="choice-btn" 
+                id="btn-q${q.id}-opt-${item.letter}"
+                type="button" 
+                onclick="selectOptionForQuestion(${q.id}, '${item.letter}')"
+              >
+                <span class="choice-badge">${item.letter}</span>
+                <span>${item.word}</span>
+              </button>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      updateEngineUI();
+      updateProgress();
+    }
+
+    function scrollToQuestion(qId) {
+      const card = document.getElementById(`card-${qId}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // 選擇代號填入括號
+    function selectOptionForQuestion(qId, letter) {
+      userAnswers[qId] = letter;
+      const parenEl = document.getElementById(`paren-${qId}`);
+      if (parenEl) {
+        parenEl.textContent = `( ${letter} )`;
+        parenEl.classList.add('filled');
+      }
+
+      // 更新按鈕樣式
+      optionsData.forEach(item => {
+        const btn = document.getElementById(`btn-q${qId}-opt-${item.letter}`);
+        if (btn) {
+          if (item.letter === letter) {
+            btn.classList.add('selected');
+          } else {
+            btn.classList.remove('selected');
+          }
+        }
+      });
+
+      // 播放該選項音訊
+      const optObj = optionsData.find(o => o.letter === letter);
+      if (optObj) {
+        playAudio(optObj.mp3, `選項${optObj.letter}，${optObj.word}`, null);
+      }
+
+      updateProgress();
+      setStatus(`第 ${qId} 題已選擇選項：(${letter}) ${optObj ? optObj.word : ''}`);
+    }
+
+    // 點擊括號聽讀
+    function handleParenClick(qId) {
+      const letter = userAnswers[qId];
+      if (letter) {
+        const optObj = optionsData.find(o => o.letter === letter);
+        if (optObj) {
+          playAudio(optObj.mp3, `第${qId}題已選：選項${optObj.letter}，${optObj.word}`, null);
+        }
+      } else {
+        playQuestionAudio(qId, null);
+      }
+    }
+
+    // 清除單題填答
+    function clearQuestionAnswer(qId) {
+      delete userAnswers[qId];
+      const parenEl = document.getElementById(`paren-${qId}`);
+      if (parenEl) {
+        parenEl.innerHTML = `( &nbsp; )`;
+        parenEl.classList.remove('filled');
+      }
+      optionsData.forEach(item => {
+        const btn = document.getElementById(`btn-q${qId}-opt-${item.letter}`);
+        if (btn) btn.classList.remove('selected');
+      });
+      updateProgress();
+      setStatus(`第 ${qId} 題已清除`);
+    }
+
+    // 重設全部填答
+    function resetAllAnswers() {
+      if (confirm('確定要清除所有已配對的選項，重新練習嗎？')) {
+        questions.forEach(q => clearQuestionAnswer(q.id));
+        setStatus('已重設所有題目');
+      }
+    }
+
+    function updateProgress() {
+      const count = Object.keys(userAnswers).length;
+      document.getElementById('progressCount').textContent = `${count} / ${questions.length} 題`;
+
+      questions.forEach(q => {
+        const navBtn = document.getElementById(`qnav-${q.id}`);
+        if (navBtn) {
+          if (userAnswers[q.id]) {
+            navBtn.classList.add('done');
+            navBtn.textContent = `✓ ${q.id}`;
+          } else {
+            navBtn.classList.remove('done');
+            navBtn.textContent = `${q.id}`;
+          }
+        }
+      });
+    }
+
+    function setStatus(msg) {
+      const textEl = document.getElementById('statusText');
+      if (textEl) textEl.textContent = msg;
+    }
+
+    function switchEngine(engine) {
+      stopAllSpeech();
+      currentEngine = engine;
+      localStorage.setItem('voice_hub_engine', engine);
+      updateEngineUI();
+    }
+
+    function updateEngineUI() {
+      const btnNative = document.getElementById('engineNative');
+      const btnMp3 = document.getElementById('engineMp3');
+      const statusPill = document.getElementById('statusPill');
+
+      if (currentEngine === 'native') {
+        btnNative.classList.add('active');
+        btnMp3.classList.remove('active');
+        statusPill.textContent = '📱 平板原生語音';
+        setStatus('已切換至平板本機原生語音');
+      } else {
+        btnMp3.classList.add('active');
+        btnNative.classList.remove('active');
+        statusPill.textContent = '☁️ 微軟真人語音';
+        setStatus('已切換至微軟真人 MP3 語音 (高音質免設定)');
+      }
+    }
+
+    function changeSpeed(val) {
+      currentPlaybackRate = parseFloat(val);
+      if (player) {
+        try { player.playbackRate = currentPlaybackRate; } catch(e) {}
+      }
+      setStatus(`語速已調整為 ${val}x`);
+    }
+
+    function stopAllSpeech() {
+      if (player) {
+        try {
+          player.pause();
+          player.currentTime = 0;
+        } catch(e) {}
+      }
+      if (synth) {
+        try { synth.cancel(); } catch(e) {}
+      }
+      document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+      currentSpeakingElement = null;
+      isPlayingAll = false;
+      const playAllBtn = document.getElementById('btnPlayAll');
+      if (playAllBtn) {
+        playAllBtn.classList.remove('active');
+        playAllBtn.textContent = '▶ 播全部';
+      }
+    }
+
+    function playAudio(filename, spokenText, element, onEndedCallback) {
+      stopAllSpeech();
+
+      if (element) {
+        element.classList.add('speaking');
+        currentSpeakingElement = element;
+      }
+
+      if (currentEngine === 'native') {
+        speakNative(spokenText, element, onEndedCallback);
+        return;
+      }
+
+      const fullUrl = AUDIO_BASE_DIR + filename;
+      player.src = fullUrl;
+      player.playbackRate = currentPlaybackRate;
+
+      player.onended = () => {
+        if (element) element.classList.remove('speaking');
+        currentSpeakingElement = null;
+        if (onEndedCallback) onEndedCallback();
+      };
+
+      player.onerror = (err) => {
+        console.warn('MP3 load failed, fallback to native:', err);
+        speakNative(spokenText, element, onEndedCallback);
+      };
+
+      player.play().catch(err => {
+        console.warn('Playback error, auto fallback:', err);
+        speakNative(spokenText, element, onEndedCallback);
+      });
+    }
+
+    function speakNative(text, element, onEndedCallback) {
+      if (!synth) {
+        if (onEndedCallback) onEndedCallback();
+        return;
+      }
+
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = currentPlaybackRate;
+
+      u.onend = () => {
+        if (element) element.classList.remove('speaking');
+        currentSpeakingElement = null;
+        if (onEndedCallback) onEndedCallback();
+      };
+
+      u.onerror = () => {
+        if (element) element.classList.remove('speaking');
+        currentSpeakingElement = null;
+        if (onEndedCallback) onEndedCallback();
+      };
+
+      synth.speak(u);
+    }
+
+    function playIntroAudio() {
+      const text = "第二大題：生字語詞，句子概念配對。請將生字語詞，配對到最符合句子意思的選項。";
+      setStatus("正在播放：大題說明");
+      playAudio("intro.mp3", text, null);
+    }
+
+    function playOptionAudio(filename, spokenText, element) {
+      setStatus(`正在播放：${spokenText}`);
+      playAudio(filename, spokenText, element);
+    }
+
+    function playQuestionAudio(qId, element) {
+      const q = questions.find(item => item.id === qId);
+      if (!q) return;
+      setStatus(`正在朗讀第 ${qId} 題...`);
+      playAudio(q.mp3, q.spokenText, element);
+    }
+
+    function testAudioSound() {
+      setStatus("正在測試發音...");
+      playAudio("opt-D.mp3", "選項D，貨真價實。", null);
+    }
+
+    function togglePlayAll() {
+      if (isPlayingAll) {
+        stopAllSpeech();
+        return;
+      }
+
+      isPlayingAll = true;
+      playAllIndex = 0;
+      const playAllBtn = document.getElementById('btnPlayAll');
+      if (playAllBtn) {
+        playAllBtn.classList.add('active');
+        playAllBtn.textContent = '⏹ 停止播放';
+      }
+
+      playNextInAll();
+    }
+
+    function playNextInAll() {
+      if (!isPlayingAll || playAllIndex >= questions.length) {
+        stopAllSpeech();
+        setStatus("全卷題目播放完畢。");
+        return;
+      }
+
+      const q = questions[playAllIndex];
+      const btn = document.getElementById(`listen-btn-${q.id}`);
+      const card = document.getElementById(`card-${q.id}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      setStatus(`播全部中：第 ${q.id} 題...`);
+      playAudio(q.mp3, q.spokenText, btn, () => {
+        playAllIndex++;
+        setTimeout(() => {
+          if (isPlayingAll) playNextInAll();
+        }, 800);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initUI();
+    });
+  </script>
+</body>
+</html>
